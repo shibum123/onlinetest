@@ -1,0 +1,59 @@
+{
+    "questions": [
+        {
+            "id": 1,
+            "q": "Circle the smallest number",
+            "type": "choice",
+            "group": 1,
+            "options": [ "5", "-2", "0.5", "-5", "2.5"],
+            "ans": [
+                "-5"
+            ]
+        },
+        {
+            "id": 2,
+            "q": "Circle the smallest number",
+            "type": "choice",
+            "group": 1,
+            "options": [ "-9", "-7", "7", "-1", "9"],
+            "ans": [
+                "-9"
+            ]
+        },
+        {
+            "id": 3,
+            "q": "Circle the smallest number",
+            "type": "choice",
+            "group": 1,
+            "options": [ "-1", "-18", "-10", "0", "-28"],
+            "ans": [
+                "-28"
+            ]
+        },
+        {
+            "id": 4,
+            "q": "Circle the smallest number",
+            "type": "choice",
+            "group": 1,
+            "options": [ "-20", "-30", "-24", "26", "-22"],
+            "ans": [
+                "-30"
+            ]
+        },
+        {
+            "id": 5,
+            "q": "Circle the smallest number",
+            "type": "choice",
+            "group": 1,
+            "options": [ "-1", "1.5", "-0.1", "0.05", "0.15"],
+            "opt1": "-1",
+            "opt2": "1.5",
+            "opt3": "-0.1",
+            "opt4": "0.05",
+            "opt5": "0.15",
+            "ans": [
+                "-1"
+            ]
+        }
+    ]
+}
