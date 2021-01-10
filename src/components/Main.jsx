@@ -19,11 +19,12 @@ const Main = () => {
     let [score, setScore] = useState(0);
     const [time, setTime] = useState(0);
 
-    const onSubmit = () => {
-        setShowAnswers(true);
+    const onSubmit = (event) => {
+        event.preventDefault();
         allQuestions.map(item => {
             if (item.ans.toString() === getResult(item).toString()) setScore(++score);
-        })
+        });
+        dispatch(setShowAnswers(true));
     }
 
     const getResult = (quest) => {
@@ -56,8 +57,8 @@ const Main = () => {
             { showAnswers && <h1>{`Your score is: ${score}`}</h1>}
             { showAnswers && (allQuestions.length > 0) ? allQuestions.map((question, index) => <OptionView question={question} index={index} />) : <OptionView question={allQuestions[currentPage]} index={currentPage} onChange={onChange}/>}
             <div className="buttonContainer">
-                <button className="btn btn-primary" onClick={onPrev}>&lt;&lt;</button>&nbsp;&nbsp;&nbsp;
-                <button className="btn btn-primary" onClick={onNext}>&gt;&gt;</button>&nbsp;&nbsp;&nbsp;
+                <button className={currentPage <= 0 ? 'btn btn-primary disabled' : 'btn btn-primary'} onClick={onPrev}>&lt;&lt;</button>&nbsp;&nbsp;&nbsp;
+                <button className={(currentPage < allQuestions.length - 1) ? 'btn btn-primary' : 'btn btn-primary disabled'} onClick={onNext}>&gt;&gt;</button>&nbsp;&nbsp;&nbsp;
                 {currentPage === (allQuestions.length - 1) && !showAnswers && <button className="btn btn-primary" onClick={onSubmit}>Submit</button>}
             </div>
         </div>

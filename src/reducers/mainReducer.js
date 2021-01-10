@@ -17,7 +17,6 @@ export default (state = initialState, action) => {
             };
         case SET_SHOW_ANSWERS:
             const { showAnswers } = action;
-            alert('setting')
             return {
                 ...state,
                 showAnswers

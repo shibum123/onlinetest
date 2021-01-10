@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 
 export const OptionView = (props) => {
@@ -26,7 +26,7 @@ export const OptionView = (props) => {
     }
 
     return question ? <>
-        <div className="question" key={question.id}>{`Q${index + 1}: ${question.q}`}</div>
+        <div className="question" key={question.id}>{`Q${index + 1}: ${question.q}`}{ showAnswers }</div>
         <div className="options">{getOption(question)}</div>
     </> : null;
 }
