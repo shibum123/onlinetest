@@ -46,13 +46,140 @@
             "type": "choice",
             "group": 1,
             "options": [ "-1", "1.5", "-0.1", "0.05", "0.15"],
-            "opt1": "-1",
-            "opt2": "1.5",
-            "opt3": "-0.1",
-            "opt4": "0.05",
-            "opt5": "0.15",
             "ans": [
                 "-1"
+            ]
+        },
+        {
+            "id": 6,
+            "q": "Use the symbols (+ , ─ , x , ÷ ) for the following questions.</br></br></br>3 (?) 4 + 7 = 19",
+            "type": "choice",
+            "group": 1,
+            "options": [ "+", "-", "X", "÷"],
+            "ans": [
+                "X"
+            ]
+        },
+        {
+            "id": 7,
+            "q": "Use the symbols (+ , ─ , x , ÷ ) for the following questions.",
+            "img": "/images/img1.png",
+            "type": "choice",
+            "group": 1,
+            "options": [ "+", "-", "X", "÷"],
+            "ans": [
+                "+"
+            ]
+        },
+        {
+            "id": 8,
+            "q": "Change 60% into decimals.",
+            "type": "choice",
+            "group": 2,
+            "options": [ "6", "60", "0.06", "0.6"],
+            "ans": [
+                "0.6"
+            ]
+        },
+        {
+            "id": 9,
+            "q": "Change 25% into decimals.",
+            "type": "choice",
+            "group": 2,
+            "options": [ "2.5", "0.25", "0.025", "25"],
+            "ans": [
+                "0.25"
+            ]
+        },
+        {
+            "id": 10,
+            "q": "Change 2.5% into decimals.",
+            "type": "choice",
+            "group": 2,
+            "options": [ "2.5", "0.25", "0.025", "25"],
+            "ans": [
+                "0.025"
+            ]
+        },
+        {
+            "id": 11,
+            "q": "Change 125% into decimals.",
+            "type": "choice",
+            "group": 2,
+            "options": [ "1.25", "125", "0.125", "12.5"],
+            "ans": [
+                "1.25"
+            ]
+        },
+        {
+            "id": 12,
+            "q": "Change 320% into decimals.",
+            "type": "choice",
+            "group": 2,
+            "options": [ "320", "3.2", "0.320", "0.032"],
+            "ans": [
+                "3.2"
+            ]
+        },
+        {
+            "id": 13,
+            "q": "Work out which of the fractions has the greatest value.",
+            "type": "choice",
+            "group": 2,
+            "options": [ "1/3", "5/7", "2/7", "2/3"],
+            "ans": [
+                "5/7"
+            ]
+        },
+        {
+            "id": 14,
+            "q": "Work out which of the fractions has the greatest value.",
+            "type": "choice",
+            "group": 2,
+            "options": [ "5/8", "3/5", "2/5", "3/8"],
+            "ans": [
+                "5/8"
+            ]
+        },
+        {
+            "id": 15,
+            "q": "Work out which of the fractions has the greatest value.",
+            "type": "choice",
+            "group": 2,
+            "options": [ "1/3", "3/5", "2/5", "1/5"],
+            "ans": [
+                "2/5"
+            ]
+        },
+        {
+            "id": 16,
+            "q": "Work out which of the fractions has the greatest value.",
+            "type": "choice",
+            "group": 2,
+            "options": [ "7/9", "2/9", "1/6", "5/6"],
+            "ans": [
+                "5/6"
+            ]
+        },
+        {
+            "id": 17,
+            "q": "Work out which of the fractions has the greatest value.",
+            "type": "choice",
+            "group": 2,
+            "options": [ "3/7", "4/7", "2/3", "1/3"],
+            "ans": [
+                "4/7"
+            ]
+        },
+        {
+            "id": 18,
+            "q": "Find the number the arrow is pointing to.",
+            "type": "choice",
+            "group": 2,
+            "img": "/images/img4.png",
+            "options": [ "6.2", "6.3", "6.4", "6.1"],
+            "ans": [
+                "6.3"
             ]
         }
     ]

@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import { useSelector } from 'react-redux';
+import img from '../images/img1.png'
 
 export const OptionView = (props) => {
 
@@ -27,6 +28,9 @@ export const OptionView = (props) => {
 
     return question ? <>
         <div className="question" key={question.id}>{`Q${index + 1}: ${question.q}`}{ showAnswers }</div>
+        {
+            question.img && <img src={question.img} />
+        }
         <div className="options">{getOption(question)}</div>
     </> : null;
 }

@@ -7,7 +7,7 @@ import { OptionView } from './OptionView';
 const Main = () => {
 
     const dispatch = useDispatch();
-    const allQuestions = useSelector((state) => state.main.questions);
+    const allQuestions = useSelector((state) => state.main.questions.filter(q => q.group === 2));
 
     useEffect(() => {
         dispatch(setQuestions(questions))
