@@ -7,7 +7,8 @@ import { OptionView } from './OptionView';
 const Main = () => {
 
     const dispatch = useDispatch();
-    const allQuestions = useSelector((state) => state.main.questions); // .filter(q => q.group === 2)
+
+    const allQuestions = useSelector((state) => (shuffle(state.main.questions).filter((q, index) => [0, 4, 18, 28, 31, 36].indexOf(index) > -1))); // .filter(q => q.group === 2)
 
     useEffect(() => {
         dispatch(setQuestions(questions))
@@ -53,17 +54,17 @@ const Main = () => {
 
     const getMessage = (score) => {
         const percent = (score / allQuestions.length * 100).toFixed(2)
-        if(percent < 50) {
+        if (percent < 50) {
             return 'You score is very poor! Go and Study again Kanishk!'
-        } else if(percent < 70) {
+        } else if (percent < 70) {
             return 'You score is poor! Go and Study again Kanishk!'
-        } else if(percent < 80) {
+        } else if (percent < 80) {
             return 'You score is fair! Go and Study again Kanishk!'
-        } else if(percent < 90) {
+        } else if (percent < 90) {
             return 'You score is good! Study well Kanishk!'
-        } else if(percent < 100) {
+        } else if (percent < 100) {
             return 'You score is very good! Try to get 100% Kanishk!'
-        } else if(percent === 100) {
+        } else if (percent === 100) {
             return 'You score is excellen! Good job Kanishk!'
         }
     }
@@ -71,9 +72,9 @@ const Main = () => {
 
     return (
         <div className="container">
-            { showAnswers && <h1>{getMessage(score)}</h1>}
-            { showAnswers && <h1>{`Your score is: ${(score / allQuestions.length * 100).toFixed(2)} %`}</h1>}
-            { showAnswers && (allQuestions.length > 0) ? allQuestions.map((question, index) => <OptionView question={question} index={index} />) : <OptionView question={allQuestions[currentPage]} index={currentPage} onChange={onChange}/>}
+            {showAnswers && <h1>{getMessage(score)}</h1>}
+            {showAnswers && <h1>{`Your score is: ${(score / allQuestions.length * 100).toFixed(2)} %`}</h1>}
+            {showAnswers && (allQuestions.length > 0) ? allQuestions.map((question, index) => <OptionView question={question} index={index} />) : <OptionView question={allQuestions[currentPage]} index={currentPage} onChange={onChange} />}
             <div className="buttonContainer">
                 <button className={currentPage <= 0 ? 'btn btn-primary disabled' : 'btn btn-primary'} onClick={onPrev}>&lt;&lt;</button>&nbsp;&nbsp;&nbsp;
                 <button className={(currentPage < allQuestions.length - 1) ? 'btn btn-primary' : 'btn btn-primary disabled'} onClick={onNext}>&gt;&gt;</button>&nbsp;&nbsp;&nbsp;
