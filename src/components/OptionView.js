@@ -1,6 +1,7 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import img from '../images/img1.png'
+import img from '../images/img1.png';
+import './OptionView.scss';
 
 export const OptionView = (props) => {
 
@@ -8,31 +9,54 @@ export const OptionView = (props) => {
     const index = props.index;
     const showAnswers = useSelector((state) => state.main.showAnswers);
 
+    const getResult = (quest) => {
+        const result = [];
+        if (quest.selectedOptions) {
+            quest.selectedOptions.map((item, index) => {
+                if (item === true) result.push(quest.options[index]);
+            });
+        }
+        return result;
+    }
+
     const getOption = (question) => {
+
+        const getOptionClass = (correctAnswer, showAnswers) => {
+            if (correctAnswer && showAnswers) {
+                return 'options-label correct'
+            } else if (!correctAnswer && showAnswers) {
+                return 'options-label wrong'
+            } else if (!showAnswers) {
+                return 'options-label'
+            }
+        }
 
         return question.options.map((option, index) => {
             const selected = question.selectedOptions ? question.selectedOptions[index] : false;
-            const correctAnswer = (question.ans.indexOf(option) > -1);
+            // alert(question.ans + ":" + option);
+            const correctAnswer = question.ans === option;
 
-            return <div key={`Q${question.id}OPT${index}`}>
-                {selected && !showAnswers && <input id={`Q${question.id}OPT${index}`} type="checkbox" checked value={option} onChange={(event) => props.onChange(event, index)} />}
-                {!selected && !showAnswers && <input id={`Q${question.id}OPT${index}`} type="checkbox" value={option} onChange={(event) => props.onChange(event, index)} />}
-                {selected && showAnswers && <input id={`Q${question.id}OPT${index}`} type="checkbox" checked disabled value={option} />}
-                {!selected && showAnswers && <input id={`Q${question.id}OPT${index}`} type="checkbox" disabled value={option} />}
-                {correctAnswer && showAnswers && <label for="index" className="options-label correct">{option}</label>}
-                {!correctAnswer && showAnswers && <label for="index" className="options-label wrong">{option}</label>}
-                {!showAnswers && <label for="index" className="options-label">{option}</label>}
+            return <div key={`Q${question.id}OPT${index}`} >
+                <label className={getOptionClass(correctAnswer, showAnswers)}>
+                    {selected && !showAnswers && <input id={`Q${question.id}OPT${index}`} type="checkbox" checked value={option} onChange={(event) => props.onChange(event, index)} />}
+                    {!selected && !showAnswers && <input id={`Q${question.id}OPT${index}`} type="checkbox" value={option} onChange={(event) => props.onChange(event, index)} />}
+                    {selected && showAnswers && <input id={`Q${question.id}OPT${index}`} type="checkbox" checked disabled value={option} />}
+                    {!selected && showAnswers && <input id={`Q${question.id}OPT${index}`} type="checkbox" disabled value={option} />}
+                    &nbsp;&nbsp;&nbsp;{option}</label>
+
             </div>
         })
     }
 
-    return question ? <>
-        <div className="question" key={question.id}>{`Q${index + 1}: ${question.q}`}{ showAnswers }</div>
+    const getCorrect = (question) => question.ans.toString() === getResult(question).toString()
+
+    return question ? <div className={showAnswers && !getCorrect(question) ? 'optionview__wrong' : 'optionview__correct'}>
+        <div className="question" key={question.id} >{`Q${index + 1}: ${question.q}`}{showAnswers}</div>
         {
             question.img && <img src={question.img} />
         }
         <div className="options">{getOption(question)}</div>
-    </> : null;
+    </div> : null;
 }
 
 export default OptionView;

@@ -5,7 +5,15 @@
             "q": "Circle the smallest number",
             "type": "choice",
             "group": 1,
-            "options": [ "5", "-2", "0.5", "-5", "2.5"],
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "5",
+                "-2",
+                "0.5",
+                "-5",
+                "2.5"
+            ],
             "ans": [
                 "-5"
             ]
@@ -15,7 +23,15 @@
             "q": "Circle the smallest number",
             "type": "choice",
             "group": 1,
-            "options": [ "-9", "-7", "7", "-1", "9"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "-9",
+                "-7",
+                "7",
+                "-1",
+                "9"
+            ],
             "ans": [
                 "-9"
             ]
@@ -25,7 +41,15 @@
             "q": "Circle the smallest number",
             "type": "choice",
             "group": 1,
-            "options": [ "-1", "-18", "-10", "0", "-28"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "-1",
+                "-18",
+                "-10",
+                "0",
+                "-28"
+            ],
             "ans": [
                 "-28"
             ]
@@ -35,7 +59,15 @@
             "q": "Circle the smallest number",
             "type": "choice",
             "group": 1,
-            "options": [ "-20", "-30", "-24", "26", "-22"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "-20",
+                "-30",
+                "-24",
+                "26",
+                "-22"
+            ],
             "ans": [
                 "-30"
             ]
@@ -45,7 +77,15 @@
             "q": "Circle the smallest number",
             "type": "choice",
             "group": 1,
-            "options": [ "-1", "1.5", "-0.1", "0.05", "0.15"],
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "-1",
+                "1.5",
+                "-0.1",
+                "0.05",
+                "0.15"
+            ],
             "ans": [
                 "-1"
             ]
@@ -55,7 +95,14 @@
             "q": "Use the symbols (+ , ─ , x , ÷ ) for the following questions.</br></br></br>3 (?) 4 + 7 = 19",
             "type": "choice",
             "group": 1,
-            "options": [ "+", "-", "X", "÷"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "+",
+                "-",
+                "X",
+                "÷"
+            ],
             "ans": [
                 "X"
             ]
@@ -66,7 +113,14 @@
             "img": "/images/img1.png",
             "type": "choice",
             "group": 1,
-            "options": [ "+", "-", "X", "÷"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "+",
+                "-",
+                "X",
+                "÷"
+            ],
             "ans": [
                 "+"
             ]
@@ -76,7 +130,14 @@
             "q": "Change 60% into decimals.",
             "type": "choice",
             "group": 2,
-            "options": [ "6", "60", "0.06", "0.6"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "6",
+                "60",
+                "0.06",
+                "0.6"
+            ],
             "ans": [
                 "0.6"
             ]
@@ -86,7 +147,14 @@
             "q": "Change 25% into decimals.",
             "type": "choice",
             "group": 2,
-            "options": [ "2.5", "0.25", "0.025", "25"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "2.5",
+                "0.25",
+                "0.025",
+                "25"
+            ],
             "ans": [
                 "0.25"
             ]
@@ -96,7 +164,14 @@
             "q": "Change 2.5% into decimals.",
             "type": "choice",
             "group": 2,
-            "options": [ "2.5", "0.25", "0.025", "25"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "2.5",
+                "0.25",
+                "0.025",
+                "25"
+            ],
             "ans": [
                 "0.025"
             ]
@@ -106,7 +181,14 @@
             "q": "Change 125% into decimals.",
             "type": "choice",
             "group": 2,
-            "options": [ "1.25", "125", "0.125", "12.5"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "1.25",
+                "125",
+                "0.125",
+                "12.5"
+            ],
             "ans": [
                 "1.25"
             ]
@@ -116,7 +198,14 @@
             "q": "Change 320% into decimals.",
             "type": "choice",
             "group": 2,
-            "options": [ "320", "3.2", "0.320", "0.032"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "320",
+                "3.2",
+                "0.320",
+                "0.032"
+            ],
             "ans": [
                 "3.2"
             ]
@@ -127,7 +216,14 @@
             "img": "/images/img2.png",
             "type": "choice",
             "group": 2,
-            "options": [ "1/3", "5/7", "2/7", "2/3"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "1/3",
+                "5/7",
+                "2/7",
+                "2/3"
+            ],
             "ans": [
                 "5/7"
             ]
@@ -138,7 +234,14 @@
             "img": "/images/img3.png",
             "type": "choice",
             "group": 2,
-            "options": [ "5/8", "3/5", "2/5", "3/8"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "5/8",
+                "3/5",
+                "2/5",
+                "3/8"
+            ],
             "ans": [
                 "5/8"
             ]
@@ -149,7 +252,14 @@
             "img": "/images/img9.png",
             "type": "choice",
             "group": 2,
-            "options": [ "1/3", "3/5", "2/5", "1/5"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "1/3",
+                "3/5",
+                "2/5",
+                "1/5"
+            ],
             "ans": [
                 "2/5"
             ]
@@ -160,7 +270,14 @@
             "img": "/images/img10.png",
             "type": "choice",
             "group": 2,
-            "options": [ "7/9", "2/9", "1/6", "5/6"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "7/9",
+                "2/9",
+                "1/6",
+                "5/6"
+            ],
             "ans": [
                 "5/6"
             ]
@@ -171,7 +288,14 @@
             "img": "/images/img11.png",
             "type": "choice",
             "group": 2,
-            "options": [ "3/7", "4/7", "2/3", "1/3"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "3/7",
+                "4/7",
+                "2/3",
+                "1/3"
+            ],
             "ans": [
                 "4/7"
             ]
@@ -181,8 +305,15 @@
             "q": "Find the number the arrow is pointing to.",
             "type": "choice",
             "group": 2,
+            "attempted_count": 2,
+            "wrong_count": 0,
             "img": "/images/img4.png",
-            "options": [ "6.2", "6.3", "6.4", "6.1"],
+            "options": [
+                "6.2",
+                "6.3",
+                "6.4",
+                "6.1"
+            ],
             "ans": [
                 "6.3"
             ]
@@ -192,8 +323,15 @@
             "q": "Find the number the arrow is pointing to.",
             "type": "choice",
             "group": 2,
+            "attempted_count": 2,
+            "wrong_count": 1,
             "img": "/images/img5.png",
-            "options": [ "17.3", "17.6", "17.4", "17.5"],
+            "options": [
+                "17.3",
+                "17.6",
+                "17.4",
+                "17.5"
+            ],
             "ans": [
                 "17.6"
             ]
@@ -203,8 +341,15 @@
             "q": "Find the number the arrow is pointing to.",
             "type": "choice",
             "group": 2,
+            "attempted_count": 2,
+            "wrong_count": 0,
             "img": "/images/img6.png",
-            "options": [ "27", "27.4", "27.5", "27.1"],
+            "options": [
+                "27",
+                "27.4",
+                "27.5",
+                "27.1"
+            ],
             "ans": [
                 "27.5"
             ]
@@ -214,8 +359,15 @@
             "q": "Find the number the arrow is pointing to.",
             "type": "choice",
             "group": 2,
+            "attempted_count": 2,
+            "wrong_count": 0,
             "img": "/images/img7.png",
-            "options": [ "3.38", "3.39", "3.34", "3.32"],
+            "options": [
+                "3.38",
+                "3.39",
+                "3.34",
+                "3.32"
+            ],
             "ans": [
                 "3.38"
             ]
@@ -225,8 +377,15 @@
             "q": "Find the number the arrow is pointing to.",
             "type": "choice",
             "group": 2,
+            "attempted_count": 2,
+            "wrong_count": 0,
             "img": "/images/img8.png",
-            "options": [ "376", "375", "378", "379"],
+            "options": [
+                "376",
+                "375",
+                "378",
+                "379"
+            ],
             "ans": [
                 "378"
             ]
@@ -236,7 +395,14 @@
             "q": "Convert 30% into fractions. (Give your answer as the lowest term).",
             "type": "choice",
             "group": 2,
-            "options": [ "2/10", "3/10", "3/8", "2/9"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "2/10",
+                "3/10",
+                "3/8",
+                "2/9"
+            ],
             "ans": [
                 "3/10"
             ]
@@ -246,7 +412,14 @@
             "q": "Convert 8% into fractions. Give your answer in its lowest term.",
             "type": "choice",
             "group": 2,
-            "options": [ "3/25", "1/25", "2/25", "4/9"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "3/25",
+                "1/25",
+                "2/25",
+                "4/9"
+            ],
             "ans": [
                 "2/25"
             ]
@@ -256,7 +429,14 @@
             "q": "Convert 50% into fractions. Give your answer as a lowest term.",
             "type": "choice",
             "group": 2,
-            "options": [ "2/3", "1/4", "1/3", "1/2"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "2/3",
+                "1/4",
+                "1/3",
+                "1/2"
+            ],
             "ans": [
                 "1/2"
             ]
@@ -266,7 +446,14 @@
             "q": "Convert 35% into a fraction. Give your answer in its lowest term.",
             "type": "choice",
             "group": 2,
-            "options": [ "3/20", "7/20", "2/19", "3/4"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "3/20",
+                "7/20",
+                "2/19",
+                "3/4"
+            ],
             "ans": [
                 "7/20"
             ]
@@ -276,7 +463,14 @@
             "q": "Convert 12% into fractions. Give your answer in its lowest term.",
             "type": "choice",
             "group": 2,
-            "options": [ "3/20", "7/20", "3/25", "7/25"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "3/20",
+                "7/20",
+                "3/25",
+                "7/25"
+            ],
             "ans": [
                 "3/25"
             ]
@@ -286,7 +480,14 @@
             "q": "Find the two numbers from the list given below (after the '-') which are factors of the first number.   8       -        4       12     16     2       6",
             "type": "choice",
             "group": 2,
-            "options": [ "4, 16", "2, 4", "2, 16", "12, 16"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "4, 16",
+                "2, 4",
+                "2, 16",
+                "12, 16"
+            ],
             "ans": [
                 "2, 4"
             ]
@@ -296,7 +497,14 @@
             "q": "Find the two numbers from the list given below (after the '-') which are factors of the first number. 12     -        6       8       16     24     12",
             "type": "choice",
             "group": 2,
-            "options": [ "24, 6", "12, 24", "12, 16", "12, 6"],
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "24, 6",
+                "12, 24",
+                "12, 16",
+                "12, 6"
+            ],
             "ans": [
                 "12, 6"
             ]
@@ -306,7 +514,14 @@
             "q": "Find the two numbers from the list given below (after the '-') which are factors of the first number.    15     -        30     45     5       10     3",
             "type": "choice",
             "group": 2,
-            "options": [ "45, 30", "5, 10", "3, 5", "30, 5"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "45, 30",
+                "5, 10",
+                "3, 5",
+                "30, 5"
+            ],
             "ans": [
                 "3, 5"
             ]
@@ -316,7 +531,14 @@
             "q": "Find the two numbers from the list given below (after the '-') which are factors of the first number. 18     -        4       3       6       12     36",
             "type": "choice",
             "group": 2,
-            "options": [ "6, 3", "6, 36", "12, 36", "12, 6"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "6, 3",
+                "6, 36",
+                "12, 36",
+                "12, 6"
+            ],
             "ans": [
                 "6, 3"
             ]
@@ -326,7 +548,14 @@
             "q": "Find the two numbers from the list given below (after the '-') which are factors of the first number.    120   -        10     18     16     40     25",
             "type": "choice",
             "group": 2,
-            "options": [ "40, 16", "10, 40", "18, 16", "25, 40"],
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "40, 16",
+                "10, 40",
+                "18, 16",
+                "25, 40"
+            ],
             "ans": [
                 "10, 40"
             ]
@@ -336,7 +565,14 @@
             "q": "15 + 5 x 4 – 7 = _____",
             "type": "choice",
             "group": 2,
-            "options": [ "26", "30", "28", "32"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "26",
+                "30",
+                "28",
+                "32"
+            ],
             "ans": [
                 "28"
             ]
@@ -346,7 +582,14 @@
             "q": "20 – 3 x (8 – 3) + 12 = _____",
             "type": "choice",
             "group": 2,
-            "options": [ "17", "16", "14", "19"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "17",
+                "16",
+                "14",
+                "19"
+            ],
             "ans": [
                 "17"
             ]
@@ -356,7 +599,14 @@
             "q": "8 + 2 (17 + 5) ÷ 11 = _____",
             "type": "choice",
             "group": 2,
-            "options": [ "11", "9", "16", "12"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "11",
+                "9",
+                "16",
+                "12"
+            ],
             "ans": [
                 "12"
             ]
@@ -366,7 +616,14 @@
             "q": "7 x 5 – 2(12 – 6) = _____",
             "type": "choice",
             "group": 2,
-            "options": [ "21", "23", "18", "27"],
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "21",
+                "23",
+                "18",
+                "27"
+            ],
             "ans": [
                 "23"
             ]
@@ -376,7 +633,14 @@
             "q": "90 – 40 ÷ 2 + 8 = _____",
             "type": "choice",
             "group": 2,
-            "options": [ "78", "74", "62", "65"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "78",
+                "74",
+                "62",
+                "65"
+            ],
             "ans": [
                 "78"
             ]
@@ -386,7 +650,14 @@
             "q": "What is 45 ÷ 5 – 2 x 4?",
             "type": "choice",
             "group": 2,
-            "options": [ "2", "1", "3", "5"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "2",
+                "1",
+                "3",
+                "5"
+            ],
             "ans": [
                 "1"
             ]
@@ -396,7 +667,14 @@
             "q": "Find the missing number. (12 – ?) x 8 = 80",
             "type": "choice",
             "group": 2,
-            "options": [ "2", "3", "4", "6"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "2",
+                "3",
+                "4",
+                "6"
+            ],
             "ans": [
                 "2"
             ]
@@ -406,7 +684,14 @@
             "q": "If 7a + 5 = 40. Find the value of a.",
             "type": "choice",
             "group": 2,
-            "options": [ "4", "10", "5", "8"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "4",
+                "10",
+                "5",
+                "8"
+            ],
             "ans": [
                 "5"
             ]
@@ -416,7 +701,14 @@
             "q": "Round 4.5637 to the nearest tenth.",
             "type": "choice",
             "group": 2,
-            "options": [ "4.56", "4", "4.563", "4.6"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "4.56",
+                "4",
+                "4.563",
+                "4.6"
+            ],
             "ans": [
                 "4.6"
             ]
@@ -426,7 +718,14 @@
             "q": "Round 0.0592 to the nearest hundredth.",
             "type": "choice",
             "group": 2,
-            "options": [ "0.059", "0.06", "0.05", "0.592"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "0.059",
+                "0.06",
+                "0.05",
+                "0.592"
+            ],
             "ans": [
                 "0.06"
             ]
@@ -436,7 +735,14 @@
             "q": "One side of a regular pentagon is 14.2mm. Find the perimeter of the Pentagon.",
             "type": "choice",
             "group": 2,
-            "options": [ "68 mm", "74 mm", "75 mm", "71 mm"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "68 mm",
+                "74 mm",
+                "75 mm",
+                "71 mm"
+            ],
             "ans": [
                 "71 mm"
             ]
@@ -446,7 +752,14 @@
             "q": "What is 35% of 80?",
             "type": "choice",
             "group": 2,
-            "options": [ "28", "24", "29", "32"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "28",
+                "24",
+                "29",
+                "32"
+            ],
             "ans": [
                 "28"
             ]
@@ -456,7 +769,14 @@
             "q": "Two internal angles in a triangle are 34 degree, 68 degree. Find the size of the third angle.",
             "type": "choice",
             "group": 2,
-            "options": [ "78 degree", "76 degree", "82 degree", "68 degree"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "78 degree",
+                "76 degree",
+                "82 degree",
+                "68 degree"
+            ],
             "ans": [
                 "78 degree"
             ]
@@ -467,7 +787,14 @@
             "img": "/images/img12.png",
             "type": "choice",
             "group": 2,
-            "options": [ "5 / 12", "11 / 12", "7 / 12", "1 / 12"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "5 / 12",
+                "11 / 12",
+                "7 / 12",
+                "1 / 12"
+            ],
             "ans": [
                 "7 / 12"
             ]
@@ -477,10 +804,969 @@
             "q": "How many minutes are there in 3 hours?",
             "type": "choice",
             "group": 2,
-            "options": [ "180 minutes", "200 minutes", "240 minutes", "120 minutes"],
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "180 minutes",
+                "200 minutes",
+                "240 minutes",
+                "120 minutes"
+            ],
             "ans": [
                 "180 minutes"
             ]
+        },
+        {
+            "id": 48,
+            "q": "7m 150mm – 0.25m = _____ m.",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "6.09 m",
+                "6.9 m",
+                "5.9 m",
+                "7.12 m"
+            ],
+            "ans": [
+                "6.9 m"
+            ]
+        },
+        {
+            "id": 49,
+            "q": "Area of a rectangle is 30m2. Length of the rectangle is 25m. Find the width of the rectangle in mm.",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "1200 mm",
+                "120 mm",
+                "12000 mm",
+                "12 mm"
+            ],
+            "ans": [
+                "1200 mm"
+            ]
+        },
+        {
+            "id": 50,
+            "q": "600g of sugar prices at 72p. Find the price of 1 kg of sugar.",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "£1.60",
+                "£1.10",
+                "£1.00",
+                "£1.20"
+            ],
+            "ans": [
+                "£1.20"
+            ]
+        },
+        {
+            "id": 51,
+            "q": "Write as a decimal the sum of 12 hundredths and 17 tenths.",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "1.83",
+                "1.79",
+                "1.82",
+                "1.76"
+            ],
+            "ans": [
+                "1.82"
+            ]
+        },
+        {
+            "id": 52,
+            "q": "15% of a sum of money is £45. What is the whole amount?",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "£280",
+                "£320",
+                "£300",
+                "£310"
+            ],
+            "ans": [
+                "£300"
+            ]
+        },
+        {
+            "id": 53,
+            "q": "Find 10% of 1.2kg in grams.",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "120 g",
+                "1200 g",
+                "140 g",
+                "100 g"
+            ],
+            "ans": [
+                "120 g"
+            ]
+        },
+        {
+            "id": 54,
+            "q": "Take the sum of 3/5 and 1/2 from 5. Give your answer as a decimal.",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "4.1",
+                "2.9",
+                "3.5",
+                "3.9"
+            ],
+            "ans": [
+                "3.9"
+            ]
+        },
+        {
+            "id": 55,
+            "q": "Mia had £20. She spent 65% of the money and saved the rest. How much money did Mia save?",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "£13",
+                "£7",
+                "£8",
+                "£5"
+            ],
+            "ans": [
+                "£7"
+            ]
+        },
+        {
+            "id": 56,
+            "q": "Find the value of x when 5x – 7 = 28.",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "7",
+                "11",
+                "8",
+                "6"
+            ],
+            "ans": [
+                "7"
+            ]
+        },
+        {
+            "id": 57,
+            "q": "What is the value of the digit 6 in each number below? Example: 27.68 – 6 tenths    16.78 → 6 __________",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "6 tenths",
+                "6 ones",
+                "6 tens",
+                "6 hundreds"
+            ],
+            "ans": [
+                "6 ones"
+            ]
+        },
+        {
+            "id": 58,
+            "q": "What is the value of the digit 6 in each number below?   Example: 27.68 – 6 tenths   23,654 → 6 __________",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "6 tenths",
+                "6 thousands",
+                "6 tens",
+                "6 hundreds"
+            ],
+            "ans": [
+                "6 hundreds"
+            ]
+        },
+        {
+            "id": 59,
+            "q": "What is the value of the digit 6 in each number below? Example: 27.68 – 6 tenths  768.25 → 6 __________",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "6 tenths",
+                "6 thousands",
+                "6 tens",
+                "6 hundreds"
+            ],
+            "ans": [
+                "6 tens"
+            ]
+        },
+        {
+            "id": 60,
+            "q": "What is the value of the digit 6 in each number below?   Example: 27.68 – 6 tenths   482.765 → 6 __________",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "6 tenths",
+                "6 thousands",
+                "6 hundredths",
+                "6 hundreds"
+            ],
+            "ans": [
+                "6 hundredths"
+            ]
+        },
+        {
+            "id": 61,
+            "q": "What is the value of the digit 6 in each number below?   Example: 27.68 – 6 tenths \n37.256 → 6 __________",
+            "type": "choice",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "6 thousandths",
+                "6 thousands",
+                "6 hundredths",
+                "6 hundreds"
+            ],
+            "ans": [
+                "6 thousandths"
+            ]
+        },
+        {
+            "id": 62,
+            "q": "Round 24.56 to the nearest tenth.",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "24.5",
+                "24.6",
+                "24.56",
+                "24"
+            ],
+            "ans": [
+                "24.6"
+            ]
+        },
+        {
+            "id": 63,
+            "q": "56.5 + 2.67 =",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "59.07",
+                "58.07",
+                "57.17",
+                "59.17"
+            ],
+            "ans": [
+                "59.17"
+            ]
+        },
+        {
+            "id": 64,
+            "q": "19.6 – 6.789 =",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "12.812",
+                "12.811",
+                "11.811",
+                "10.811"
+            ],
+            "ans": [
+                "12.811"
+            ]
+        },
+        {
+            "id": 65,
+            "q": "6.7 x 2.8 =",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "18.67",
+                "18.76",
+                "17.87",
+                "19.27"
+            ],
+            "ans": [
+                "18.76"
+            ]
+        },
+        {
+            "id": 66,
+            "q": "26.75 x 6.5 =",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "173.785",
+                "172.675",
+                "174.125",
+                "173.875"
+            ],
+            "ans": [
+                "173.875"
+            ]
+        },
+        {
+            "id": 67,
+            "q": "56.4 ÷ 0.02 =",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "2820",
+                "2720",
+                "2825",
+                "2832"
+            ],
+            "ans": [
+                "2820"
+            ]
+        },
+        {
+            "id": 68,
+            "q": "",
+            "img": "/images/q68.png",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "10 9/20",
+                "10 7/20",
+                "9 7/20",
+                "​​​​​​​11 9/20"
+            ],
+            "ans": [
+                "10 7/20"
+            ]
+        },
+        {
+            "id": 69,
+            "q": "",
+            "img": "/images/q69.png",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "4 13/14",
+                "3 1/14",
+                "3 13/14",
+                "2 3/7"
+            ],
+            "ans": [
+                "3 13/14"
+            ]
+        },
+        {
+            "id": 70,
+            "q": "",
+            "img": "/images/q70.png",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "9",
+                "12",
+                "8",
+                "10"
+            ],
+            "ans": [
+                "9"
+            ]
+        },
+        {
+            "id": 71,
+            "q": "",
+            "img": "/images/q71.png",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "22/17",
+                "19/17",
+                "23/16",
+                "21/15"
+            ],
+            "ans": [
+                "22/17"
+            ]
+        },
+        {
+            "id": 72,
+            "q": "Convert 45% into a fraction in its lowest term.",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "1/8",
+                "9/20",
+                "3/4",
+                "7/20"
+            ],
+            "ans": [
+                "9/20"
+            ]
+        },
+        {
+            "id": 73,
+            "q": "Convert 12.5% into a fraction in its lowest term.",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "1/8",
+                "1/6",
+                "3/8",
+                "1/12"
+            ],
+            "ans": [
+                "1/8"
+            ]
+        },
+        {
+            "id": 74,
+            "q": "Which of the fractions has the greatest value?",
+            "img": "/images/q74.png",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "5/8",
+                "5/7",
+                "4/7",
+                "3/8"
+            ],
+            "ans": [
+                "5/7"
+            ]
+        },
+        {
+            "id": 75,
+            "q": "Which of the fractions has the greatest value?",
+            "img": "/images/q75.png",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "5/8",
+                "5/7",
+                "4/5",
+                "3/8"
+            ],
+            "ans": [
+                "4/5"
+            ]
+        },
+        {
+            "id": 76,
+            "q": "Which of the fractions has the greatest value?",
+            "img": "/images/q76.png",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "5/8",
+                "5/7",
+                "5/9",
+                "4/7"
+            ],
+            "ans": [
+                "4/7"
+            ]
+        },
+        {
+            "id": 77,
+            "q": "Which of the fractions has the greatest value?",
+            "img": "/images/q77.png",
+            "group": 3,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "5/8",
+                "5/7 ",
+                "5/9",
+                "4/9"
+            ],
+            "ans": [
+                "5/8"
+            ]
+        },
+        {
+            "id": 78,
+            "q": "",
+            "img": "/images/q78.png",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "6 3/7",
+                "5 4/7",
+                "5 3/7",
+                "6 4/7"
+            ],
+            "ans": "5 4/7"
+        },
+        {
+            "id": 79,
+            "q": "3.5 cm = _________m",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "0.035 m",
+                "35 m",
+                "350 m",
+                "0.0035 m"
+            ],
+            "ans": "0.035 m"
+        },
+        {
+            "id": 80,
+            "q": "Make second biggest number using the following digits.  271468",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "876214",
+                "876421",
+                "124687",
+                "876412"
+            ],
+            "ans": "876412"
+        },
+        {
+            "id": 81,
+            "q": "Find the smallest number that must be added to 471 to make it exactly divisible by 6.",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "1",
+                "5",
+                "3",
+                "4"
+            ],
+            "ans": "3"
+        },
+        {
+            "id": 82,
+            "q": "The price of 6 kg of apples is £12. Find the price of 250 g of apples.",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "25p",
+                "50p",
+                "20p",
+                "30p"
+            ],
+            "ans": "50p"
+        },
+        {
+            "id": 83,
+            "q": "Two-fifths of the pens I have are black pens. The rest are red pens. If I have 30 red pens, find out how many of the pens I have are black pens.",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "12",
+                "21",
+                "20",
+                "15"
+            ],
+            "ans": "20"
+        },
+        {
+            "id": 84,
+            "q": "3/7 of the students in year 5 prefer studying Maths. The rest of the students prefer Verbal Reasoning.  If 28 students in year 5 preferred Verbal Reasoning, how many students prefer Maths?",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "21",
+                "20",
+                "28",
+                "36"
+            ],
+            "ans": "21"
+        },
+        {
+            "id": 85,
+            "q": "Round 5.976 to the nearest tenth.",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "6.0",
+                "5.98",
+                "5.976",
+                "5.9760"
+            ],
+            "ans": "6.0"
+        },
+        {
+            "id": 86,
+            "q": "A boy buys 4 shirts at £30 each and 2 pairs of trousers at £20 each in a shop which offers a discount of 25%. How much money did he pay in the shop to buy them?",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "160",
+                "32",
+                "120",
+                "128"
+            ],
+            "ans": "120"
+        },
+        {
+            "id": 87,
+            "q": "Harshana has 2 red marbles, 4 blue marbles, and 6 black marbles in a box. She picks one marble at random from the box. What is the probability that Harshana will pick a red marble?",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "1 /  6",
+                "2 / 3",
+                "1 / 3",
+                "0"
+            ],
+            "ans": "1 /  6"
+        },
+        {
+            "id": 88,
+            "q": "John buys a few shirts from a shop which offers a 40% discount. If John paid £30, find the price of the shirts without any reduction?",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "£60",
+                "£12",
+                "£42",
+                "£50"
+            ],
+            "ans": "£50"
+        },
+        {
+            "id": 89,
+            "q": "Babu runs faster than Kavin. Babu takes onlyof the time Kavin takes to run a distance.  If babu took 15 minutes to run a distance, how much time would Kavin take to run the same distance?",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "25 minutes",
+                "30 minutes",
+                "35 minutes",
+                "12 minutes"
+            ],
+            "ans": "25 minutes"
+        },
+        {
+            "id": 90,
+            "q": "For the repeating pattern QWERTYUO which letter will appear in the 210th position?",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "Q",
+                "W",
+                "E",
+                "O"
+            ],
+            "ans": "W"
+        },
+        {
+            "id": 91,
+            "q": "Find the area of the following shape.",
+            "img": "/images/q91.png",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "72 cm2 ",
+                "68 cm2",
+                "78 cm2",
+                "84 cm2"
+            ],
+            "ans": "84 cm2"
+        },
+        {
+            "id": 92,
+            "q": "Find the perimeter of the following shape.",
+            "img": "/images/q92.png",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "72 cm",
+                "68 cm",
+                "78 cm",
+                "84 cm"
+            ],
+            "ans": "72 cm"
+        },
+        {
+            "id": 93,
+            "q": "The perimeter of our kitchen is 30 feet. If the width is 1 / 2 the length, find the length and width of the kitchen.",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "10 ft , 6 ft",
+                "5 ft , 10 ft",
+                "10 ft , 5 ft",
+                "6 ft , 10 ft"
+            ],
+            "ans": "10 ft , 5 ft"
+        },
+        {
+            "id": 94,
+            "q": "James has £15 with him. He buys a book for £8 and a train ticket for £2.50. He now decides to spend the rest of the money on marbles. If the price of 1 marble is 30p, how many marbles can he buy with the remaining money?",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "35",
+                "25",
+                "20",
+                "15"
+            ],
+            "ans": "15"
+        },
+        {
+            "id": 95,
+            "q": "Find the mean and range for the following marks scored by a student.\n50, 70, 10, 90, 30, 50",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "60, 40",
+                "50, 80",
+                "60, 80",
+                "50, 60"
+            ],
+            "ans": "50, 80"
+        },
+        {
+            "id": 96,
+            "q": "In a sweet shop, there are 300 sweets (flavours: mint, milk, and honey). There are 165 mint and milk flavoured sweets, and 200 mint and honey flavoured sweets in the shop. How many sweets being sold in the shop are mint flavoured sweets?",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "65",
+                "75",
+                "100",
+                "85"
+            ],
+            "ans": "65"
+        },
+        {
+            "id": 97,
+            "q": "John and Abraham visit their friend every week on different days. John visits the friend every 3rd day and Abraham visits the friend every 4th day. On the 45th day, John and Abraham meet their friend together. In how many more days will John and Abraham again meet their friend together?",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 1,
+            "options": [
+                "6",
+                "4",
+                "3",
+                "2"
+            ],
+            "ans": "3"
+        },
+        {
+            "id": 98,
+            "q": "My watch loses 2 minutes every 4 hours. If I correct the time at 6 pm on Monday, what time will it show at 6 am on Wednesday?",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "5:52 am",
+                "5:42 am",
+                "5:32 am",
+                "5:22 am"
+            ],
+            "ans": "5:42 am"
+        },
+        {
+            "id": 99,
+            "q": "Verbal Reasoning\\n\nIn the questions given below, the two pairs of letters are related to the other two pairs in a way. Apply the same to the letters given and find their related pairs of letters.\\n\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z\\n\nAZ is to ZA as GH is to",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "TS",
+                "TU",
+                "AB",
+                "BA"
+            ],
+            "ans": "TS"
+        },
+        {
+            "id": 100,
+            "q": "Verbal Reasoning\\n\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z\\n\nAC is to EH as XZ is to",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "AD",
+                "BC",
+                "BE",
+                "AE"
+            ],
+            "ans": "BE"
+        },
+        {
+            "id": 101,
+            "q": "Verbal Reasoning\\n\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z\\n\nJM is to OH as KN is to",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "PJ",
+                "OI",
+                "OJ",
+                "PI"
+            ],
+            "ans": "PI"
+        },
+        {
+            "id": 102,
+            "q": "Verbal Reasoning\\n\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z\\n\nEG is to ZJ as PR is to.",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "JU",
+                "KU",
+                "JV",
+                "KV"
+            ],
+            "ans": "KU"
+        },
+        {
+            "id": 103,
+            "q": "Verbal Reasoning\\n\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z\\n\nPP is to SM as HJ is to.",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "JG",
+                "KF",
+                "LG",
+                "KG"
+            ],
+            "ans": "KG"
+        },
+        {
+            "id": 104,
+            "q": "Four words and three codes are given but not in any order.\\n\nAREA   -      RAGE   -      GEAR   -      RARE\\n\n           5456    -      7645      -     5476         \\n\nFind the code for the word AREA -",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "5456",
+                "7645",
+                "5476",
+                "4564"
+            ],
+            "ans": "4564"
+        },
+        {
+            "id": 105,
+            "q": "Four words and three codes are given but not in any order. \\n\nAREA    -     RAGE    -     GEAR     -    RARE\\n\n          5456    -      7645   -        5476         \\n\nFind the code for the word RAGE -",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "5456",
+                "7645",
+                "5476",
+                "4564"
+            ],
+            "ans": "5476"
+        },
+        {
+            "id": 106,
+            "q": "Four words and three codes are given but not in any order. \\n\nAREA    -     RAGE    -     GEAR    -     RARE\\n\n         5456          7645           5476         \\n\nFind the code for the word GEAR -",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "5456",
+                "7645",
+                "5476",
+                "4564"
+            ],
+            "ans": "7645"
+        },
+        {
+            "id": 107,
+            "q": "Four words and three codes are given but not in any order. \\n\nAREA    -     RAGE    -     GEAR    -     RARE\\n\n         5456          7645           5476         \\n\nFind the code for the word RARE -",
+            "img": "",
+            "group": 4,
+            "attempted_count": 2,
+            "wrong_count": 0,
+            "options": [
+                "5456",
+                "7645",
+                "5476",
+                "4564"
+            ],
+            "ans": "5456"
         }
     ]
 }

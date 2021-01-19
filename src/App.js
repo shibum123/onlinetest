@@ -2,6 +2,9 @@ import logo from './logo.svg';
 import React from 'react';
 import './App.css';
 import Main from './components/Main';
+import Settings from './components/settings/Settings';
+import QuestionForm from './components/questionform/QuestionForm';
+
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => {
@@ -16,7 +19,13 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path="/">
+            <Settings />
+          </Route>
+          <Route exact path="/test">
             <Main />
+          </Route>
+          <Route exact path="/addquestions">
+            <QuestionForm />
           </Route>
         </Switch>
       </Router>

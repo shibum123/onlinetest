@@ -1,10 +1,12 @@
 export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const SET_SHOW_ANSWERS = 'SET_SHOW_ANSWERS';
-
+export const SET_SELECTED_TYPE = 'SET_SELECTED_TYPE';
 
 const initialState = {
     questions: [],
-    showAnswers: false
+    showAnswers: false,
+    filteredQuestions: [],
+    selectedType: 'all_questions'
 };
 
 const shuffle = (array) => {
@@ -21,16 +23,36 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case SET_QUESTIONS:
             const { questions } = action;
-            const quest = shuffle(questions)
+            let filteredQuestions;
+            if(state.selectedType === 'filter_group1') {
+                filteredQuestions = questions.filter((q) => q.group === 1);
+            } else if(state.selectedType === 'filter_group2') {
+                filteredQuestions = questions.filter((q) => q.group === 2);
+            } else if(state.selectedType === 'filter_group3') {
+                filteredQuestions = questions.filter((q) => q.group === 3);
+            } else if(state.selectedType === 'filter_group4') {
+                filteredQuestions = questions.filter((q) => q.group === 4);
+            } else if(state.selectedType === 'most_wrong') {
+                filteredQuestions = questions.filter((q) => q.wrong_count > 0);
+            } else {
+                filteredQuestions = questions;
+            }
             return {
                 ...state,
-                quest
+                questions,
+                filteredQuestions
             };
         case SET_SHOW_ANSWERS:
             const { showAnswers } = action;
             return {
                 ...state,
                 showAnswers
+            };
+        case SET_SELECTED_TYPE:
+            const { selectedType } = action;
+            return {
+                ...state,
+                selectedType
             };
         default:
             return state;
@@ -49,4 +71,11 @@ export const setShowAnswers = (
 ) => ({
     type: SET_SHOW_ANSWERS,
     showAnswers
+});
+
+export const setSelectedType = (
+    selectedType
+) => ({
+    type: SET_SELECTED_TYPE,
+    selectedType
 });

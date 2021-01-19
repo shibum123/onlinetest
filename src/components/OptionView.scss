@@ -1,0 +1,13 @@
+.optionview {
+    margin: 10px;
+    &__correct {
+        background-color: whitesmoke;
+        padding: 10px;
+        border: 1px solid lightgreen;
+    }
+    &__wrong {
+        background-color: lightpink;
+        padding: 10px;
+        border: 1px solid lightgrey;
+    }
+}
