@@ -4,6 +4,7 @@ export const SET_SELECTED_TYPE = 'SET_SELECTED_TYPE';
 
 const initialState = {
     questions: [],
+    groupNames: {'group1': '', 'group2': '', 'group3': '', 'group4': '', 'group5': '20-Yr 5 Worksheet KAS-3B', 'group6': '20 - Yr 5 SHW - 09 B'},
     showAnswers: false,
     filteredQuestions: [],
     selectedType: 'all_questions'
@@ -24,17 +25,19 @@ export default (state = initialState, action) => {
         case SET_QUESTIONS:
             const { questions } = action;
             let filteredQuestions;
-            if(state.selectedType === 'filter_group1') {
+            if (state.selectedType === 'filter_group1') {
                 filteredQuestions = questions.filter((q) => q.group === 1);
-            } else if(state.selectedType === 'filter_group2') {
+            } else if (state.selectedType === 'filter_group2') {
                 filteredQuestions = questions.filter((q) => q.group === 2);
-            } else if(state.selectedType === 'filter_group3') {
+            } else if (state.selectedType === 'filter_group3') {
                 filteredQuestions = questions.filter((q) => q.group === 3);
-            } else if(state.selectedType === 'filter_group4') {
+            } else if (state.selectedType === 'filter_group4') {
                 filteredQuestions = questions.filter((q) => q.group === 4);
-            } else if(state.selectedType === 'filter_group5') {
+            } else if (state.selectedType === 'filter_group5') {
                 filteredQuestions = questions.filter((q) => q.group === 5);
-            } else if(state.selectedType === 'most_wrong') {
+            } else if (state.selectedType === 'filter_group6') {
+                filteredQuestions = questions.filter((q) => q.group === 6);
+            } else if (state.selectedType === 'most_wrong') {
                 filteredQuestions = questions.filter((q) => q.wrong_count > 0);
             } else {
                 filteredQuestions = questions;

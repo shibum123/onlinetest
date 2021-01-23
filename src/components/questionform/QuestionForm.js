@@ -37,7 +37,7 @@ const QuestionForm = () => {
             "id": questions.length + 1,
             "q": document.getElementById('question').value !== null ? document.getElementById('question').value : null,
             "img": document.getElementById('questionImg').value !== null ? document.getElementById('questionImg').value : null,
-            "group": 4,
+            "group": 6,
             "attempted_count": 0,
             "wrong_count": 0,
             "options": options,

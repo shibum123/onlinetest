@@ -92,7 +92,7 @@
         },
         {
             "id": 6,
-            "q": "Use the symbols (+ , ─ , x , ÷ ) for the following questions.</br></br></br>3 (?) 4 + 7 = 19",
+            "q": "Use the symbols (+ , ─ , x , ÷ ) for the following questions.<br/><br/><br/>3 (?) 4 + 7 = 19",
             "type": "choice",
             "group": 1,
             "attempted_count": 2,
@@ -1057,6 +1057,7 @@
         {
             "id": 62,
             "q": "Round 24.56 to the nearest tenth.",
+            "type": "choice",
             "group": 3,
             "attempted_count": 2,
             "wrong_count": 0,
@@ -1073,6 +1074,7 @@
         {
             "id": 63,
             "q": "56.5 + 2.67 =",
+            "type": "choice",
             "group": 3,
             "attempted_count": 2,
             "wrong_count": 0,
@@ -1089,6 +1091,7 @@
         {
             "id": 64,
             "q": "19.6 – 6.789 =",
+            "type": "choice",
             "group": 3,
             "attempted_count": 2,
             "wrong_count": 0,
@@ -1105,6 +1108,7 @@
         {
             "id": 65,
             "q": "6.7 x 2.8 =",
+            "type": "choice",
             "group": 3,
             "attempted_count": 2,
             "wrong_count": 0,
@@ -1121,6 +1125,7 @@
         {
             "id": 66,
             "q": "26.75 x 6.5 =",
+            "type": "choice",
             "group": 3,
             "attempted_count": 2,
             "wrong_count": 0,
@@ -1137,6 +1142,7 @@
         {
             "id": 67,
             "q": "56.4 ÷ 0.02 =",
+            "type": "choice",
             "group": 3,
             "attempted_count": 2,
             "wrong_count": 0,
@@ -1153,6 +1159,7 @@
         {
             "id": 68,
             "q": "",
+            "type": "choice",
             "img": "/images/q68.png",
             "group": 3,
             "attempted_count": 2,
@@ -1170,6 +1177,7 @@
         {
             "id": 69,
             "q": "",
+            "type": "choice",
             "img": "/images/q69.png",
             "group": 3,
             "attempted_count": 2,
@@ -1187,6 +1195,7 @@
         {
             "id": 70,
             "q": "",
+            "type": "choice",
             "img": "/images/q70.png",
             "group": 3,
             "attempted_count": 2,
@@ -1204,6 +1213,7 @@
         {
             "id": 71,
             "q": "",
+            "type": "choice",
             "img": "/images/q71.png",
             "group": 3,
             "attempted_count": 2,
@@ -1221,6 +1231,7 @@
         {
             "id": 72,
             "q": "Convert 45% into a fraction in its lowest term.",
+            "type": "choice",
             "group": 3,
             "attempted_count": 2,
             "wrong_count": 0,
@@ -1237,6 +1248,7 @@
         {
             "id": 73,
             "q": "Convert 12.5% into a fraction in its lowest term.",
+            "type": "choice",
             "group": 3,
             "attempted_count": 2,
             "wrong_count": 0,
@@ -1253,6 +1265,7 @@
         {
             "id": 74,
             "q": "Which of the fractions has the greatest value?",
+            "type": "choice",
             "img": "/images/q74.png",
             "group": 3,
             "attempted_count": 2,
@@ -1270,6 +1283,7 @@
         {
             "id": 75,
             "q": "Which of the fractions has the greatest value?",
+            "type": "choice",
             "img": "/images/q75.png",
             "group": 3,
             "attempted_count": 2,
@@ -1287,6 +1301,7 @@
         {
             "id": 76,
             "q": "Which of the fractions has the greatest value?",
+            "type": "choice",
             "img": "/images/q76.png",
             "group": 3,
             "attempted_count": 2,
@@ -1304,6 +1319,7 @@
         {
             "id": 77,
             "q": "Which of the fractions has the greatest value?",
+            "type": "choice",
             "img": "/images/q77.png",
             "group": 3,
             "attempted_count": 2,
@@ -1321,6 +1337,7 @@
         {
             "id": 78,
             "q": "",
+            "type": "choice",
             "img": "/images/q78.png",
             "group": 4,
             "attempted_count": 2,
@@ -1336,6 +1353,7 @@
         {
             "id": 79,
             "q": "3.5 cm = _________m",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1351,6 +1369,7 @@
         {
             "id": 80,
             "q": "Make second biggest number using the following digits.  271468",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1366,6 +1385,7 @@
         {
             "id": 81,
             "q": "Find the smallest number that must be added to 471 to make it exactly divisible by 6.",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1396,6 +1416,7 @@
         {
             "id": 83,
             "q": "Two-fifths of the pens I have are black pens. The rest are red pens. If I have 30 red pens, find out how many of the pens I have are black pens.",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1411,6 +1432,7 @@
         {
             "id": 84,
             "q": "3/7 of the students in year 5 prefer studying Maths. The rest of the students prefer Verbal Reasoning.  If 28 students in year 5 preferred Verbal Reasoning, how many students prefer Maths?",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1426,6 +1448,7 @@
         {
             "id": 85,
             "q": "Round 5.976 to the nearest tenth.",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1441,6 +1464,7 @@
         {
             "id": 86,
             "q": "A boy buys 4 shirts at £30 each and 2 pairs of trousers at £20 each in a shop which offers a discount of 25%. How much money did he pay in the shop to buy them?",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1456,6 +1480,7 @@
         {
             "id": 87,
             "q": "Harshana has 2 red marbles, 4 blue marbles, and 6 black marbles in a box. She picks one marble at random from the box. What is the probability that Harshana will pick a red marble?",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1471,6 +1496,7 @@
         {
             "id": 88,
             "q": "John buys a few shirts from a shop which offers a 40% discount. If John paid £30, find the price of the shirts without any reduction?",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1486,6 +1512,7 @@
         {
             "id": 89,
             "q": "Babu runs faster than Kavin. Babu takes onlyof the time Kavin takes to run a distance.  If babu took 15 minutes to run a distance, how much time would Kavin take to run the same distance?",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1501,6 +1528,7 @@
         {
             "id": 90,
             "q": "For the repeating pattern QWERTYUO which letter will appear in the 210th position?",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1516,6 +1544,7 @@
         {
             "id": 91,
             "q": "Find the area of the following shape.",
+            "type": "choice",
             "img": "/images/q91.png",
             "group": 4,
             "attempted_count": 2,
@@ -1531,6 +1560,7 @@
         {
             "id": 92,
             "q": "Find the perimeter of the following shape.",
+            "type": "choice",
             "img": "/images/q92.png",
             "group": 4,
             "attempted_count": 2,
@@ -1546,6 +1576,7 @@
         {
             "id": 93,
             "q": "The perimeter of our kitchen is 30 feet. If the width is 1 / 2 the length, find the length and width of the kitchen.",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1561,6 +1592,7 @@
         {
             "id": 94,
             "q": "James has £15 with him. He buys a book for £8 and a train ticket for £2.50. He now decides to spend the rest of the money on marbles. If the price of 1 marble is 30p, how many marbles can he buy with the remaining money?",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1576,6 +1608,7 @@
         {
             "id": 95,
             "q": "Find the mean and range for the following marks scored by a student.<br/>50, 70, 10, 90, 30, 50",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1591,6 +1624,7 @@
         {
             "id": 96,
             "q": "In a sweet shop, there are 300 sweets (flavours: mint, milk, and honey). There are 165 mint and milk flavoured sweets, and 200 mint and honey flavoured sweets in the shop. How many sweets being sold in the shop are mint flavoured sweets?",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1606,6 +1640,7 @@
         {
             "id": 97,
             "q": "John and Abraham visit their friend every week on different days. John visits the friend every 3rd day and Abraham visits the friend every 4th day. On the 45th day, John and Abraham meet their friend together. In how many more days will John and Abraham again meet their friend together?",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1621,6 +1656,7 @@
         {
             "id": 98,
             "q": "My watch loses 2 minutes every 4 hours. If I correct the time at 6 pm on Monday, what time will it show at 6 am on Wednesday?",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1636,6 +1672,7 @@
         {
             "id": 99,
             "q": "Verbal Reasoning<br/>In the questions given below, the two pairs of letters are related to the other two pairs in a way. Apply the same to the letters given and find their related pairs of letters.<br/>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>AZ is to ZA as GH is to",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1651,6 +1688,7 @@
         {
             "id": 100,
             "q": "Verbal Reasoning<br/>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>AC is to EH as XZ is to",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1666,6 +1704,7 @@
         {
             "id": 101,
             "q": "Verbal Reasoning<br/>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>JM is to OH as KN is to",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1681,6 +1720,7 @@
         {
             "id": 102,
             "q": "Verbal Reasoning<br/>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>EG is to ZJ as PR is to.",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1696,6 +1736,7 @@
         {
             "id": 103,
             "q": "Verbal Reasoning<br/>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>PP is to SM as HJ is to.",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1711,6 +1752,7 @@
         {
             "id": 104,
             "q": "Four words and three codes are given but not in any order.<br/>AREA   -      RAGE   -      GEAR   -      RARE<br/>           5456    -      7645      -     5476         <br/>Find the code for the word AREA -",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1726,6 +1768,7 @@
         {
             "id": 105,
             "q": "Four words and three codes are given but not in any order. <br/>AREA    -     RAGE    -     GEAR     -    RARE<br/>          5456    -      7645   -        5476         <br/>Find the code for the word RAGE -",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1741,6 +1784,7 @@
         {
             "id": 106,
             "q": "Four words and three codes are given but not in any order. <br/>AREA    -     RAGE    -     GEAR    -     RARE<br/>         5456          7645           5476         <br/>Find the code for the word GEAR -",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1756,6 +1800,7 @@
         {
             "id": 107,
             "q": "Four words and three codes are given but not in any order. <br/>AREA    -     RAGE    -     GEAR    -     RARE<br/>         5456          7645           5476         <br/>Find the code for the word RARE -",
+            "type": "choice",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1771,9 +1816,10 @@
         {
             "id": 108,
             "q": "",
+            "type": "choice",
             "img": "/images/q108.png",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "9 <sup>17</sup>&frasl;<sub>20</sub>",
@@ -1786,9 +1832,10 @@
         {
             "id": 109,
             "q": "",
+            "type": "choice",
             "img": "/images/q109.png",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "4 <sup>13</sup>&frasl;<sub>15</sub>",
@@ -1801,9 +1848,10 @@
         {
             "id": 110,
             "q": "",
+            "type": "choice",
             "img": "/images/q110.png",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "15",
@@ -1816,9 +1864,10 @@
         {
             "id": 111,
             "q": "",
+            "type": "choice",
             "img": "/images/q111.png",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "<sup>11</sup>&frasl;<sub>8</sub>",
@@ -1831,9 +1880,10 @@
         {
             "id": 112,
             "q": "<sup>5</sup>&frasl;<sub>9</sub> of the books I have are fiction and the rest are non-fiction. If I have 20 non-fiction books, how many of the books I own are fiction?",
+            "type": "choice",
             "img": "",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "15",
@@ -1846,9 +1896,10 @@
         {
             "id": 113,
             "q": "How many sixths are there in 4 <sup>1</sup>&frasl;<sub>6</sub>?",
+            "type": "choice",
             "img": "",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "20",
@@ -1861,9 +1912,10 @@
         {
             "id": 114,
             "q": "How many quarters are there in 8 <sup>1</sup>&frasl;<sub>2</sub>?",
+            "type": "choice",
             "img": "",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "34",
@@ -1876,9 +1928,10 @@
         {
             "id": 115,
             "q": "Mr James, the PE teacher, asked his students which game is their favourite game. 180 students replied to him. He recorded the preference in a pie chart. The pie chart he made is given below. <br/>How many  students preferred net ball as their favourite game?",
+            "type": "choice",
             "img": "/images/q115.png",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "44",
@@ -1891,9 +1944,10 @@
         {
             "id": 116,
             "q": "What percentage of the students preferred hockey as their favourite game?",
+            "type": "choice",
             "img": "/images/q116.png",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "20%",
@@ -1906,9 +1960,10 @@
         {
             "id": 117,
             "q": "How many less students preferred tennis over hockey?",
+            "type": "choice",
             "img": "/images/q117.png",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "15",
@@ -1921,9 +1976,10 @@
         {
             "id": 118,
             "q": "5x – 2 = 28. Find the value of x.",
+            "type": "choice",
             "img": "",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "5",
@@ -1936,9 +1992,10 @@
         {
             "id": 119,
             "q": "Jack, Jim, and Mark are sharing 80 marbles. Jack has 3/5 of the total marbles. Jim has 3/8 of the marbles that Jack has. Mark has the rest of them. How many marbles does Mark have?",
+            "type": "choice",
             "img": "",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "2",
@@ -1951,9 +2008,10 @@
         {
             "id": 120,
             "q": "The ratio of blue and red pens in a box is 5:7. If there are 60 pens in a box, how many of them are red?",
+            "type": "choice",
             "img": "",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "25",
@@ -1966,9 +2024,10 @@
         {
             "id": 121,
             "q": "The price of 350g of flour is 42p. Find the price of 1200g of flour.",
+            "type": "choice",
             "img": "",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "£1.32",
@@ -1981,9 +2040,10 @@
         {
             "id": 122,
             "q": "Ali had some sweets. He gave 2/7 of the sweets to his sister and he gave 1/5 of the sweets to his brother. What fraction of the sweets he had left?",
+            "type": "choice",
             "img": "",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "<sup>17</sup>&frasl;<sub>35</sub>",
@@ -1996,9 +2056,10 @@
         {
             "id": 123,
             "q": "25 tea bags weight 80g. How much does a box of 200 tea bags weight?",
+            "type": "choice",
             "img": "",
             "group": 5,
-            "attempted_count": 0,
+            "attempted_count": 2,
             "wrong_count": 0,
             "options": [
                 "600g",
@@ -2007,6 +2068,376 @@
                 "450g"
             ],
             "ans": "640g"
+        },
+        {
+            "id": 124,
+            "q": "Use the symbols (+ , ─ , x , ÷ ) for the following questions.<br/> 3 (?) 4 + 7 = 19",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "+",
+                "─",
+                "X",
+                "÷"
+            ],
+            "ans": "X"
+        },
+        {
+            "id": 125,
+            "q": "Use the symbols (+ , ─ , x , ÷ ) for the following questions.",
+            "type": "choice",
+            "img": "/images/q125.png",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "+",
+                "─",
+                "X",
+                "÷"
+            ],
+            "ans": "+"
+        },
+        {
+            "id": 126,
+            "q": "Use the symbols (+ , ─ , x , ÷ ) for the following questions.<br/><br/>48 (?) 6 x 7 = 50 + 6",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "+",
+                "─",
+                "X",
+                "÷"
+            ],
+            "ans": "÷"
+        },
+        {
+            "id": 127,
+            "q": "Use the symbols (+ , ─ , x , ÷ ) for the following questions. <br/>7 x 3 (?) 2 + 6 = 48",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "+",
+                "─",
+                "X",
+                "÷"
+            ],
+            "ans": "X"
+        },
+        {
+            "id": 128,
+            "q": "Use the symbols (+ , ─ , x , ÷ ) for the following questions. <br/>9 (?) 3 (?) 6 = 27",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "+, X",
+                "─, X",
+                "X, +",
+                "÷, X"
+            ],
+            "ans": "+, X"
+        },
+        {
+            "id": 129,
+            "q": "What is the difference in temperature between today and yesterday if today it is 28.4 degrees and yesterday it was 25.7 degrees?",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "2.7",
+                "3.3",
+                "2.5",
+                "2.8"
+            ],
+            "ans": "2.7"
+        },
+        {
+            "id": 130,
+            "q": "I buy a magazine costing 80p, a drink costing 40p, a cinema ticket for £4.40, and some popcorn for £2.80. How much do I spend altogether in pounds and pence? ",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "£7.40",
+                "£8.70",
+                "£8.40",
+                "£8.30"
+            ],
+            "ans": "£8.40"
+        },
+        {
+            "id": 131,
+            "q": "If five people in my class are measured and their heights are 1.29cm, 1.34cm, 1.45cm, 1.36cm, and 1.56cm, what is the average height amongst them?",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "1.45 cm",
+                "1.42 cm",
+                "1.40 cm",
+                "1.44 cm"
+            ],
+            "ans": "1.40 cm"
+        },
+        {
+            "id": 132,
+            "q": "If I walk 4.2km on the first day, 5.3km on the second, 5.7km on the third, and 4.8km on the final day, how many meters will I have walked in average?",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "5.2 km",
+                "5.1 m",
+                "5 m",
+                "4 m"
+            ],
+            "ans": "5 m"
+        },
+        {
+            "id": 133,
+            "q": "If a baby caterpillar grows 1.5mm each week, how long will it take to reach the adult size of 9mm (assuming for ease the baby caterpillar is 0mm at the start)?",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "4 weeks",
+                "6 weeks",
+                "5 weeks",
+                "8 weeks"
+            ],
+            "ans": "6 weeks"
+        },
+        {
+            "id": 134,
+            "q": "If the ratio of amount of salami to slices on a pizza is 4:16, how much salami will I need if I make a giant pizza with 64 slices?",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "16",
+                "8",
+                "12",
+                "10"
+            ],
+            "ans": "16"
+        },
+        {
+            "id": 135,
+            "q": "If the milkshake is made from 4 parts milk to 2 parts flavouring and the total size of the milkshake is 420ml, how much milk do I need?",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "240 ml",
+                "280 ml",
+                "200 ml",
+                "220 ml"
+            ],
+            "ans": "280 ml"
+        },
+        {
+            "id": 136,
+            "q": "I am making a scale model of a plane and it says the model is 1:1500. How big is the actual plane if my model is 15cm long?",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "0.01 cm",
+                "225 cm",
+                "225 m",
+                "0.01 m"
+            ],
+            "ans": "225 m"
+        },
+        {
+            "id": 137,
+            "q": "There are 48 people on a school trip and because it is a very dangerous trip, the staff to pupil ratio is 1:5. How many people on that trip are staff?",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "6",
+                "20",
+                "10",
+                "8"
+            ],
+            "ans": "8"
+        },
+        {
+            "id": 138,
+            "q": "If there are 63 people coming to a party and the ratio of vegetarians to non-vegetarians is 1 to 8, and 1 vegetarian will have 4 sandwiches, how many vegetarian sandwiches do I need to prepare?",
+            "type": "choice",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "28",
+                "20",
+                "16",
+                "56"
+            ],
+            "ans": "28"
+        },
+        {
+            "id": 139,
+            "q": "16 x 2 + 17 = 4 x 3 x 2 + (?) _____",
+            "type": "hide_options",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "25"
+            ],
+            "ans": "25"
+        },
+        {
+            "id": 140,
+            "q": "8 x 7 + (4 x 2) = 78 – (3 x 8) + _____",
+            "type": "hide_options",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "10"
+            ],
+            "ans": "10"
+        },
+        {
+            "id": 141,
+            "q": "17 + 14 – (3 x 2) = 3 x 3 x 4 – _____",
+            "type": "hide_options",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "11"
+            ],
+            "ans": "11"
+        },
+        {
+            "id": 142,
+            "q": "2(7 x 2) – 12 = 2(5 x 6) – _____",
+            "type": "hide_options",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "44"
+            ],
+            "ans": "44"
+        },
+        {
+            "id": 143,
+            "q": "Each number in the middle has been made using the numbers on each side in a set way. A maximum of two steps has been used to work out the number in the middle. Work out the values for the question marks in the questions below.14 (3) 11              28 (12) 16            72 (?) 42",
+            "type": "hide_options",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "30"
+            ],
+            "ans": "30"
+        },
+        {
+            "id": 144,
+            "q": "Each number in the middle has been made using the numbers on each side in a set way. A maximum of two steps has been used to work out the number in the middle. Work out the values for the question marks in the questions below.<br/>7 (63) 9                12 (132) 11           8   (?)   7      <br/>_____",
+            "type": "hide_options",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "56"
+            ],
+            "ans": "56"
+        },
+        {
+            "id": 145,
+            "q": "Each number in the middle has been made using the numbers on each side in a set way. A maximum of two steps has been used to work out the number in the middle. Work out the values for the question marks in the questions below.<br/>5 (12) 2                12 (39) 3              8 (?) 5",
+            "type": "hide_options",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "45"
+            ],
+            "ans": "45"
+        },
+        {
+            "id": 146,
+            "q": "Each number in the middle has been made using the numbers on each side in a set way. A maximum of two steps has been used to work out the number in the middle. Work out the values for the question marks in the questions below.<br/>11 (22) 4              28 (28) 2              17 (?) 10",
+            "type": "hide_options",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "85"
+            ],
+            "ans": "85"
+        },
+        {
+            "id": 147,
+            "q": "Each number in the middle has been made using the numbers on each side in a set way. A maximum of two steps has been used to work out the number in the middle. Work out the values for the question marks in the questions below.<br/>16 (5) 6                20 (2) 16              33 (?) 21<br/>_____",
+            "type": "hide_options",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "85"
+            ],
+            "ans": "85"
+        },
+        {
+            "id": 148,
+            "q": "Each number in the middle has been made using the numbers on each side in a set way. A maximum of two steps has been used to work out the number in the middle. Work out the values for the question marks in the questions below. <br/>11 (22) 4              28 (28) 2              17 (?) 10   <br/>_____",
+            "type": "hide_options",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "6"
+            ],
+            "ans": "6"
         }
     ]
 }

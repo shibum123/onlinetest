@@ -12,6 +12,7 @@ const Main = () => {
 
     const allQuestions = useSelector((state) => (state.main.filteredQuestions));
 
+    const groupName = useSelector((state) => state.main.groupNames)
     useEffect(() => {
         dispatch(setQuestions(questions))
     }, []);
@@ -42,9 +43,14 @@ const Main = () => {
     const getResult = (quest) => {
         const result = [];
         if (quest.selectedOptions) {
-            quest.selectedOptions.map((item, index) => {
-                if (item === true) result.push(quest.options[index]);
-            });
+            if (quest.type === 'hide_options') {
+                return quest.selectedOptions
+            } else {
+                quest.selectedOptions.map((item, index) => {
+                    if (item === true) result.push(quest.options[index]);
+                });
+            }
+
         }
         return result;
     }
@@ -56,6 +62,11 @@ const Main = () => {
     const onPrev = (event) => {
         event.preventDefault();
         if (currentPage > 0) setCurrentPage(--currentPage);
+    }
+
+    const onTextChange = (event) => {
+        if (!allQuestions[currentPage].selectedOptions) allQuestions[currentPage].selectedOptions = [];
+        allQuestions[currentPage].selectedOptions[0] = event.target.value;
     }
 
     const onChange = (event, index) => {
@@ -84,7 +95,7 @@ const Main = () => {
         questions.map(item => {
             item.attempted_count += 1;
             delete item.selectedOptions;
-            if(wrong_array.indexOf(item.id) > -1) {
+            if (wrong_array.indexOf(item.id) > -1) {
                 item.wrong_count += 1;
             }
         })
@@ -101,10 +112,11 @@ const Main = () => {
 
     return (
         <div className="container">
+            Category Name : {allQuestions && allQuestions[0] ? groupName['group' + allQuestions[0].group] : ''}
             {showAnswers && <h1>{getMessage(score)}</h1>}
             {showAnswers && <h1>{`Your score is: ${(score / allQuestions.length * 100).toFixed(2)} %`}</h1>}
             {!showAnswers && (allQuestions.length > 0) && <h3>{`Question ${currentPage + 1} out of ${allQuestions.length}`}</h3>}
-            {showAnswers && (allQuestions.length > 0) ? allQuestions.map((question, index) => <OptionView question={question} index={index} />) : <OptionView question={allQuestions[currentPage]} index={currentPage} onChange={onChange} />}
+            {showAnswers && (allQuestions.length > 0) ? allQuestions.map((question, index) => <OptionView question={question} index={index} />) : <OptionView question={allQuestions[currentPage]} index={currentPage} onChange={onChange} onTextChange={onTextChange} />}
             <div className="buttonContainer">
                 <button className={currentPage <= 0 ? 'btn btn-primary disabled' : 'btn btn-primary'} onClick={onPrev}>&lt;&lt;</button>&nbsp;&nbsp;&nbsp;
                 <button className={(currentPage < allQuestions.length - 1) ? 'btn btn-primary' : 'btn btn-primary disabled'} onClick={onNext}>&gt;&gt;</button>&nbsp;&nbsp;&nbsp;
