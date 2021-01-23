@@ -32,6 +32,8 @@ export default (state = initialState, action) => {
                 filteredQuestions = questions.filter((q) => q.group === 3);
             } else if(state.selectedType === 'filter_group4') {
                 filteredQuestions = questions.filter((q) => q.group === 4);
+            } else if(state.selectedType === 'filter_group5') {
+                filteredQuestions = questions.filter((q) => q.group === 5);
             } else if(state.selectedType === 'most_wrong') {
                 filteredQuestions = questions.filter((q) => q.wrong_count > 0);
             } else {

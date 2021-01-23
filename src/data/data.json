@@ -1039,7 +1039,7 @@
         },
         {
             "id": 61,
-            "q": "What is the value of the digit 6 in each number below?   Example: 27.68 – 6 tenths \n37.256 → 6 __________",
+            "q": "What is the value of the digit 6 in each number below?   Example: 27.68 – 6 tenths <br/>37.256 → 6 __________",
             "type": "choice",
             "group": 3,
             "attempted_count": 2,
@@ -1175,13 +1175,13 @@
             "attempted_count": 2,
             "wrong_count": 0,
             "options": [
-                "4 13/14",
-                "3 1/14",
-                "3 13/14",
-                "2 3/7"
+                "4 <sup>13</sup>&frasl;<sub>14</sub>",
+                "3 <sup>1</sup>&frasl;<sub>14</sub>",
+                "3 <sup>13</sup>&frasl;<sub>14</sub>",
+                "2 <sup>3</sup>&frasl;<sub>7</sub>"
             ],
             "ans": [
-                "3 13/14"
+                "3 <sup>13</sup>&frasl;<sub>14</sub>"
             ]
         },
         {
@@ -1209,13 +1209,13 @@
             "attempted_count": 2,
             "wrong_count": 0,
             "options": [
-                "22/17",
-                "19/17",
-                "23/16",
-                "21/15"
+                "<sup>22</sup>&frasl;<sub>17</sub>",
+                "<sup>19</sup>&frasl;<sub>17</sub>",
+                "<sup>23</sup>&frasl;<sub>16</sub>",
+                "<sup>21</sup>&frasl;<sub>15</sub>"
             ],
             "ans": [
-                "22/17"
+                "<sup>22</sup>&frasl;<sub>17</sub>"
             ]
         },
         {
@@ -1575,7 +1575,7 @@
         },
         {
             "id": 95,
-            "q": "Find the mean and range for the following marks scored by a student.\n50, 70, 10, 90, 30, 50",
+            "q": "Find the mean and range for the following marks scored by a student.<br/>50, 70, 10, 90, 30, 50",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1635,7 +1635,7 @@
         },
         {
             "id": 99,
-            "q": "Verbal Reasoning\\n\nIn the questions given below, the two pairs of letters are related to the other two pairs in a way. Apply the same to the letters given and find their related pairs of letters.\\n\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z\\n\nAZ is to ZA as GH is to",
+            "q": "Verbal Reasoning<br/>In the questions given below, the two pairs of letters are related to the other two pairs in a way. Apply the same to the letters given and find their related pairs of letters.<br/>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>AZ is to ZA as GH is to",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1650,7 +1650,7 @@
         },
         {
             "id": 100,
-            "q": "Verbal Reasoning\\n\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z\\n\nAC is to EH as XZ is to",
+            "q": "Verbal Reasoning<br/>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>AC is to EH as XZ is to",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1665,7 +1665,7 @@
         },
         {
             "id": 101,
-            "q": "Verbal Reasoning\\n\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z\\n\nJM is to OH as KN is to",
+            "q": "Verbal Reasoning<br/>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>JM is to OH as KN is to",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1680,7 +1680,7 @@
         },
         {
             "id": 102,
-            "q": "Verbal Reasoning\\n\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z\\n\nEG is to ZJ as PR is to.",
+            "q": "Verbal Reasoning<br/>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>EG is to ZJ as PR is to.",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1695,7 +1695,7 @@
         },
         {
             "id": 103,
-            "q": "Verbal Reasoning\\n\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z\\n\nPP is to SM as HJ is to.",
+            "q": "Verbal Reasoning<br/>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z<br/>PP is to SM as HJ is to.",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1710,7 +1710,7 @@
         },
         {
             "id": 104,
-            "q": "Four words and three codes are given but not in any order.\\n\nAREA   -      RAGE   -      GEAR   -      RARE\\n\n           5456    -      7645      -     5476         \\n\nFind the code for the word AREA -",
+            "q": "Four words and three codes are given but not in any order.<br/>AREA   -      RAGE   -      GEAR   -      RARE<br/>           5456    -      7645      -     5476         <br/>Find the code for the word AREA -",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1725,7 +1725,7 @@
         },
         {
             "id": 105,
-            "q": "Four words and three codes are given but not in any order. \\n\nAREA    -     RAGE    -     GEAR     -    RARE\\n\n          5456    -      7645   -        5476         \\n\nFind the code for the word RAGE -",
+            "q": "Four words and three codes are given but not in any order. <br/>AREA    -     RAGE    -     GEAR     -    RARE<br/>          5456    -      7645   -        5476         <br/>Find the code for the word RAGE -",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1740,7 +1740,7 @@
         },
         {
             "id": 106,
-            "q": "Four words and three codes are given but not in any order. \\n\nAREA    -     RAGE    -     GEAR    -     RARE\\n\n         5456          7645           5476         \\n\nFind the code for the word GEAR -",
+            "q": "Four words and three codes are given but not in any order. <br/>AREA    -     RAGE    -     GEAR    -     RARE<br/>         5456          7645           5476         <br/>Find the code for the word GEAR -",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1755,7 +1755,7 @@
         },
         {
             "id": 107,
-            "q": "Four words and three codes are given but not in any order. \\n\nAREA    -     RAGE    -     GEAR    -     RARE\\n\n         5456          7645           5476         \\n\nFind the code for the word RARE -",
+            "q": "Four words and three codes are given but not in any order. <br/>AREA    -     RAGE    -     GEAR    -     RARE<br/>         5456          7645           5476         <br/>Find the code for the word RARE -",
             "img": "",
             "group": 4,
             "attempted_count": 2,
@@ -1767,6 +1767,246 @@
                 "4564"
             ],
             "ans": "5456"
+        },
+        {
+            "id": 108,
+            "q": "",
+            "img": "/images/q108.png",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "9 <sup>17</sup>&frasl;<sub>20</sub>",
+                "10 <sup>19</sup>&frasl;<sub>20</sub>",
+                "10 <sup>3</sup>&frasl;<sub>10</sub>",
+                "9 <sup>19</sup>&frasl;<sub>20</sub>"
+            ],
+            "ans": "10 <sup>3</sup>&frasl;<sub>10</sub>"
+        },
+        {
+            "id": 109,
+            "q": "",
+            "img": "/images/q109.png",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "4 <sup>13</sup>&frasl;<sub>15</sub>",
+                "3 <sup>13</sup>&frasl;<sub>15</sub>",
+                "5 <sup>12</sup>&frasl;<sub>15</sub>",
+                "3 <sup>12</sup>&frasl;<sub>15</sub>"
+            ],
+            "ans": "3 <sup>13</sup>&frasl;<sub>15</sub>"
+        },
+        {
+            "id": 110,
+            "q": "",
+            "img": "/images/q110.png",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "15",
+                "12",
+                "20",
+                "25"
+            ],
+            "ans": "15"
+        },
+        {
+            "id": 111,
+            "q": "",
+            "img": "/images/q111.png",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "<sup>11</sup>&frasl;<sub>8</sub>",
+                "<sup>6</sup>&frasl;<sub>5</sub>",
+                "<sup>15</sup>&frasl;<sub>3</sub>",
+                "<sup>9</sup>&frasl;<sub>4</sub>"
+            ],
+            "ans": "<sup>6</sup>&frasl;<sub>5</sub>"
+        },
+        {
+            "id": 112,
+            "q": "<sup>5</sup>&frasl;<sub>9</sub> of the books I have are fiction and the rest are non-fiction. If I have 20 non-fiction books, how many of the books I own are fiction?",
+            "img": "",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "15",
+                "22",
+                "25",
+                "24"
+            ],
+            "ans": "25"
+        },
+        {
+            "id": 113,
+            "q": "How many sixths are there in 4 <sup>1</sup>&frasl;<sub>6</sub>?",
+            "img": "",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "20",
+                "25",
+                "24",
+                "22"
+            ],
+            "ans": "25"
+        },
+        {
+            "id": 114,
+            "q": "How many quarters are there in 8 <sup>1</sup>&frasl;<sub>2</sub>?",
+            "img": "",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "34",
+                "32",
+                "30",
+                "28"
+            ],
+            "ans": "34"
+        },
+        {
+            "id": 115,
+            "q": "Mr James, the PE teacher, asked his students which game is their favourite game. 180 students replied to him. He recorded the preference in a pie chart. The pie chart he made is given below. <br/>How many  students preferred net ball as their favourite game?",
+            "img": "/images/q115.png",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "44",
+                "28",
+                "22",
+                "32"
+            ],
+            "ans": "22"
+        },
+        {
+            "id": 116,
+            "q": "What percentage of the students preferred hockey as their favourite game?",
+            "img": "/images/q116.png",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "20%",
+                "25%",
+                "30%",
+                "45%"
+            ],
+            "ans": "25%"
+        },
+        {
+            "id": 117,
+            "q": "How many less students preferred tennis over hockey?",
+            "img": "/images/q117.png",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "15",
+                "13",
+                "18",
+                "12"
+            ],
+            "ans": "15"
+        },
+        {
+            "id": 118,
+            "q": "5x – 2 = 28. Find the value of x.",
+            "img": "",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "5",
+                "6",
+                "4",
+                "8"
+            ],
+            "ans": "6"
+        },
+        {
+            "id": 119,
+            "q": "Jack, Jim, and Mark are sharing 80 marbles. Jack has 3/5 of the total marbles. Jim has 3/8 of the marbles that Jack has. Mark has the rest of them. How many marbles does Mark have?",
+            "img": "",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "2",
+                "14",
+                "15",
+                "10"
+            ],
+            "ans": "14"
+        },
+        {
+            "id": 120,
+            "q": "The ratio of blue and red pens in a box is 5:7. If there are 60 pens in a box, how many of them are red?",
+            "img": "",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "25",
+                "30",
+                "35",
+                "32"
+            ],
+            "ans": "35"
+        },
+        {
+            "id": 121,
+            "q": "The price of 350g of flour is 42p. Find the price of 1200g of flour.",
+            "img": "",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "£1.32",
+                "£1.46",
+                "£1.36",
+                "£1.44"
+            ],
+            "ans": "£1.44"
+        },
+        {
+            "id": 122,
+            "q": "Ali had some sweets. He gave 2/7 of the sweets to his sister and he gave 1/5 of the sweets to his brother. What fraction of the sweets he had left?",
+            "img": "",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "<sup>17</sup>&frasl;<sub>35</sub>",
+                "<sup>18</sup>&frasl;<sub>35</sub>",
+                "<sup>9</sup>&frasl;<sub>12</sub>",
+                "<sup>14</sup>&frasl;<sub>32</sub>"
+            ],
+            "ans": "<sup>18</sup>&frasl;<sub>35</sub>"
+        },
+        {
+            "id": 123,
+            "q": "25 tea bags weight 80g. How much does a box of 200 tea bags weight?",
+            "img": "",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "600g",
+                "640g",
+                "500g",
+                "450g"
+            ],
+            "ans": "640g"
         }
     ]
 }

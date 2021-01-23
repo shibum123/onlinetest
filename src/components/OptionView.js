@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import img from '../images/img1.png';
 import './OptionView.scss';
+import parse from 'html-react-parser';
 
 export const OptionView = (props) => {
 
@@ -42,7 +43,7 @@ export const OptionView = (props) => {
                     {!selected && !showAnswers && <input id={`Q${question.id}OPT${index}`} type="checkbox" value={option} onChange={(event) => props.onChange(event, index)} />}
                     {selected && showAnswers && <input id={`Q${question.id}OPT${index}`} type="checkbox" checked disabled value={option} />}
                     {!selected && showAnswers && <input id={`Q${question.id}OPT${index}`} type="checkbox" disabled value={option} />}
-                    &nbsp;&nbsp;&nbsp;{option}</label>
+                    &nbsp;&nbsp;&nbsp;{parse(option)}</label>
 
             </div>
         })
@@ -51,7 +52,7 @@ export const OptionView = (props) => {
     const getCorrect = (question) => question.ans.toString() === getResult(question).toString()
 
     return question ? <div className={showAnswers && !getCorrect(question) ? 'optionview__wrong' : 'optionview__correct'}>
-        <div className="question" key={question.id} >{`Q${index + 1}: ${question.q}`}{showAnswers}</div>
+        <div className="question" key={question.id} dangerouslySetInnerHTML={{__html: `Q${index + 1}: ${question.q}`}} />
         {
             question.img && <img src={question.img} />
         }

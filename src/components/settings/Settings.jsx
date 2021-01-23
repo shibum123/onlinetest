@@ -44,6 +44,9 @@ const Settings = () => {
         { selected !== 'filter_group4'  && <input type="radio" name="radio" value="filter_group4" onChange={onChange} /> }
         { selected === 'filter_group4' && <input type="radio" name="radio" value="filter_group4" onChange={onChange} checked/> }&nbsp;&nbsp;&nbsp;
         <label>Group 4</label><br />
+        { selected !== 'filter_group5'  && <input type="radio" name="radio" value="filter_group5" onChange={onChange} /> }
+        { selected === 'filter_group5' && <input type="radio" name="radio" value="filter_group5" onChange={onChange} checked/> }&nbsp;&nbsp;&nbsp;
+        <label>Group 5</label><br />
         { selected !== 'most_wrong'  && <input type="radio" name="radio" value="most_wrong" onChange={onChange} /> }
         { selected === 'most_wrong' && <input type="radio" name="radio" value="most_wrong" onChange={onChange} checked/> }&nbsp;&nbsp;&nbsp;
         <label>Most Wrong</label><br /><br />
