@@ -2075,7 +2075,7 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "+",
@@ -2091,7 +2091,7 @@
             "type": "choice",
             "img": "/images/q125.png",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "+",
@@ -2107,7 +2107,7 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "+",
@@ -2123,8 +2123,8 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
-            "wrong_count": 0,
+            "attempted_count": 1,
+            "wrong_count": 1,
             "options": [
                 "+",
                 "─",
@@ -2139,8 +2139,8 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
-            "wrong_count": 0,
+            "attempted_count": 1,
+            "wrong_count": 1,
             "options": [
                 "+, X",
                 "─, X",
@@ -2155,7 +2155,7 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "2.7",
@@ -2171,8 +2171,8 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
-            "wrong_count": 0,
+            "attempted_count": 1,
+            "wrong_count": 1,
             "options": [
                 "£7.40",
                 "£8.70",
@@ -2187,8 +2187,8 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
-            "wrong_count": 0,
+            "attempted_count": 1,
+            "wrong_count": 1,
             "options": [
                 "1.45 cm",
                 "1.42 cm",
@@ -2203,7 +2203,7 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "5.2 km",
@@ -2219,7 +2219,7 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "4 weeks",
@@ -2235,7 +2235,7 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "16",
@@ -2251,7 +2251,7 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "240 ml",
@@ -2267,8 +2267,8 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
-            "wrong_count": 0,
+            "attempted_count": 1,
+            "wrong_count": 1,
             "options": [
                 "0.01 cm",
                 "225 cm",
@@ -2283,7 +2283,7 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "6",
@@ -2299,7 +2299,7 @@
             "type": "choice",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "28",
@@ -2315,8 +2315,8 @@
             "type": "hide_options",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
-            "wrong_count": 0,
+            "attempted_count": 1,
+            "wrong_count": 1,
             "options": [
                 "25"
             ],
@@ -2324,11 +2324,11 @@
         },
         {
             "id": 140,
-            "q": "8 x 7 + (4 x 2) = 78 – (3 x 8) + _____",
+            "q": "27 + 15 - 8 = 7 X 3 + 3 + _____",
             "type": "hide_options",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "10"
@@ -2337,12 +2337,25 @@
         },
         {
             "id": 141,
+            "q": "8 x 7 + (4 x 2) = 78 – (3 x 8) + _____",
+            "type": "hide_options",
+            "img": "",
+            "group": 6,
+            "attempted_count": 1,
+            "wrong_count": 0,
+            "options": [
+                "10"
+            ],
+            "ans": "10"
+        },
+        {
+            "id": 142,
             "q": "17 + 14 – (3 x 2) = 3 x 3 x 4 – _____",
             "type": "hide_options",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
-            "wrong_count": 0,
+            "attempted_count": 1,
+            "wrong_count": 1,
             "options": [
                 "11"
             ],
@@ -2354,8 +2367,8 @@
             "type": "hide_options",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
-            "wrong_count": 0,
+            "attempted_count": 1,
+            "wrong_count": 1,
             "options": [
                 "44"
             ],
@@ -2367,7 +2380,7 @@
             "type": "hide_options",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "30"
@@ -2375,12 +2388,12 @@
             "ans": "30"
         },
         {
-            "id": 144,
+            "id": 143,
             "q": "Each number in the middle has been made using the numbers on each side in a set way. A maximum of two steps has been used to work out the number in the middle. Work out the values for the question marks in the questions below.<br/>7 (63) 9                12 (132) 11           8   (?)   7      <br/>_____",
             "type": "hide_options",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "56"
@@ -2388,25 +2401,25 @@
             "ans": "56"
         },
         {
-            "id": 145,
+            "id": 144,
             "q": "Each number in the middle has been made using the numbers on each side in a set way. A maximum of two steps has been used to work out the number in the middle. Work out the values for the question marks in the questions below.<br/>5 (12) 2                12 (39) 3              8 (?) 5",
             "type": "hide_options",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
-            "wrong_count": 0,
+            "attempted_count": 1,
+            "wrong_count": 1,
             "options": [
                 "45"
             ],
             "ans": "45"
         },
         {
-            "id": 146,
+            "id": 145,
             "q": "Each number in the middle has been made using the numbers on each side in a set way. A maximum of two steps has been used to work out the number in the middle. Work out the values for the question marks in the questions below.<br/>11 (22) 4              28 (28) 2              17 (?) 10",
             "type": "hide_options",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "85"
@@ -2414,25 +2427,12 @@
             "ans": "85"
         },
         {
-            "id": 147,
+            "id": 146,
             "q": "Each number in the middle has been made using the numbers on each side in a set way. A maximum of two steps has been used to work out the number in the middle. Work out the values for the question marks in the questions below.<br/>16 (5) 6                20 (2) 16              33 (?) 21<br/>_____",
             "type": "hide_options",
             "img": "",
             "group": 6,
-            "attempted_count": 0,
-            "wrong_count": 0,
-            "options": [
-                "85"
-            ],
-            "ans": "85"
-        },
-        {
-            "id": 148,
-            "q": "Each number in the middle has been made using the numbers on each side in a set way. A maximum of two steps has been used to work out the number in the middle. Work out the values for the question marks in the questions below. <br/>11 (22) 4              28 (28) 2              17 (?) 10   <br/>_____",
-            "type": "hide_options",
-            "img": "",
-            "group": 6,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0,
             "options": [
                 "6"
