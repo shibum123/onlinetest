@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import React from 'react';
 import './App.css';
 import Main from './components/Main';
+import SpellingsView from './components/SpellingsView';
 import Settings from './components/settings/Settings';
 import QuestionForm from './components/questionform/QuestionForm';
 
@@ -26,6 +27,9 @@ const App = () => {
           </Route>
           <Route exact path="/addquestions">
             <QuestionForm />
+          </Route>
+          <Route exact path="/spellings">
+            <SpellingsView />
           </Route>
         </Switch>
       </Router>

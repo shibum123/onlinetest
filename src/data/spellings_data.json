@@ -1,0 +1,182 @@
+{
+    "questions": [
+        {
+            "id": 1,
+            "q": "oppose",
+            "type": "spelling_test",
+            "meaning": "disagree with and attempt to prevent, especially by argument. a majority of the electorate opposed EC membership actively resist (a person or system). a workers' movement opposed the regime",
+            "group": 1,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 2,
+            "q": "contest",
+            "type": "spelling_test",
+            "input_count": 2,
+            "group": 1,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 3,
+            "q": "conceal",
+            "type": "spelling_test",
+            "group": 1,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 4,
+            "q": "reveal",
+            "type": "spelling_test",
+            "group": 1,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 5,
+            "q": "commence",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 1,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 6,
+            "q": "abandon",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 1,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 7,
+            "q": "abode",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 1,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 8,
+            "q": "adhere",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 1,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 9,
+            "q": "aid",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 1,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 10,
+            "q": "ally",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 1,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 11,
+            "q": "merchant",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 22,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 12,
+            "q": "constant",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 22,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 13,
+            "q": "empire",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 22,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 14,
+            "q": "limit",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 22,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 15,
+            "q": "public",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 22,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 16,
+            "q": "advance",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 22,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 17,
+            "q": "hasty",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 22,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 18,
+            "q": "fleet",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 22,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 19,
+            "q": "liberty",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 22,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 20,
+            "q": "banish",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 22,
+            "attempted_count": 0,
+            "wrong_count": 0
+        }
+    ]
+}

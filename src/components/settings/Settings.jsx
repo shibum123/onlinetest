@@ -21,6 +21,12 @@ const Settings = () => {
         });
     }
 
+    const onSpellingsClick = () => {
+        history.push({
+            pathname: '/spellings'
+        });
+    }
+
     const onAddQuestions = () => {
         history.push({
             pathname: '/addquestions'
@@ -28,7 +34,8 @@ const Settings = () => {
     }
 
     return <div className="container">
-        <button className='btn btn-primary' onClick={onAddQuestions}>Add Questions</button> <br/><br/><br/>
+        <button className='btn btn-primary' onClick={onAddQuestions}>Add Questions</button> &nbsp;&nbsp;&nbsp;
+        <button className='btn btn-primary' onClick={onSpellingsClick}>Spellings</button><br/><br/><br/>
         { selected !== 'all_questions'  && <input type="radio" name="radio" value="all_questions" onChange={onChange} /> }
         { selected === 'all_questions' && <input type="radio" name="radio" value="all_questions" onChange={onChange} checked/> }&nbsp;&nbsp;&nbsp;
         <label>All Questions</label><br />

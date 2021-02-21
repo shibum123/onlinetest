@@ -1,9 +1,11 @@
 export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const SET_SHOW_ANSWERS = 'SET_SHOW_ANSWERS';
 export const SET_SELECTED_TYPE = 'SET_SELECTED_TYPE';
+export const SET_SPELLINGS = 'SET_SPELLINGS';
 
 const initialState = {
     questions: [],
+    spellings: [],
     groupNames: {'group1': '', 'group2': '', 'group3': '', 'group4': '', 'group5': '20-Yr 5 Worksheet KAS-3B', 'group6': '20 - Yr 5 SHW - 09 B'},
     showAnswers: false,
     filteredQuestions: [],
@@ -22,6 +24,12 @@ const shuffle = (array) => {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case SET_SPELLINGS:
+            const { spellings } = action;
+            return {
+                ...state,
+                spellings
+            }
         case SET_QUESTIONS:
             const { questions } = action;
             let filteredQuestions;
@@ -83,4 +91,11 @@ export const setSelectedType = (
 ) => ({
     type: SET_SELECTED_TYPE,
     selectedType
+});
+
+export const setSpellings = (
+    spellings
+) => ({
+    type: SET_SPELLINGS,
+    spellings
 });

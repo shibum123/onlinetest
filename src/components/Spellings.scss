@@ -1,0 +1,39 @@
+.spellings {
+    margin: 20px;
+    &__title {
+        color: royalblue;
+    }
+    &__question-div {
+        margin: 20px;
+        font-weight: 800;
+        font-size: 24px;
+    }
+    &__container {
+        cursor: pointer;
+    }
+    &__speech {
+        display: none;
+        cursor: pointer;
+    }
+
+    &__definitions0 {
+        background-color: yellowgreen;
+    }
+
+    &__definitions1 {
+        background-color: royalblue;
+    }
+
+    &__showmeaning-button {
+        font-size: 16px;
+        color: black;
+        background-color: white;
+        cursor: pointer;
+    }
+}
+
+input {
+    font-size: 16px;
+    font-weight: normal;
+    height: 30px;
+}
