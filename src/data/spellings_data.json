@@ -177,6 +177,265 @@
             "group": 22,
             "attempted_count": 0,
             "wrong_count": 0
+        },
+        {
+            "id": 21,
+            "q": "estimate",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 23,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 22,
+            "q": "promote",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 23,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 23,
+            "q": "entire",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 23,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 24,
+            "q": "discontent",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 23,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 25,
+            "q": "evident",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 23,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 26,
+            "q": "frequent",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 23,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 27,
+            "q": "expel",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 23,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 28,
+            "q": "satin",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 23,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 29,
+            "q": "sober",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 23,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 30,
+            "q": "exclaim",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 23,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 31,
+            "q": "comprehend",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 2,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 32,
+            "q": "affectionate",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 2,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 33,
+            "q": "accuse",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 2,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 34,
+            "q": "hygienic",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 2,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 35,
+            "q": "peculiar",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 2,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 36,
+            "q": "assemble",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 2,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 37,
+            "q": "there",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 2,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 38,
+            "q": "broad",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 2,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 39,
+            "q": "although",
+            "counts": "2",
+            "type": "spelling_test",
+            "group": 2,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 40,
+            "q": "caution",
+            "type": "spelling_test",
+            "group": 2,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 41,
+            "q": "coarse",
+            "type": "spelling_test",
+            "group": 3,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 42,
+            "q": "concentrated",
+            "type": "spelling_test",
+            "group": 3,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 43,
+            "q": "cunning",
+            "type": "spelling_test",
+            "group": 3,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 44,
+            "q": "artful",
+            "type": "spelling_test",
+            "group": 3,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 45,
+            "q": "contentious",
+            "type": "spelling_test",
+            "group": 3,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 46,
+            "q": "their",
+            "type": "spelling_test",
+            "group": 3,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 47,
+            "q": "custom",
+            "type": "spelling_test",
+            "group": 3,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 48,
+            "q": "deceive",
+            "type": "spelling_test",
+            "group": 3,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 49,
+            "q": "calamity",
+            "type": "spelling_test",
+            "group": 3,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 50,
+            "q": "twilight",
+            "type": "spelling_test",
+            "group": 3,
+            "attempted_count": 0,
+            "wrong_count": 0
         }
     ]
 }
