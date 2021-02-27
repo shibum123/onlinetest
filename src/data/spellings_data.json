@@ -436,6 +436,262 @@
             "group": 3,
             "attempted_count": 0,
             "wrong_count": 0
+        },
+        {
+            "id": 51,
+            "q": "elude",
+            "type": "spelling_test",
+            "group": 4,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 52,
+            "q": "foe",
+            "type": "spelling_test",
+            "group": 4,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 53,
+            "q": "extended",
+            "type": "spelling_test",
+            "group": 4,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 54,
+            "q": "proportion",
+            "type": "spelling_test",
+            "group": 4,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 55,
+            "q": "interior",
+            "type": "spelling_test",
+            "group": 4,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 56,
+            "q": "debate",
+            "type": "spelling_test",
+            "group": 4,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 57,
+            "q": "declare",
+            "type": "spelling_test",
+            "group": 4,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 58,
+            "q": "decline",
+            "type": "spelling_test",
+            "group": 4,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 59,
+            "q": "refuse",
+            "type": "spelling_test",
+            "group": 4,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 60,
+            "q": "determine",
+            "type": "spelling_test",
+            "group": 4,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 61,
+            "q": "accustom",
+            "type": "spelling_test",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 62,
+            "q": "conferred",
+            "type": "spelling_test",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 63,
+            "q": "fragment",
+            "type": "spelling_test",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 64,
+            "q": "exterior",
+            "type": "spelling_test",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 65,
+            "q": "noted",
+            "type": "spelling_test",
+            "group": 4,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 66,
+            "q": "fatigue",
+            "type": "spelling_test",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 67,
+            "q": "feeble",
+            "type": "spelling_test",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 68,
+            "q": "grave",
+            "type": "spelling_test",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 69,
+            "q": "separate",
+            "type": "spelling_test",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 70,
+            "q": "hoax",
+            "type": "spelling_test",
+            "group": 5,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 71,
+            "q": "imitate",
+            "type": "spelling_test",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 72,
+            "q": "insolent",
+            "type": "spelling_test",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 73,
+            "q": "intention",
+            "type": "spelling_test",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 74,
+            "q": "unite",
+            "type": "spelling_test",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 75,
+            "q": "writing",
+            "type": "spelling_test",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 76,
+            "q": "lean",
+            "type": "spelling_test",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 77,
+            "q": "lofty",
+            "type": "spelling_test",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 78,
+            "q": "loyal",
+            "type": "spelling_test",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 79,
+            "q": "optimist",
+            "type": "spelling_test",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 80,
+            "q": "sane",
+            "type": "spelling_test",
+            "group": 7,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 81,
+            "q": "malady",
+            "type": "spelling_test",
+            "group": 7,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 82,
+            "q": "margin",
+            "type": "spelling_test",
+            "group": 7,
+            "attempted_count": 0,
+            "wrong_count": 0
         }
     ]
 }
