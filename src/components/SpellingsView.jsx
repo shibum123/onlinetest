@@ -19,7 +19,7 @@ const Main = () => {
     let week = 22;
 
     useEffect(() => {
-        dispatch(setSpellings(questions.filter((q) => q.group === week)))
+        dispatch(setSpellings(questions.filter((q) => q.wrong_count === 1)))
     }, []);
 
     const doPlay = (event) => {

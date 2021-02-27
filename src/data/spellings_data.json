@@ -24,7 +24,7 @@
             "type": "spelling_test",
             "group": 1,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 4,
@@ -104,7 +104,7 @@
             "type": "spelling_test",
             "group": 22,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 13,
@@ -238,7 +238,7 @@
             "counts": "2",
             "type": "spelling_test",
             "group": 23,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0
         },
         {
@@ -248,7 +248,7 @@
             "type": "spelling_test",
             "group": 23,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 29,
@@ -302,7 +302,7 @@
             "type": "spelling_test",
             "group": 2,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 35,
@@ -363,7 +363,7 @@
             "type": "spelling_test",
             "group": 3,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 42,
@@ -402,7 +402,7 @@
             "q": "their",
             "type": "spelling_test",
             "group": 3,
-            "attempted_count": 0,
+            "attempted_count": 1,
             "wrong_count": 0
         },
         {
@@ -419,7 +419,7 @@
             "type": "spelling_test",
             "group": 3,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 49,
@@ -731,7 +731,7 @@
             "type": "spelling_test",
             "group": 7,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 88,
@@ -787,7 +787,7 @@
             "type": "spelling_test",
             "group": 8,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 95,
@@ -883,7 +883,7 @@
             "type": "spelling_test",
             "group": 9,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 107,
@@ -995,7 +995,7 @@
             "type": "spelling_test",
             "group": 10,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 121,
@@ -1003,7 +1003,7 @@
             "type": "spelling_test",
             "group": 11,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 122,
@@ -1027,7 +1027,7 @@
             "type": "spelling_test",
             "group": 11,
             "attempted_count": 0,
-            "wrong_count": 0
+            "wrong_count": 1
         },
         {
             "id": 125,
