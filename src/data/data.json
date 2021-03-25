@@ -2438,6 +2438,650 @@
                 "6"
             ],
             "ans": "6"
+        },
+        {
+            "id": 149,
+            "q": "How many edges does a SQUARE-BASED-PYRAMID have?",
+            "img": "",
+            "group": 6,
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "14",
+                "8",
+                "15",
+                "13"
+            ],
+            "ans": "8"
+        },
+        {
+            "id": 150,
+            "q": "How many vertices does a SQUARE-BASED-PYRAMID have?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "8",
+                "5",
+                "4",
+                "1"
+            ],
+            "ans": "5"
+        },
+        {
+            "id": 151,
+            "q": "How many faces does a SQUARE-BASED-PYRAMID have?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "5",
+                "8",
+                "4",
+                "1"
+            ],
+            "ans": "5"
+        },
+        {
+            "id": 152,
+            "q": "If 20x - 295 = 5, then what is the value of x?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "22",
+                "12",
+                "15",
+                "10"
+            ],
+            "ans": "15"
+        },
+        {
+            "id": 153,
+            "q": "If 295 - 10x = 5, then what is the value of x?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "30",
+                "29",
+                "28",
+                "32"
+            ],
+            "ans": "29"
+        },
+        {
+            "id": 154,
+            "q": "How many ninths are there in 162?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "25",
+                "10",
+                "15",
+                "18"
+            ],
+            "ans": "18"
+        },
+        {
+            "id": 155,
+            "q": "Calculate the range of the following:\n79, -44, 37, -46, -2, -72, -5, -41, 38",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "79",
+                "151",
+                "37",
+                "38"
+            ],
+            "ans": "151"
+        },
+        {
+            "id": 156,
+            "q": "Calculate the range of the following:\n79, 44, 37, 46, -2, 72, -5, 41, 38",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "84",
+                "79",
+                "70",
+                "60"
+            ],
+            "ans": "84"
+        },
+        {
+            "id": 157,
+            "q": "How many days are there in total in April and August?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "62",
+                "61",
+                "60",
+                "63"
+            ],
+            "ans": "61"
+        },
+        {
+            "id": 158,
+            "q": "Which of the following is the smallest number divisible by 14 and 7?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "98",
+                "91",
+                "14",
+                "7"
+            ],
+            "ans": "14"
+        },
+        {
+            "id": 159,
+            "q": "Which of the following is the smallest number divisible by 18 and 7?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "121",
+                "126",
+                "18",
+                "231"
+            ],
+            "ans": "126"
+        },
+        {
+            "id": 160,
+            "q": "A confectioner has 900 fudge, 900 lemon and 900 cranberry flavoured sweets. He wishes to make packets\ncontaining 10 fudge, 30 lemon and 5 cranberry sweets. What is the maximum number of packets he can make?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "33",
+                "32",
+                "30",
+                "28"
+            ],
+            "ans": "30"
+        },
+        {
+            "id": 161,
+            "q": "Which of the numbers below is divisible by either 11 or 4?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "6637",
+                "1602",
+                "4638",
+                "4268"
+            ],
+            "ans": "4268"
+        },
+        {
+            "id": 162,
+            "q": "Alexandra takes 14 minutes to jog around the race course one time, and 16 minutes to jog around a second\ntime. What is the average speed in miles per hour for the whole jog if the course is 3 miles long?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "11",
+                "2",
+                "12",
+                "8"
+            ],
+            "ans": "12"
+        },
+        {
+            "id": 163,
+            "q": "By how many centimetres is 149 cm and 64 cm more than Two metres?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "12",
+                "13",
+                "10",
+                "8"
+            ],
+            "ans": "13"
+        },
+        {
+            "id": 164,
+            "q": "What is 10:03 on the 12 hour clock?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "10.03pm",
+                "10.03am",
+                "21.03pm",
+                "21.03am"
+            ],
+            "ans": "10.03am"
+        },
+        {
+            "id": 165,
+            "q": "What is 45% of 4000?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "1500",
+                "150",
+                "1800",
+                "180"
+            ],
+            "ans": "1800"
+        },
+        {
+            "id": 166,
+            "q": "What is 30% of 4000?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "1500",
+                "150",
+                "1200",
+                "120"
+            ],
+            "ans": "1200"
+        },
+        {
+            "id": 167,
+            "q": "How many degrees does the hour hand of a clock move through between 1:00 AM and 4:30 AM of the same day?",
+            "img": "/images/q-test-17.png",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "140",
+                "135",
+                "105",
+                "310"
+            ],
+            "ans": "105"
+        },
+        {
+            "id": 168,
+            "q": "Multiply Fifty Two with Five Hundred and Eighty Three",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "30316",
+                "30271",
+                "30266",
+                "30364"
+            ],
+            "ans": "30316"
+        },
+        {
+            "id": 169,
+            "q": "What is the Place Value of Nine in 6875944 ?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "Units",
+                "Hundreds",
+                "Ten-Thousands",
+                "Thousands"
+            ],
+            "ans": "Hundreds"
+        },
+        {
+            "id": 170,
+            "q": "Abigail was born in 1967. Jessica is 15 years older than Abigail. How old was Jessica in 1998?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "41",
+                "36",
+                "46",
+                "26"
+            ],
+            "ans": "46"
+        },
+        {
+            "id": 171,
+            "q": "What is the number midway between -40 and 24 on the number line?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "-13",
+                "-8",
+                "-9",
+                "-18"
+            ],
+            "ans": "-8"
+        },
+        {
+            "id": 172,
+            "q": "What is the number midway between -20 and 60 on the number line?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 1,
+            "options": [
+                "-30",
+                "30",
+                "-20",
+                "20"
+            ],
+            "ans": "20"
+        },
+        {
+            "id": 173,
+            "q": "What is the number midway between -30 and 30 on the number line?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "-30",
+                "30",
+                "0",
+                "20"
+            ],
+            "ans": "0"
+        },
+        {
+            "id": 174,
+            "q": "Calculate the median of the following:\n2, 34, 22, 43, 53, 33, 74, 92, 31",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "34",
+                "43",
+                "2",
+                "22"
+            ],
+            "ans": "34"
+        },
+        {
+            "id": 175,
+            "q": "Which of the following is an obtuse angle?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "190",
+                "76",
+                "336",
+                "91"
+            ],
+            "ans": "91"
+        },
+        {
+            "id": 176,
+            "q": "What is the remainder when 1012 is divided by 48?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "1",
+                "5",
+                "4",
+                "12"
+            ],
+            "ans": "4"
+        },
+        {
+            "id": 177,
+            "q": "What is the LCM (Lowest Common Multiple) of 2 and 11?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "11",
+                "8",
+                "22",
+                "17"
+            ],
+            "ans": "22"
+        },
+        {
+            "id": 178,
+            "q": "In a sequence of numbers the first number is Five and each number after the first is Five more than Five times\nthe preceding number. What is the Fifth number in the sequence?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "3912",
+                "3905",
+                "3896",
+                "3914"
+            ],
+            "ans": "3905"
+        },
+        {
+            "id": 179,
+            "q": "Summer has $2.47. Maria has Four times as much. How much money have they got altogether?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "$15.52",
+                "$12.35",
+                "$15.11",
+                "$9.34"
+            ],
+            "ans": "$12.35"
+        },
+        {
+            "id": 180,
+            "q": "Which of the following is NOT a factor of 70?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "7",
+                "10",
+                "4",
+                "14"
+            ],
+            "ans": "4"
+        },
+        {
+            "id": 181,
+            "q": "What is the LCM (Lowest Common Multiple) of 8, 15 and 20 ?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "120",
+                "28",
+                "18",
+                "51"
+            ],
+            "ans": "18"
+        },
+        {
+            "id": 182,
+            "q": "Calculate the mode of the following numbers:\n19,10,6,6,19,6,15,19,6,9,15",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "15",
+                "10",
+                "9",
+                "6"
+            ],
+            "ans": "6"
+        },
+        {
+            "id": 183,
+            "q": "Which of the following is exactly divisible by 20? :",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "1097",
+                "1020",
+                "844",
+                "2473"
+            ],
+            "ans": "1020"
+        },
+        {
+            "id": 184,
+            "q": "In a class of Forty One students Eighteen are taking Thai and Nineteen are taking Urdu. Of the students taking\nThai or Urdu, Four are taking both courses. How many students are not enrolled in either course?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "8",
+                "3",
+                "12",
+                "5"
+            ],
+            "ans": "8"
+        },
+        {
+            "id": 185,
+            "q": "What is one seventh of 91?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "20",
+                "11",
+                "6",
+                "13"
+            ],
+            "ans": "13"
+        },
+        {
+            "id": 186,
+            "q": "Zara works 7 hours per day on Monday, Saturday and Wednesday, and 6 hours per day on Sunday and\nThursday. She does not work on Friday and Tuesday. She earns $231.00 per week. How much does she earn\nper hour?",
+            "img": "",
+            "group": 7,
+            "category": "cem-test1",
+            "type": "choice",
+            "attempted_count": 0,
+            "wrong_count": 0,
+            "options": [
+                "$4.00",
+                "$5.00",
+                "$10.00",
+                "$7.00"
+            ],
+            "ans": "$7.00"
         }
     ]
 }

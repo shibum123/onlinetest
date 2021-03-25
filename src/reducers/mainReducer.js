@@ -6,7 +6,7 @@ export const SET_SPELLINGS = 'SET_SPELLINGS';
 const initialState = {
     questions: [],
     spellings: [],
-    groupNames: {'group1': '', 'group2': '', 'group3': '', 'group4': '', 'group5': '20-Yr 5 Worksheet KAS-3B', 'group6': '20 - Yr 5 SHW - 09 B'},
+    groupNames: { 'group1': '', 'group2': '', 'group3': '', 'group4': '', 'group5': '20-Yr 5 Worksheet KAS-3B', 'group6': '20 - Yr 5 SHW - 09 B' },
     showAnswers: false,
     filteredQuestions: [],
     selectedType: 'all_questions'
@@ -45,6 +45,8 @@ export default (state = initialState, action) => {
                 filteredQuestions = questions.filter((q) => q.group === 5);
             } else if (state.selectedType === 'filter_group6') {
                 filteredQuestions = questions.filter((q) => q.group === 6);
+            } else if (state.selectedType === 'filter_group7') {
+                filteredQuestions = questions.filter((q) => q.group === 7);
             } else if (state.selectedType === 'most_wrong') {
                 filteredQuestions = questions.filter((q) => q.wrong_count > 0);
             } else {

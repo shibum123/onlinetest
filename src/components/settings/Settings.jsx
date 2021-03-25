@@ -33,9 +33,16 @@ const Settings = () => {
         });
     }
 
+    const onPractiseClick = () => {
+        history.push({
+            pathname: '/practise-algebra'
+        });
+    }
+
     return <div className="container">
         <button className='btn btn-primary' onClick={onAddQuestions}>Add Questions</button> &nbsp;&nbsp;&nbsp;
         <button className='btn btn-primary' onClick={onSpellingsClick}>Spellings</button><br/><br/><br/>
+        <button className='btn btn-primary' onClick={onPractiseClick}>Practise Algebra</button><br/><br/><br/>
         { selected !== 'all_questions'  && <input type="radio" name="radio" value="all_questions" onChange={onChange} /> }
         { selected === 'all_questions' && <input type="radio" name="radio" value="all_questions" onChange={onChange} checked/> }&nbsp;&nbsp;&nbsp;
         <label>All Questions</label><br />
@@ -57,6 +64,9 @@ const Settings = () => {
         { selected !== 'filter_group6'  && <input type="radio" name="radio" value="filter_group6" onChange={onChange} /> }
         { selected === 'filter_group6' && <input type="radio" name="radio" value="filter_group6" onChange={onChange} checked/> }&nbsp;&nbsp;&nbsp;
         <label>Group 6</label><br />
+        { selected !== 'filter_group7'  && <input type="radio" name="radio" value="filter_group7" onChange={onChange} /> }
+        { selected === 'filter_group7' && <input type="radio" name="radio" value="filter_group7" onChange={onChange} checked/> }&nbsp;&nbsp;&nbsp;
+        <label>Test 1</label><br />
         { selected !== 'most_wrong'  && <input type="radio" name="radio" value="most_wrong" onChange={onChange} /> }
         { selected === 'most_wrong' && <input type="radio" name="radio" value="most_wrong" onChange={onChange} checked/> }&nbsp;&nbsp;&nbsp;
         <label>Most Wrong</label><br /><br />
