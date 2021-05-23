@@ -1076,6 +1076,86 @@
             "group": 11,
             "attempted_count": 0,
             "wrong_count": 0
+        },
+        {
+            "id": 131,
+            "q": "rural",
+            "type": "spelling_test",
+            "group": 33,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 132,
+            "q": "mortal",
+            "type": "spelling_test",
+            "group": 33,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 133,
+            "q": "seldom",
+            "type": "spelling_test",
+            "group": 33,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 134,
+            "q": "retain",
+            "type": "spelling_test",
+            "group": 33,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 135,
+            "q": "oath",
+            "type": "spelling_test",
+            "group": 33,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 136,
+            "q": "meanwhile",
+            "type": "spelling_test",
+            "group": 33,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 137,
+            "q": "endure",
+            "type": "spelling_test",
+            "group": 33,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 138,
+            "q": "secure",
+            "type": "spelling_test",
+            "group": 33,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 139,
+            "q": "formidable",
+            "type": "spelling_test",
+            "group": 33,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 140,
+            "q": "benevolent",
+            "type": "spelling_test",
+            "group": 33,
+            "attempted_count": 0,
+            "wrong_count": 0
         }
     ]
 }

@@ -16,10 +16,10 @@ const Main = () => {
     const [meanings, setMeanings] = useState([]);
     const [word, setWord] = useState('')
 
-    let week = 22;
+    let week = 'All' ; // 33;
 
     useEffect(() => {
-        dispatch(setSpellings(questions.filter((q) => q.wrong_count === 1)))
+        dispatch(setSpellings(questions)) // .filter((q) => q.group === 12)
     }, []);
 
     const doPlay = (event) => {
