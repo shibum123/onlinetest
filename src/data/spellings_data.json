@@ -1156,6 +1156,86 @@
             "group": 33,
             "attempted_count": 0,
             "wrong_count": 0
+        },
+        {
+            "id": 141,
+            "q": "sleek",
+            "type": "spelling_test",
+            "group": 12,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 142,
+            "q": "stern",
+            "type": "spelling_test",
+            "group": 12,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 143,
+            "q": "score",
+            "type": "spelling_test",
+            "group": 12,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 144,
+            "q": "obstinate",
+            "type": "spelling_test",
+            "group": 12,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 145,
+            "q": "sturdy",
+            "type": "spelling_test",
+            "group": 12,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 146,
+            "q": "perilous",
+            "type": "spelling_test",
+            "group": 12,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 147,
+            "q": "stubborn",
+            "type": "spelling_test",
+            "group": 12,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 148,
+            "q": "suspend",
+            "type": "spelling_test",
+            "group": 12,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 149,
+            "q": "thrust",
+            "type": "spelling_test",
+            "group": 12,
+            "attempted_count": 0,
+            "wrong_count": 0
+        },
+        {
+            "id": 150,
+            "q": "tranquil",
+            "type": "spelling_test",
+            "group": 12,
+            "attempted_count": 0,
+            "wrong_count": 0
         }
     ]
 }
