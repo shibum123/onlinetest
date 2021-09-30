@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml"
+		   xmlns="*"
+		   xmlns:model="com.catlin.cargo.model.core.risk.*"
+		   xmlns:rules="com.catlin.ui.flex.validator.rules.*"
+		   xmlns:validators="com.catlin.ui.flex.validators.*"
+		   xmlns:validator="com.catlin.ui.flex.validator.*">
+
+	<mx:Script>
+		<![CDATA[
+			
+			import com.catlin.cargo.model.core.risk.Risk;
+			import com.catlin.cargo.model.core.risk.RiskStatus;
+			import com.catlin.cargo.bundles.RB_ui;
+			
+			[Bindable]
+			public var window:DeclineReasonTitleWindow;
+
+			[Bindable]
+			public var risk:Risk;
+
+			public function create():Array
+			{
+				var rules:Array=new Array();
+				rules[declineReasonTitleWindow.name]=declineReasonTitleWindow;
+				return rules;
+			}
+		]]>
+	</mx:Script>
+
+	<validator:Page id="declineReasonTitleWindow"
+					name="declineReasonTitleWindow">
+		<validator:validatorRules>
+			<mx:ArrayCollection>
+				<rules:SimpleValidatorRule context="cboReasons"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.DECLINE_REASON_VALIDATOR_REQUIRED_REASON)}"
+										   value="{window.cboReasons.selectedItem}">
+					<rules:validator>
+						<mx:Validator required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="cboOtherReason"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.DECLINE_REASON_VALIDATOR_REQUIRED_REASON)}"
+										   value="{window.cboOtherReason.text}">
+					<rules:validator>
+						<mx:Validator required="{window.cboReasons.selectedItem == 'Other'}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="dtfEffectiveDate"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.DECLINE_REASON_VALIDATOR_ERROR_EFFECTIVE_DATE)}"
+										   value="{window.dtfEffectiveDate.selectedDate}">
+					<rules:validator>
+						<validators:DateRangeValidator validDateRange="{{rangeStart: risk.policyStartDateAsDate, rangeEnd: risk.policyEndDateAsDate}}"
+													   required="{window.fmiEffectiveDateItem.visible}"
+													   enabled="{risk.status == RiskStatus.POLICY}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+			</mx:ArrayCollection>
+		</validator:validatorRules>
+	</validator:Page>
+</mx:Object>

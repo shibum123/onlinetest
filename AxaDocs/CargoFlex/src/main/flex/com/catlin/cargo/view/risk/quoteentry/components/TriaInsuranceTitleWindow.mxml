@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
+				xmlns:commonComponents="com.catlin.cargo.view.commonComponents.*"
+				minWidth="300"
+				minHeight="150"
+				title="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.TRIA_INSURANCE_VIEW_TITLE)}">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.risk.TriaInsuranceStatus;
+		]]>
+	</mx:Script>
+
+	<mx:VBox width="100%"
+			 id="triaOptionsContainer"
+			 verticalAlign="middle"
+			 horizontalAlign="center"
+			 paddingLeft="10"
+			 paddingRight="10"
+			 paddingBottom="10">
+
+		<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.TRIA_INSURANCE_VIEW_INTRO)}"
+				  width="100%"
+				  styleName="heading2"/>
+
+		<mx:VBox width="100%"
+				 paddingLeft="30">
+			<mx:RadioButtonGroup id="TRIAoptions"/>
+
+			<mx:RadioButton value="{TriaInsuranceStatus.ACCEPTED}"
+							label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.TRIA_INSURANCE_VIEW_AFFIRMATIVE_QUESTION)}"
+							group="{TRIAoptions}"/>
+			<mx:RadioButton value="{TriaInsuranceStatus.REJECTED}"
+							label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.TRIA_INSURANCE_VIEW_NEGATIVE_QUESTION)}"
+							group="{TRIAoptions}"/>
+		</mx:VBox>
+	</mx:VBox>
+
+	<commonComponents:ConfirmationButtonBar id="buttonBar"
+											width="100%"/>
+
+</mx:TitleWindow>

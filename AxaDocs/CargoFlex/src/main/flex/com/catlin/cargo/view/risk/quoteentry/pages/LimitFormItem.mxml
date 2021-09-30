@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:FormItem xmlns:mx="http://www.adobe.com/2006/mxml"
+			 xmlns:help="com.catlin.cargo.view.help.*"
+			 xmlns:currency="com.catlin.ui.flex.widgets.currency.*"
+			 xmlns:risk="com.catlin.cargo.model.core.risk.*">
+
+	<help:TipHelper id="tipHelper"/>
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.risk.PolicyType;
+			import com.catlin.cargo.model.core.risk.Risk;
+
+			[Bindable]
+			public var quote:Risk;
+
+			private function isSendingEditable(policyType:PolicyType, sending:Sendings):Boolean {
+				if (policyType == PolicyType.SINGLE) {
+					return false;
+				}
+				return true;
+			}
+
+			private function getSendingLimitToolTip(policyType:PolicyType):String {
+				if (policyType == PolicyType.SINGLE) {
+					return tipHelper.getTips(sendingLimit, RB_ui.TOOLTIP_LIMITS_SENDINGS_LIMIT_READONLY);
+				}
+				return tipHelper.getTips(sendingLimit, RB_ui.TOOLTIP_LIMITS_SENDINGS_LIMIT);
+			}
+		]]>
+	</mx:Script>
+
+	<risk:Sendings id="sending">
+		<risk:limit>{Number(sendingLimit.data)}</risk:limit>
+	</risk:Sendings>
+
+	<currency:CurrencyInput id="sendingLimit"
+							enabled="{quote.editable &amp;&amp; isSendingEditable(quote.policyType, sending)}"
+							data="{sending.limit}"
+							currencySymbol=""
+							toolTip="{getSendingLimitToolTip(quote.policyType)}"/>
+</mx:FormItem>

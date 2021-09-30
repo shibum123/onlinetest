@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 verticalAlign="top"
+		 horizontalAlign="left"
+		 initialize="hbox1_initializeHandler(event)" 
+		 >
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.ApplicationFacade;
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.documents.document.Document;
+			import com.catlin.cargo.model.documents.document.DocumentType;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ListCollectionView;
+			import mx.events.FlexEvent;
+
+			private static var docOrderTypes:Array=[DocumentType.QUOTE_SCHEDULE, DocumentType.POLICY_SCHEDULE, 
+				 DocumentType.RATING_SCHEDULE, DocumentType.CANCELLATION_NOTE, 
+				 DocumentType.WORDINGS, DocumentType.KEY_FACTS, 
+				 DocumentType.POLICY_SUMMARY,DocumentType.IPID, DocumentType.POLICY_CHANGES, DocumentType.DEBIT_NOTE,
+				 DocumentType.NOTICE_TO_POLICYHOLDERS];
+
+			private static var docOrder:Array=[];
+			
+			[Embed(source='/assets/icons/icon_pdf.gif')]
+			private var pdfIconClass:Class;
+
+			[Embed(source='/assets/icons/icon_pdf_unavailable.gif')]
+			private var pdfUnavailableIconClass:Class;
+
+			private function abbreviate(name:String):String {
+				var s:String = "";
+				if(name=="IPID"){
+					return "IPD";
+				}
+				for each (var w:String in name.split(" ")) {
+					s += w.substr(0, 1);
+				}
+				return s;
+			}
+			
+			private function getIconClass(document:Document, debitNoteAvailableToBroker:Boolean):Class {
+				if (document.documentType == DocumentType.DEBIT_NOTE && !debitNoteAvailableToBroker) {
+					return pdfUnavailableIconClass;
+				}
+				return pdfIconClass;
+			}
+			
+			private function getToolTip(document:Document, debitNoteAvailableToBroker:Boolean):String {
+				if (document.documentType == DocumentType.DEBIT_NOTE && !debitNoteAvailableToBroker) {
+					return document.name + " (not available to broker)";
+				}
+				return document.name;
+			}
+
+			// Must pass param to this method otherwise dataprovider binding will not trigger
+			private function onDocsSet(docs:ListCollectionView, debitNoteAvailableToBroker:Boolean):ArrayCollection {
+				var sortedDocs:ArrayCollection=new ArrayCollection();
+				for (var i:int=0; i < docOrder.length; i++) {
+					if (docOrder[i] == resourceManager.getString(RB_ui.RB_NAME, DocumentType.DEBIT_NOTE.name) &&
+						!ApplicationFacade.getInstance().userInfo.isUnderwriter && !debitNoteAvailableToBroker) {
+						continue;
+					}
+					for each (var doc:Document in docs) {
+							if (docOrder[i] == doc.name) {
+							sortedDocs.addItem(doc);
+							break;
+						}
+					}
+				}
+				return sortedDocs;
+			}
+
+			private function openDocument(document:Document):void {
+				navigateToURL(new URLRequest("document?documentId=" + document.sid));
+			}
+			
+			protected function hbox1_initializeHandler(event:FlexEvent):void
+			{
+				if (docOrder.length == 0) {
+					for each (var docType:DocumentType in docOrderTypes) {
+						var name:String = resourceManager.getString(RB_ui.RB_NAME, docType.name);
+						docOrder.push(name);
+					}
+				}
+			}
+
+		]]>
+	</mx:Script>
+	<mx:Repeater id="rptDocuments" dataProvider="{onDocsSet(data.documents, data.debitNoteAvailableToBroker)}">
+		<mx:LinkButton id="lbtDocument"
+					   icon="{getIconClass(rptDocuments.currentItem as Document, data.debitNoteAvailableToBroker)}"
+					   toolTip="{getToolTip(rptDocuments.currentItem as Document, data.debitNoteAvailableToBroker)}"
+					   label="{abbreviate(rptDocuments.currentItem.name)}"
+					   click="openDocument(event.currentTarget.getRepeaterItem() as Document)"
+					   height="20"
+					   paddingRight="0"
+					   paddingLeft="5"/>
+	</mx:Repeater>
+</mx:HBox>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:FormItem xmlns:mx="http://www.adobe.com/2006/mxml"
+			 xmlns:help="com.catlin.cargo.view.help.*"
+			 xmlns:risk="com.catlin.cargo.model.core.risk.*"
+			 xmlns:catlin="http://catlin.com/flex/widgets">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+		]]>
+	</mx:Script>
+
+	<help:TipHelper id="tipHelper"/>
+
+	<risk:Risk id="quote">
+		<risk:ownVehicles>{requireOwnVehicleCoverGroup.selectedValue}</risk:ownVehicles>
+		<risk:ownVehicleLimit>{Number(ownVehiclesLimit.data)}</risk:ownVehicleLimit>
+	</risk:Risk>
+
+	<mx:RadioButtonGroup id="requireOwnVehicleCoverGroup"
+						 selectedValue="{quote.ownVehicles}"/>
+	<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.NO)}"
+					groupName="requireOwnVehicleCoverGroup"
+					value="false"
+					click="{quote.ownVehicleLimit = 0}"
+					enabled="{quote.editable}"/>
+	<mx:Spacer width="20"/>
+	<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.YES)}"
+					id="requireOwnVehicleCover"
+					groupName="requireOwnVehicleCoverGroup"
+					value="true"
+					enabled="{quote.editable}"/>
+	<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.OWN_VEHICLES_VIEW_LIMIT)}"
+				 labelWidth="50"
+				 required="true"
+				 id="ownVehiclesLimitItem"
+				 visible="{quote.ownVehicles}"
+				 includeInLayout="{quote.ownVehicles}">
+		<catlin:CurrencyInput id="ownVehiclesLimit"
+							  data="{quote.ownVehicleLimit}"
+							  toolTip="{tipHelper.getTips(ownVehiclesLimit, RB_ui.TOOLTIP_LIMITS_OWN_VEHICLES)}"
+							  currencySymbol=""
+							  enabled="{quote.editable}"/>
+	</mx:FormItem>
+
+</mx:FormItem>

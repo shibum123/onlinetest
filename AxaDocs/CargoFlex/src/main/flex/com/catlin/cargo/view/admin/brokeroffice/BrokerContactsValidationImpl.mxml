@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml"
+		   xmlns="*"
+		   xmlns:model="com.catlin.cargo.model.core.risk.*"
+		   xmlns:rules="com.catlin.ui.flex.validator.rules.*"
+		   xmlns:validators="com.catlin.ui.flex.validators.*"
+		   xmlns:validator="com.catlin.ui.flex.validator.*">
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.*;
+			
+			[Bindable]
+			public var window:BrokerContactsVBox;
+
+			public function create():Array {
+				var rules:Array=new Array();
+				rules[brokerContactsVBox.name]=brokerContactsVBox;
+				return rules;
+			}
+		]]>
+	</mx:Script>
+
+	<validator:Page id="brokerContactsVBox"
+					name="brokerContactsVBox">
+		<validator:validatorRules>
+			<mx:ArrayCollection>
+				<rules:SimpleValidatorRule context="txiName"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_CONTACT_VALIDATION_REQUIRED_NAME)}"
+										   value="{window.txiName.text}">
+					<rules:validator>
+						<mx:Validator required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="txiUsername"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_CONTACT_VALIDATION_REQUIRED_USERNAME)}"
+										   value="{window.txiUsername.text}">
+					<rules:validator>
+						<mx:Validator required="{window.txiUsername.enabled}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="txiEmailAddress"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_CONTACT_VALIDATION_REQUIRED_EMAIL)}"
+										   value="{window.txiEmailAddress.text}">
+					<rules:validator>
+						<mx:Validator required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="txiEmailAddress"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_CONTACT_VALIDATION_INVALID_EMAIL)}"
+										   value="{window.txiEmailAddress.text}">
+					<rules:validator>
+						<mx:EmailValidator required="false"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="txiTelephoneNumber"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_CONTACT_VALIDATION_REQUIRED_PHONE)}"
+										   value="{window.txiTelephoneNumber.text}">
+					<rules:validator>
+						<mx:Validator required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+			</mx:ArrayCollection>
+		</validator:validatorRules>
+	</validator:Page>
+</mx:Object>

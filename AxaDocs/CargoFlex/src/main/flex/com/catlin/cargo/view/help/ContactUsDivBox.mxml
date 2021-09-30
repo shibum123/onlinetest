@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:widget="com.catlin.ui.flex.widgets.*"
+	styleName="ContentArea">
+
+    <mx:XML id="xmlContactsUK"
+        source="/assets/help/contactsUK.xml"/>
+    <mx:XML id="xmlContactsSG"
+        source="/assets/help/contactsSG.xml"/>
+    <mx:XML id="xmlContactsHK"
+        source="/assets/help/contactsHK.xml"/>
+	<mx:XML id="xmlQueryTypes"
+        source="/assets/help/contactUsQueryTypes.xml"/>
+    <mx:Script>
+		
+        <![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.brokeroffice.BrokerOffice;
+			import com.catlin.cargo.model.core.originatingoffice.OriginatingOfficeCode;
+			import com.catlin.cargo.model.security.UserInfo;
+			
+			import mx.collections.ArrayCollection;
+			import mx.utils.StringUtil;
+			
+			
+            [Bindable]
+            public var userInfo:UserInfo = null;
+
+            
+			public var _masterOffice:BrokerOffice;
+			
+			[Bindable(event="masterOfficeUpdated")]
+			public function set masterOffice(mo:BrokerOffice):void {
+				_masterOffice = mo;
+				this.dispatchEvent(new Event("masterOfficeUpdated"));  
+			}
+			
+			public function get masterOffice():BrokerOffice {
+				return _masterOffice; 
+			}
+
+			private function updateMasterOfficeAddressDetails(mo:BrokerOffice):String {
+				var ret:String = mo.address.addressLine1 + "\n" 
+					+ (mo.address.addressLine2 != null ? mo.address.addressLine2 + "\n": "")
+					+ (mo.address.addressLine3 != null ? mo.address.addressLine3 + "\n": "") 
+					+  mo.address.townCity + "\n"
+					+ (mo.address.county != null ? mo.address.county + "\n": "")   
+					+ (mo.address.postcode != null ? mo.address.postcode + "\n": "")
+					+ (mo.address.country != null ? mo.address.country.name : "");
+				
+				return StringUtil.trim(ret);
+			}
+
+            [Bindable]
+            public var masterBrokerContacts:ArrayCollection;
+
+            private function labelAttrib(xml:XML):String
+            {
+                return xml.attribute("label");
+            }
+
+            private function email(addr:String):void
+            {
+                navigateToURL(new URLRequest('mailto:' + addr));
+            }
+
+            private function getContacts(userInfo:UserInfo):XML
+            {
+                var ret:XML = null;
+                if (userInfo == null)
+                {
+                    ret = xmlContactsUK;
+                }
+                else
+                {
+                    switch (userInfo.originatingOffice.code)
+                    {
+                        case OriginatingOfficeCode.UK:
+                            ret = xmlContactsUK;
+                            break;
+                        case OriginatingOfficeCode.SG:
+                            ret = xmlContactsSG;
+                            break;
+                        case OriginatingOfficeCode.HK:
+                            ret = xmlContactsHK;
+                            break;
+                    }
+                }
+                return ret;
+            }
+        ]]>
+    </mx:Script>
+
+        <mx:Label 
+            styleName="heading1"
+            text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_TITLE)}"/>
+
+		<mx:HDividedBox 
+			width="100%" height="100%"
+			xmlns:underwriter="com.catlin.cargo.view.admin.underwriter.*"
+			xmlns:brokeroffice="com.catlin.cargo.view.admin.brokeroffice.*">		
+        <mx:VBox 
+			width="100%" 
+			height="100%"
+			minWidth="400"
+            horizontalScrollPolicy="off"
+			verticalScrollPolicy="off"
+			includeInLayout="{masterOffice == null}"
+            visible="{masterOffice == null}"
+			styleName="SubContentArea"
+			>
+			<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_BUSINESS_TITLE)}" styleName="heading2"/>
+			<mx:Spacer height="5"/>
+			<mx:TextArea 
+				width="100%"
+				borderThickness="0"
+				backgroundAlpha="0" 
+				text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_BUSINESS_INTRO)}"
+				editable="false"
+				styleName="heading3"
+				minHeight="80"
+				/>
+
+			<mx:Spacer height="5"/>
+			<mx:Form 
+                width="100%" height="100%"
+                includeInLayout="{masterOffice == null}">
+
+                <mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_BUSINESS_TYPE_OF_QUERY)}">
+                    <mx:ComboBox id="cboQueryType"
+                        dataProvider="{xmlQueryTypes.type}"
+                        labelFunction="labelAttrib"
+                        prompt="Select"/>
+                </mx:FormItem>
+                <mx:FormItem 
+                    width="90%" height="300"
+                    horizontalAlign="right"
+                    label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_BUSINESS_DESCRIPTION)}">
+                    <mx:TextArea id="txaDescription"
+                        width="100%" height="90%"/>
+                    <mx:Button id="btnSubmit"
+                        label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_BUTTON_SUBMIT)}"/>
+                </mx:FormItem>
+            </mx:Form>
+        </mx:VBox>
+        <mx:VBox 
+            height="100%"
+			minWidth="450"
+            horizontalScrollPolicy="off"
+			verticalScrollPolicy="off"
+			styleName="SubContentArea"
+			id="masterOfficeQueries" 
+			includeInLayout="{masterOffice != null}"
+			visible="{masterOffice != null}"
+			>
+			<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_MASTEROFFICE_TITLE)}" styleName="heading2"/>
+			<mx:Spacer height="5"/>
+			<mx:TextArea 
+				width="100%"
+				borderThickness="0"
+				backgroundAlpha="0" 
+				text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_MASTEROFFICE_INTRO)}"
+				editable="false"
+				styleName="heading3"/>
+
+			<mx:Form 
+				paddingTop="0" 
+                width="100%"
+				height="100%">
+                <mx:Text 
+                    leading="0"
+					id="masterOfficeName"
+                    styleName="heading3"
+					fontWeight="bold"  
+                    text="{masterOffice.name}"/>
+				
+				<mx:Text id="masterOfficeAddress" text="{this.updateMasterOfficeAddressDetails(masterOffice)}" minHeight="70"/>
+
+				<mx:Label 
+                    paddingTop="5"
+                    styleName="contactRegionHeader"
+                    text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_CONTACTS)}"/>
+				
+				<mx:Tile direction="horizontal" width="100%" height="100%">
+                    <mx:Repeater id="masterOfficeContacts"
+                        dataProvider="{masterBrokerContacts}">
+                        <mx:VBox 
+                            paddingRight="10"
+                            verticalGap="0">
+                            <mx:Text 
+                                leading="0"
+                                paddingBottom="0"
+                                paddingTop="0"
+                                styleName="contactName"
+                                text="{masterOfficeContacts.currentItem.name}"/>
+                            <mx:Grid verticalGap="0">
+                                <mx:GridRow verticalGap="0">
+                                    <mx:GridItem>
+                                        <mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_CONTACT_EMAIL)}"/>
+                                    </mx:GridItem>
+                                    <mx:GridItem>
+                                        <mx:Text 
+                                            leading="0"
+                                            paddingBottom="0"
+                                            paddingTop="0"
+                                            styleName="link"
+                                            text="{masterOfficeContacts.currentItem.emailAddress}"/>
+                                    </mx:GridItem>
+                                </mx:GridRow>
+                                <mx:GridRow 
+                                    paddingBottom="0"
+                                    paddingTop="0"
+                                    verticalGap="0">
+                                    <mx:GridItem>
+                                        <mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_CONTACT_DIRECT_DIAL)}"/>
+                                    </mx:GridItem>
+                                    <mx:GridItem>
+                                        <mx:Text 
+                                            leading="0"
+                                            paddingBottom="4"
+                                            paddingTop="0"
+                                            text="{masterOfficeContacts.currentItem.telephoneNumber}"/>
+                                    </mx:GridItem>
+                                </mx:GridRow>
+                            </mx:Grid>
+                        </mx:VBox>
+                    </mx:Repeater>
+                </mx:Tile>
+            </mx:Form>
+        </mx:VBox>
+        <mx:VBox 
+            minHeight="270" 
+			height="100%"
+			minWidth="480" 
+			width="100%"
+            horizontalScrollPolicy="off"
+			styleName="SubContentArea"
+			id="contactsDetailsContainer"
+            >
+			<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_UNDERWRITER_TITLE)}" styleName="heading2"/>
+			<mx:Spacer height="5"/>
+			<mx:Label 
+				width="100%"
+				text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_UNDERWRITER_INTRO)}"
+				styleName="heading3"/>
+			<mx:Spacer height="5"/>
+			<mx:Form 
+                width="100%"
+				height="100%">
+                <mx:VBox verticalGap="0">
+                    <mx:Repeater id="rptRegion"
+                        dataProvider="{getContacts(userInfo).region}">
+                        <mx:Text 
+							paddingLeft="10"
+                            leading="0"
+                            paddingTop="10"
+                            styleName="contactRegionHeader"
+							includeInLayout="{getContacts(userInfo).region.length() > 1}"
+							visible="{getContacts(userInfo).region.length() > 1}"
+                            text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CONTACT_US_CONTACT_REGION) + rptRegion.currentItem.@name}"/>
+				
+                        <mx:Repeater id="rptAddress"
+                            dataProvider="{rptRegion.currentItem.address.line}">
+                            <mx:Text 
+								paddingLeft="10"
+                                leading="0"
+                                paddingBottom="0"
+                                paddingTop="0"
+                                text="{rptAddress.currentItem}"/>
+                        </mx:Repeater>
+                        <mx:Grid verticalGap="0"
+								 paddingLeft="10">
+                            <mx:Repeater id="rptOfficeNums"
+                                dataProvider="{rptRegion.currentItem.phone}">
+                                <mx:GridRow 
+                                    paddingBottom="0"
+                                    paddingTop="0"
+                                    verticalGap="0">
+                                    <mx:GridItem width="100%">
+                                        <mx:Text 
+                                            leading="0"
+                                            paddingBottom="0"
+                                            paddingTop="0"
+                                            text="{rptOfficeNums.currentItem.@type}"/>
+                                    </mx:GridItem>
+                                    <mx:GridItem>
+                                        <mx:Text 
+                                            leading="0"
+                                            paddingBottom="0"
+                                            paddingTop="0"
+                                            text="{rptOfficeNums.currentItem.@number}"/>
+                                    </mx:GridItem>
+                                </mx:GridRow>
+                            </mx:Repeater>
+                        </mx:Grid>
+						<mx:Spacer height="5"/>
+                        <mx:Tile direction="horizontal">
+                            <mx:Repeater id="rptContact"
+                                dataProvider="{rptRegion.currentItem.contact}">
+                                <mx:VBox 
+                                    paddingRight="10"
+                                    verticalGap="0">
+                                    <mx:Text 
+                                        leading="0"
+                                        paddingTop="4"
+                                        styleName="contactName"
+										fontWeight="bold" 
+                                        text="{rptContact.currentItem.@name}"/>
+                                    <mx:Text 
+                                        leading="0"
+                                        text="{rptContact.currentItem.@title}"/>
+                                    <mx:LinkButton id="btnEmail"
+                                        leading="0"
+                                        paddingLeft="0"
+                                        paddingTop="0"
+                                        label="{rptContact.currentItem.@email}"
+                                        styleName="link"
+                                        click="email(event.currentTarget.label);"/>
+                                    <mx:Grid verticalGap="0">
+                                        <mx:Repeater id="rptContactPhone"
+                                            dataProvider="{rptContact.currentItem.phone}">
+                                            <mx:GridRow verticalGap="0">
+                                                <mx:GridItem width="100%">
+                                                    <mx:Text 
+                                                        leading="0"
+                                                        text="{rptContactPhone.currentItem.@type}"/>
+                                                </mx:GridItem>
+                                                <mx:GridItem>
+                                                    <mx:Text 
+                                                        leading="0"
+                                                        text="{rptContactPhone.currentItem.@number}"/>
+                                                </mx:GridItem>
+                                            </mx:GridRow>
+                                        </mx:Repeater>
+                                    </mx:Grid>
+                                </mx:VBox>
+                            </mx:Repeater>
+                        </mx:Tile>
+                    </mx:Repeater>
+                </mx:VBox>
+            </mx:Form>
+        </mx:VBox>
+    </mx:HDividedBox>
+</mx:VBox>

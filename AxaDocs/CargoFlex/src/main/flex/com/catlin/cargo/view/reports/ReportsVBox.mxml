@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 xmlns:widget="com.catlin.ui.flex.widgets.*"
+		 width="100%"
+		 height="100%"
+		 styleName="ContentArea"
+		 xmlns:reports="com.catlin.cargo.view.reports.*"
+		 xmlns:charts="com.catlin.cargo.view.reports.charts.*">
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+		]]>
+	</mx:Script>
+
+	<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.REPORTS_TITLE)}"
+			  styleName="heading1"/>
+
+	<mx:VBox width="100%"
+			 height="100%"
+			 horizontalScrollPolicy="off"
+			 verticalScrollPolicy="off"
+			 styleName="SubContentArea"
+			 verticalGap="15">
+
+		<reports:ReportsSearchBar id="reportSearchBar"
+								  maxHeight="70"
+								  width="100%"/>
+
+		<mx:HDividedBox width="100%"
+						height="100%"
+						horizontalScrollPolicy="auto"
+						paddingRight="5"
+						paddingLeft="5">
+
+			<reports:ReportsGrid id="reportGrid"
+								 horizontalScrollPolicy="auto"
+								 height="100%"
+								 width="100%"/>
+
+			<charts:ReportsCharts id="reportCharts"
+								  horizontalScrollPolicy="off"
+								  height="100%"
+								  width="20%"/>
+
+		</mx:HDividedBox>
+
+	</mx:VBox>
+
+	<mx:ControlBar width="100%"
+				   height="40"
+				   verticalGap="0"
+				   paddingTop="0">
+		<mx:HBox styleName="footerTips">
+			<mx:Text text="*"
+					 color="#CC0033"
+					 fontSize="16"
+					 fontWeight="bold"/>
+			<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.MANDATORY_FIELDS)}"/>
+		</mx:HBox>
+	</mx:ControlBar>
+</mx:VBox>

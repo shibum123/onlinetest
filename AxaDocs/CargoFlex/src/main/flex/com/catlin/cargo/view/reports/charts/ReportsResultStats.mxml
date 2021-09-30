@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import com.catlin.cargo.bundles.RB_ui;
+			
+			[Bindable]
+			public var totalRows:int = 0;
+			
+		]]>
+	</mx:Script>
+	<mx:HBox width="100%" horizontalGap="0">
+		<mx:Text fontWeight="bold" text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.REPORTS_CHART_STATS_TOTAL_ROWS)}"/>
+		<mx:Text text="{totalRows}"/>
+	</mx:HBox>
+	
+			 
+</mx:VBox>

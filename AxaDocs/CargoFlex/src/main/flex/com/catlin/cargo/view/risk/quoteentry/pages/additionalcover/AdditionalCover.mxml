@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 xmlns:model="com.catlin.cargo.model.core.risk.*"
+		 xmlns:tips="com.catlin.cargo.view.help.*"
+		 xmlns:additionalcover="com.catlin.cargo.view.risk.quoteentry.pages.additionalcover.*"
+		 horizontalScrollPolicy="off">
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.risk.PolicyType;
+			import com.catlin.cargo.model.core.risk.Risk;
+			import com.catlin.cargo.model.security.UserInfo;
+
+			public static const ADD_STOCK:String="add_stock";
+			public static const ADD_STOCK_CAT:String="add_stock_cat";
+			public static const ADD_EXHIBITION:String="add_exhibition";
+			public static const ADD_TOOLS:String="add_tools";
+
+			[Bindable]
+			public var userInfo:UserInfo=null;
+
+			[Bindable]
+			public var quote:Risk;
+
+			private function requireStockChange():void
+			{
+				dispatchEvent(new Event(ADD_STOCK));
+			}
+
+			private function requireStockCatChange():void
+			{
+				dispatchEvent(new Event(ADD_STOCK_CAT));
+			}
+
+			private function requireExhibitionChange():void
+			{
+				dispatchEvent(new Event(ADD_EXHIBITION));
+			}
+
+			private function requireToolsChange():void
+			{
+				dispatchEvent(new Event(ADD_TOOLS));
+			}
+
+			private function showExhibitionCover(policyType:PolicyType):Boolean
+			{
+				var isAsianOffice:Boolean=userInfo.isAsianOriginatingOffice();
+				var isSinglePolicy:Boolean=policyType == PolicyType.SINGLE;
+				var ret:Boolean=!isAsianOffice || (isAsianOffice && !isSinglePolicy);
+				return ret;
+			}
+
+		]]>
+	</mx:Script>
+
+	<tips:TipHelper id="tipHelper"/>
+
+	<model:StockCover id="mdlStockCover">
+		<model:inStoreMoreThan60Days>{excess60Days.selected}</model:inStoreMoreThan60Days>
+		<model:stockRequiredOutsideUk>{stockOutSideUK.selected}</model:stockRequiredOutsideUk>
+		<model:stockRequiredOnRestrictedAreas>{stockRequiredOnRestrictedAreas.selected}</model:stockRequiredOnRestrictedAreas>
+		<model:stockRequiredOverseas>{rdoOverseasCover.selected}</model:stockRequiredOverseas>
+	</model:StockCover>
+	<model:ExhibitionCover id="mdlExhibitionCover">
+		<model:excessof30Days>{coverRequiredInExcessOf30Days.selected}</model:excessof30Days>
+	</model:ExhibitionCover>
+	<model:ToolsAndSamplesCover id="mdlToolsAndSamplesCover">
+	</model:ToolsAndSamplesCover>
+	
+	<mx:Form id="newQuoteForm"
+			 width="100%">
+
+		<!-- Stock Cover -->
+		<mx:VBox id="vboxStockCover">
+			<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_STOCK_COVER_TITLE)}"
+					 styleName="heading1"/>
+			<mx:FormItem labelWidth="500"
+						 id="fmiStockCoverQ1"
+						 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_STOCK_COVER_Q1)}"
+						 direction="horizontal"
+						 required="false">
+				<mx:RadioButtonGroup id="requireStockCoverGroup"
+									 change="requireStockChange()"
+									 enabled="{quote.editable}"/>
+				<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.YES)}"
+								id="rdoStockYes"
+								groupName="requireStockCoverGroup"
+								selected="{mdlStockCover != null}"/>
+				<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.NO)}"
+								id="rdoStockNo"
+								groupName="requireStockCoverGroup"
+								selected="{mdlStockCover == null}"
+								toolTip="{tipHelper.getTips(rdoStockNo, RB_ui.TOOLTIP_ADDCOVER_STOCK_COVER_OUTSIDE_ORDINARY_TRANSIT)}"/>
+			</mx:FormItem>
+
+			<mx:VBox id="mdlStockCoverForm"
+					 includeInLayout="{mdlStockCover != null}"
+					 visible="{mdlStockCover != null}"
+					 width="100%">
+				<additionalcover:StockLocationGrid id="stockLocationGrid"
+												   mdlStockCover="{mdlStockCover}"
+												   quote="{quote}"
+												   userInfo="{userInfo}"/>
+				<mx:FormItem labelWidth="500"
+							 id="fmiStockCoverQ2"
+							 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_STOCK_COVER_Q2)}"
+							 direction="horizontal">
+					<mx:RadioButtonGroup id="excess60DaysGroup"
+										 enabled="{quote.editable}"/>
+					<mx:RadioButton id="excess60Days"
+									label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.YES)}"
+									groupName="excess60DaysGroup"
+									selected="{mdlStockCover.inStoreMoreThan60Days}"/>
+					<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.NO)}"
+									id="rdo60daysNo"
+									groupName="excess60DaysGroup"
+									selected="{!mdlStockCover.inStoreMoreThan60Days}"
+									toolTip="{tipHelper.getTips(rdo60daysNo, RB_ui.TOOLTIP_ADDCOVER_IPT_GOODS_STORE_EXCESS_60_DAYS)}"/>
+				</mx:FormItem>
+				<mx:FormItem labelWidth="500"
+							 id="fmiStockCoverQ3OutsideUK"
+							 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_STOCK_COVER_Q3, [quote.countryOfRisk.name])}"
+							 direction="horizontal">
+					<mx:RadioButtonGroup id="stockOutSideUKGroup"
+										 enabled="{quote.editable}"/>
+					<mx:RadioButton id="stockOutSideUK"
+									label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.YES)}"
+									groupName="stockOutSideUKGroup"
+									selected="{mdlStockCover.stockRequiredOutsideUk}"/>
+					<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.NO)}"
+									id="rdoOutsideUkNo"
+									groupName="stockOutSideUKGroup"
+									selected="{!mdlStockCover.stockRequiredOutsideUk}"
+									toolTip="{tipHelper.getTips(rdoOutsideUkNo, RB_ui.TOOLTIP_ADDCOVER_STOCK_COVER_OUTSIDE_UK)}"/>
+				</mx:FormItem>
+				<mx:FormItem indicatorGap="0" 
+							 borderThickness="0" 
+							 direction="horizontal"
+							 id="fmiStockCoverQ4RequiredOnRestrictedAreas"
+							 visible="false"
+							 includeInLayout="false"
+							 paddingLeft="0"> 
+					<mx:Text width="498" 
+							 paddingLeft="0"
+							 paddingRight="0"
+							 selectable="false" 
+							 text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_STOCK_COVER_Q4, [resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_STOCK_RESTRICTED_AREAS)])}"
+							 textAlign="left"/>
+					<mx:Spacer width="100%"/>
+					<mx:RadioButtonGroup id="stockRequiredOnRestrictedAreasGroup"
+										 enabled="{quote.editable}" 
+										 change="requireStockCatChange()"/>
+					<mx:RadioButton id="stockRequiredOnRestrictedAreas"
+									label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.YES)}"
+									groupName="stockRequiredOnRestrictedAreasGroup"
+									selected="{mdlStockCover.stockRequiredOnRestrictedAreas}"/>
+					<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.NO)}"
+									id="stockRequiredOnRestrictedAreasNo"
+									groupName="stockRequiredOnRestrictedAreasGroup"
+									selected="{!mdlStockCover.stockRequiredOnRestrictedAreas}"
+									toolTip="{tipHelper.getTips(stockRequiredOnRestrictedAreasNo, RB_ui.TOOLTIP_ADDCOVER_CAT_PERILS_RESTRICTED_AREAS)}"/>
+				</mx:FormItem>
+				<mx:FormItem id="fmiStockCoverQ5OverseasCover"
+							 labelWidth="500"
+							 visible="false"
+							 includeInLayout="false"
+							 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_STOCK_COVER_Q5)}"
+							 direction="horizontal">
+					<mx:RadioButtonGroup id="overseasCoverRequiredGroup"
+										 enabled="{quote.editable}"/>
+					<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.YES)}"
+									id="rdoOverseasCover"
+									groupName="overseasCoverRequiredGroup"
+									selected="{mdlStockCover.stockRequiredOverseas}"/>
+					<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.NO)}"
+									id="rdoOverseasCoverNo"
+									groupName="overseasCoverRequiredGroup"
+									selected="{!mdlStockCover.stockRequiredOverseas}"
+									toolTip="{tipHelper.getTips(rdoOverseasCoverNo, RB_ui.TOOLTIP_ADDCOVER_STOCK_COVER_OVERSEAS_COVER)}"/>
+				</mx:FormItem>
+			</mx:VBox>
+
+			<mx:Spacer height="20">
+			</mx:Spacer>
+		</mx:VBox>
+
+		<!-- Exhibition Cover -->
+		<mx:VBox includeInLayout="{showExhibitionCover(quote.policyType)}"
+				 visible="{showExhibitionCover(quote.policyType)}">
+
+			<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_EXHIBITION_COVER_TITLE)}"
+					 styleName="heading1"/>
+			<mx:FormItem labelWidth="500"
+						 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_EXHIBITION_COVER_Q1)}"
+						 id="fmiExhibCoverQ1"
+						 direction="horizontal">
+				<mx:RadioButtonGroup id="requireExhibitionCoverGroup"
+									 change="requireExhibitionChange()"/>
+				<mx:RadioButton id="requireExhibitionCover"
+								label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.YES)}"
+								groupName="requireExhibitionCoverGroup"
+								selected="{mdlExhibitionCover != null}"/>
+				<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.NO)}"
+								id="rdoExhibCoverNo"
+								groupName="requireExhibitionCoverGroup"
+								selected="{mdlExhibitionCover == null}"
+								toolTip="{tipHelper.getTips(rdoExhibCoverNo, RB_ui.TOOLTIP_ADDCOVER_EXHIBITION_COVER)}"/>
+			</mx:FormItem>
+
+			<mx:VBox id="mdlExhibitionCoverForm"
+					 includeInLayout="{mdlExhibitionCover != null}"
+					 visible="{mdlExhibitionCover != null}"
+					 width="100%">
+				<mx:FormItem labelWidth="480"
+							 id="fmiCoverRequiredInExcessOf30Day"
+							 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_EXHIBITION_COVER_Q2)}"
+							 direction="horizontal"
+							 paddingLeft="20">
+					<mx:RadioButtonGroup id="coverRequiredInExcessOf30DaysGroup"
+										 enabled="{quote.editable &amp;&amp;  (!(quote.isMidTermAdjustment()) || userInfo.isUnderwriter)}"/>
+					<mx:RadioButton id="coverRequiredInExcessOf30Days"
+									label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.YES)}"
+									groupName="coverRequiredInExcessOf30DaysGroup"
+									selected="{mdlExhibitionCover.excessof30Days}"/>
+					<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.NO)}"
+									id="rdoExhibCover30No"
+									groupName="coverRequiredInExcessOf30DaysGroup"
+									selected="{!mdlExhibitionCover.excessof30Days}"
+									toolTip="{tipHelper.getTips(rdoExhibCover30No, RB_ui.TOOLTIP_ADDCOVER_COVER_EXCESS_OF_30_DAYS)}"/>
+				</mx:FormItem>
+				<additionalcover:ExhibitionsGrid id="exhibitionsCoverGrid"
+												 mdlExhibitionCover="{mdlExhibitionCover}"
+												 quote="{quote}"
+												 paddingLeft="20" />
+			</mx:VBox>
+			<mx:Spacer height="20"/>
+		</mx:VBox>
+
+		<!-- Tools and Samples Cover -->
+		<mx:VBox 
+			includeInLayout="{fmiToolsSamplesQ1.includeInLayout}"
+			visible="{fmiToolsSamplesQ1.visible}">
+			<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_TOOLS_AND_SAMPLES_COVER_TITLE)}"
+					 styleName="heading1"
+					 includeInLayout="{fmiToolsSamplesQ1.includeInLayout}"/>
+
+			<mx:FormItem id="fmiToolsSamplesQ1"
+						 labelWidth="500"
+						 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.ADDITIONAL_COVER_NEW_QUOTE_TOOLS_AND_SAMPLES_COVER_Q1)}"
+						 direction="horizontal">
+				<mx:RadioButtonGroup id="requireToolsAndSamplesCoverGroup"
+									 change="requireToolsChange()"/>
+				<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.YES)}"
+								id="rdoTandSampYes"
+								groupName="requireToolsAndSamplesCoverGroup"
+								selected="{mdlToolsAndSamplesCover != null}"/>
+				<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.NO)}"
+								id="rdoTandSampNo"
+								groupName="requireToolsAndSamplesCoverGroup"
+								selected="{mdlToolsAndSamplesCover == null}"
+								toolTip="{tipHelper.getTips(rdoTandSampNo, RB_ui.TOOLTIP_ADDCOVER_TOOLS_AND_SAMPLES_COVER)}"/>
+			</mx:FormItem>
+
+			<!-- This depends on the answer of fmiToolsSamplesQ1 --> 
+			<mx:VBox id="mdlToolsAndSamplesCoverForm"
+					 includeInLayout="{mdlToolsAndSamplesCover != null}"
+					 visible="{mdlToolsAndSamplesCover != null}"
+					 width="100%"
+					 paddingLeft="20" >
+				<additionalcover:ToolsAndSamplesGrid id="toolsAndSamplesGrid"
+													 mdlToolsAndSamplesCover="{mdlToolsAndSamplesCover}"/>
+			</mx:VBox>
+		</mx:VBox>
+	</mx:Form>
+</mx:VBox>

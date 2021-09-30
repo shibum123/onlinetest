@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:FormItem xmlns:mx="http://www.adobe.com/2006/mxml"
+			 xmlns:currency="com.catlin.ui.flex.widgets.currency.*"
+			 xmlns:help="com.catlin.cargo.view.help.*"
+			 xmlns:risk="com.catlin.cargo.model.core.risk.*"
+			 initialize="addMyEventListener()">
+
+	<help:TipHelper id="tipHelper"/>
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.risk.Risk;
+			import com.catlin.cargo.model.core.risk.Sendings;
+			import com.catlin.cargo.model.security.UserInfo;
+			import com.catlin.ui.flex.widgets.general.ComboBox;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.CollectionEvent;
+
+
+			[Bindable]
+			public var userInfo:UserInfo;
+			[Bindable]
+			public var quote:Risk;
+			[Bindable]
+			public var costs:ArrayCollection;
+			[Bindable]
+			public var sending:Sendings;
+			[Bindable]
+			public var deductiblesEditable:Boolean;
+
+			public function updateSelectedDeductible(event:Event):void {
+				var sendingComboBox:ComboBox=event.currentTarget as ComboBox;
+				sending.deductibles=sendingComboBox.selectedItem as Number;
+			}
+
+			protected function refreshSelectedDeductible(event:Event):void {
+				if (event != null && sending != null) {
+					var sendingComboBox:ComboBox=event.currentTarget as ComboBox;
+					sendingComboBox.selectedItem=sending.deductibles;
+				}
+			}
+
+			public function addMyEventListener():void {
+				deductibleAmount.addEventListener(Event.CHANGE, updateSelectedDeductible);
+				deductibleAmount.addEventListener(CollectionEvent.COLLECTION_CHANGE, refreshSelectedDeductible);
+			}
+		]]>
+	</mx:Script>
+
+
+	<mx:Text text="{quote.currency}"/>
+	<currency:CurrencyComboBox id="deductibleAmount"
+							   enabled="{deductiblesEditable}"
+							   toolTip="{tipHelper.getTips(deductibleAmount, RB_ui.TOOLTIP_DED_BUYERS_SELLERS_INTEREST_CONTINGENCY)}"/>
+	<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.BASIS_OF_VALUATION_VIEW_DEDUCTIBLES_EACH_AND_EVERY_LOST)}"/>
+</mx:FormItem>

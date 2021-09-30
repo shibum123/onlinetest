@@ -1,0 +1,24 @@
+FROM node:12.10-alpine AS builder
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+RUN npm run build:dockeree
+CMD ["npm", "start"]
+
+
+docker container run -d -p 3000:3000 --name search-container eb0b36756194
+
+
+docker image build . -t searchimage
+docker run searchimage
+docker ps | grep searchimage
+docker exec -it 580e7224d051 sh
+
+sudo chown -R shibu ./
+
+sudo reboot

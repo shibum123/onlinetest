@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+		   xmlns:arc90="com.arc90.flexlib.containers.*"
+		   xmlns:validators="com.catlin.ui.flex.validators.*"
+		   xmlns:model="com.catlin.cargo.model.core.risk.*"
+		   xmlns:currency="com.catlin.ui.flex.widgets.currency.*"
+		   xmlns:tips="com.catlin.cargo.view.help.*"
+		   xmlns:number="com.catlin.ui.flex.widgets.number.*">
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.risk.PremiumType;
+			import com.catlin.cargo.model.core.risk.Risk;
+			import com.catlin.cargo.model.security.UserInfo;
+			
+			import mx.controls.Alert;
+			import mx.controls.CheckBox;
+			import mx.events.CloseEvent;
+
+
+			[Bindable]
+			public var userInfo:UserInfo=null;
+
+			[Bindable]
+			public var quote:Risk;
+
+			[Bindable]
+			public var changeWarningText:String;
+
+			[Bindable]
+			public var checkBoxLabel:String;
+
+			public var overridenLockChangeEventName:String='overriden';
+
+			[Bindable]
+			public var overridenLock:Boolean=false;
+
+			private function overridePopup(event:Event):void {
+				if (event != null && event.currentTarget != null) {
+					var checkBox:CheckBox=event.currentTarget as CheckBox;
+					if (checkBox.selected) {
+						Alert.okLabel=resourceManager.getString(RB_ui.RB_NAME, RB_ui.MA_MTA_ORVERRIDABLE_PROCEED);
+						Alert.cancelLabel=resourceManager.getString(RB_ui.RB_NAME, RB_ui.CANCEL);
+						Alert.buttonWidth=75;
+						Alert.show(changeWarningText + "\n\n" + resourceManager.getString(RB_ui.RB_NAME, RB_ui.MA_MTA_ORVERRIDABLE_PROCEED_CONFIRMATION)  + "\n ", 
+							resourceManager.getString(RB_ui.RB_NAME, RB_ui.MA_MTA_ORVERRIDABLE_WARNING), 
+							Alert.CANCEL | Alert.OK, 
+							null, 
+							overrideCloseHandler);
+					} else {
+						overridenLock=false;
+						fireUpdateEvent();
+					}
+				}
+			}
+
+			private function overrideCloseHandler(event:CloseEvent):void {
+				if (event.detail == Alert.OK) {
+					overideMTAMADLock.selected=true;
+					overridenLock=true;
+					fireUpdateEvent();
+				} else {
+					overideMTAMADLock.selected=false;
+					overridenLock=false;
+				}
+			}
+
+			private function initOverrideSelect():Boolean {
+				overridenLock=false;
+				return false;
+			}
+
+			private function fireUpdateEvent():void {
+				dispatchEvent(new Event(overridenLockChangeEventName));
+			}
+		]]>
+	</mx:Script>
+
+	<mx:CheckBox label="{checkBoxLabel}"
+				 includeInLayout="{quote.premiumType == PremiumType.MAD &amp;&amp; quote.isMidTermAdjustment() &amp;&amp; userInfo.isUnderwriter}"
+				 visible="{quote.premiumType == PremiumType.MAD &amp;&amp; quote.isMidTermAdjustment() &amp;&amp; userInfo.isUnderwriter}"
+				 change="{overridePopup(event)}"
+				 labelPlacement="left"
+				 textAlign="left"
+				 selected="{overridenLock}"
+				 id="overideMTAMADLock"
+				 enabled="{quote.editable}"/>
+
+
+
+</mx:Canvas>

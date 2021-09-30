@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 width="100%"
+		 height="100%"
+		 styleName="LeftAreaVBox"
+		 label="{ title + ' (' + risks.length + ')' }"
+		 verticalScrollPolicy="auto"
+		 horizontalScrollPolicy="off"
+		 paddingBottom="9"
+		 paddingLeft="9"
+		 paddingRight="9"
+		 paddingTop="9"
+		 xmlns:grid="com.catlin.ui.flex.widgets.grid.*">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.risk.RiskSearchResult;
+			
+			import mx.collections.ArrayCollection;
+
+
+			public static const VIEW:String='view';
+
+			[Bindable]
+			public var title:String;
+			[Bindable]
+			public var selectedRisk:RiskSearchResult;
+			[Bindable]
+			public var risks:ArrayCollection
+		]]>
+	</mx:Script>
+
+	<mx:Binding source="riskGrid.selectedItem as RiskSearchResult"
+				destination="selectedRisk"/>
+
+	<mx:HBox width="{this.width - 19}"
+			 horizontalScrollPolicy="auto"
+			 paddingBottom="0"
+			 paddingLeft="0"
+			 paddingRight="0"
+			 paddingTop="0"
+			 height="100%">
+
+		<grid:BasicDataGrid id="riskGrid"
+							minWidth="500"
+							width="100%"
+							verticalAlign="top"
+							rowHeight="25"
+							height="100%"
+							dataProvider="{risks}"
+							click="dispatchEvent(new Event(VIEW, true))">
+			<grid:columns>
+				<mx:DataGridColumn id="dgcDaysToIncept"
+								   headerText="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.RENEWAL_LIST_GRID_DAYS_TO_INCEPT)}"
+								   minWidth="85"/>
+				<mx:DataGridColumn id="dgcDate"
+								   headerText="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.RENEWAL_LIST_GRID_INCEPTION_DATE)}"
+								   minWidth="80"/>
+				<mx:DataGridColumn id="dgcInsured"
+								   headerText="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.RENEWAL_LIST_GRID_INSURED_NAME)}"
+								   minWidth="85"/>
+				<mx:DataGridColumn id="dgcReference"
+								   headerText="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.RENEWAL_LIST_GRID_STATUS)}"
+								   minWidth="100"/>
+				<mx:DataGridColumn id="dgcStatus"
+								   headerText="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.RENEWAL_LIST_GRID_REFERENCE)}"
+								   minWidth="100"/>
+				<mx:DataGridColumn id="dgcBrokerOffice"
+								   headerText="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.RENEWAL_LIST_GRID_BROKER_OFFICE)}"
+								   minWidth="80"/>
+				<mx:DataGridColumn id="dgcTownCity"
+								   headerText="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.RENEWAL_LIST_GRID_BROKER_CITY)}"
+								   minWidth="95"/>
+			</grid:columns>
+		</grid:BasicDataGrid>
+	</mx:HBox>
+</mx:VBox>

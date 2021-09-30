@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
+				verticalScrollPolicy="off"
+				verticalGap="0">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+		]]>
+	</mx:Script>
+	<mx:VBox>
+		<mx:Text id="txtDescription"/>
+	</mx:VBox>
+	<mx:Form>
+		<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.DECLINE_REASON_REASON)}"
+					 required="true"
+					 labelWidth="100">
+			<mx:ComboBox id="cboReasons"
+						 prompt="Select"/>
+			<mx:TextArea id="cboOtherReason"
+						 includeInLayout="{cboReasons.selectedItem == resourceManager.getString(RB_ui.RB_NAME, RB_ui.DECLINE_REASON_MEDIATOR_OTHER)}"
+						 visible="{cboReasons.selectedItem == resourceManager.getString(RB_ui.RB_NAME, RB_ui.DECLINE_REASON_MEDIATOR_OTHER)}"
+						 height="70"
+						 width="{cboReasons.width}"/>
+		</mx:FormItem>
+		<mx:FormItem id="fmiEffectiveDateItem"
+					 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.DECLINE_REASON_EFFECTIVE_DATE)}"
+					 labelWidth="100"
+					 required="true"
+					 includeInLayout="false"
+					 visible="false">
+			<mx:DateField id="dtfEffectiveDate"
+						  editable="true"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:HBox width="100%"
+			 horizontalAlign="center">
+		<mx:Button id="okButton"
+				   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.OK)}"
+				   width="70"/>
+		<mx:Button id="cancelButton"
+				   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CANCEL)}"
+				   width="70"/>
+	</mx:HBox>
+</mx:TitleWindow>

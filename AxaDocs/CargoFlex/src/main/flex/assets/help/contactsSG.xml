@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<offices>
+	<region name="Singapore">
+		<address>
+			<line>Catlin Singapore Pte Ltd</line>
+			<line>One George Street # 16-04/05</line>
+			<line>Singapore 049145</line>
+		</address>
+		<phone type="Office Telephone" number="+65 6538 8718" />
+		<phone type="Office Fax" number="+65 6557 0012" />
+		<contact name="Kwek Ai Hoon" title="Cargo Underwriter" email="AiHoon.Kwek@axaxl.com">
+			<phone type="Direct Dial" number="+65 6854 3815" />
+		</contact>
+		<contact name="Matthew Cannock" title="Marine Underwriter"
+			email="Matthew.Cannock@axaxl.com">
+			<phone type="Direct Dial" number="+65 6751 5216" />
+			<phone type="Mobile" number="+65 9632 3097" />
+		</contact>
+	</region>
+</offices>

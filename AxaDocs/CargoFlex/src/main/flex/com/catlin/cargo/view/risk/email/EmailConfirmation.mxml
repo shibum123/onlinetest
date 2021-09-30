@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow title="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.EMAIL_CONFIRMATION_TITLE)}"
+				layout="vertical"
+				width="700"
+				height="500"
+				verticalScrollPolicy="off"
+				xmlns:mx="http://www.adobe.com/2006/mxml"
+				xmlns:widgets="com.catlin.ui.flex.widgets.general.*">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%"
+			 height="425"
+			 verticalGap="0">
+		<mx:TextArea id="txaStaticContentStart"
+					 paddingLeft="10"
+					 width="100%"
+					 editable="false"
+					 borderStyle="none"
+					 verticalScrollPolicy="off"/>
+		<widgets:RichTextEditor id="rteAdditionalComments"
+								title="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.EMAIL_CONFIRMATION_COMMENTS)}"
+								width="100%"
+								height="200"
+								borderStyle="none"/>
+		<mx:TextArea id="txaStaticContentEnd"
+					 paddingLeft="10"
+					 width="100%"
+					 editable="false"
+					 borderStyle="none"
+					 verticalScrollPolicy="off"/>
+	</mx:VBox>
+	<mx:HBox horizontalAlign="center"
+			 width="100%">
+		<mx:Button id="sendButton"
+				   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.SEND)}"
+				   width="70"/>
+		<mx:Button id="cancelButton"
+				   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CANCEL)}"
+				   width="70"/>
+	</mx:HBox>
+</mx:TitleWindow>

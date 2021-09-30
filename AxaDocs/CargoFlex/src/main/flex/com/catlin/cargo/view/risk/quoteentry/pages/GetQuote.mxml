@@ -1,0 +1,855 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 xmlns:tips="com.catlin.cargo.view.help.*"
+		 xmlns:model="com.catlin.cargo.model.core.risk.*"
+		 xmlns:currency="com.catlin.ui.flex.widgets.currency.*"
+		 xmlns:percentage="com.catlin.ui.flex.widgets.percentage.*"
+		 xmlns:number="com.catlin.ui.flex.widgets.number.*">
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.risk.CommissionType;
+			import com.catlin.cargo.model.core.risk.ExhibitionCover$ExhibitionCoverTerritory;
+			import com.catlin.cargo.model.core.risk.PolicyType;
+			import com.catlin.cargo.model.core.risk.PremiumType;
+			import com.catlin.cargo.model.core.risk.Risk;
+			
+			import com.catlin.cargo.model.core.risk.RiskStatus;
+			import com.catlin.cargo.model.core.risk.TriaInsuranceStatus;
+			import com.catlin.cargo.model.geo.location.Location;
+			import com.catlin.cargo.model.security.UserInfo;
+			import com.catlin.cargo.view.util.ViewUtils;
+
+
+			[Bindable]
+			public var userInfo:UserInfo=null;
+
+			public function disableSendingsFields():void
+			{
+				ViewUtils.deepDisableTextInputs(sendingsRepeater.container);
+			}
+
+			private function updateMADLabel(quote:Risk):String
+			{
+				var label:String = resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MAD_LABEL);
+				if (quote != null && userInfo != null)
+				{
+					if (!userInfo.isUnderwriter)
+					{
+						return label + "(" + quote.minimumPremiumDeposit + "%)";
+					}
+				}
+				return label;
+			}
+
+			private function createQuoteComparisonText(value:Number, currency:String):String
+			{
+				return "(" + ccf.format(value) + " " + currency + ")";
+			}
+
+			private function toPercentage(rate:Number):String
+			{
+				if (isNaN(rate))
+				{
+					return "";
+				}
+				return numberFormatter.format((rate * 100)) + "%";
+			}
+
+			private function updatePremiumTypeSelected():void
+			{
+				if (!overridePremiumType.selected)
+				{
+					premiumTypeGroup.selectedValue=mdlQuote.brokerOffice.premiumType;
+				}
+			}
+
+			private function showFNA(policyType:PolicyType, bopremiumType:PremiumType, override:Boolean, quotePremiumType:PremiumType):Boolean
+			{
+				return (policyType == PolicyType.SINGLE || (bopremiumType != PremiumType.MAD || override)) || quotePremiumType == PremiumType.FNA;
+			}
+
+			private function showMAD(policyType:PolicyType, bopremiumType:PremiumType, override:Boolean, quotePremiumType:PremiumType):Boolean
+			{
+				return ((policyType == PolicyType.ANNUAL) && (bopremiumType != PremiumType.FNA || override)) || quotePremiumType == PremiumType.MAD;
+			}
+
+			private function showOverride(policyType:PolicyType, isUnderwriter:Boolean, bopremiumType:PremiumType):Boolean
+			{
+				return (policyType == PolicyType.ANNUAL) && (isUnderwriter && bopremiumType != PremiumType.BOTH);
+			}
+
+
+			private function showMADPercentage(policyType:PolicyType, isUnderwriter:Boolean, quotePremiumType:PremiumType, override:Boolean):Boolean
+			{
+				return (quotePremiumType == PremiumType.MAD && isUnderwriter) && ((policyType == PolicyType.ANNUAL) && (isUnderwriter && (override || quotePremiumType == PremiumType.MAD)))
+			}
+
+			private function enableMADPercentage(quotePremiumType:PremiumType, mta:Boolean):Boolean
+			{
+				return mdlQuote.premiumType == PremiumType.MAD && !(mta) && mdlQuote.editable
+			}
+		]]>
+	</mx:Script>
+
+	<mx:NumberFormatter id="numberFormatter"
+						precision="5"
+						rounding="nearest"/>
+
+	<tips:TipHelper id="tipHelper"/>
+
+	<model:Risk id="mdlQuote">
+		<model:commissionType>{quoteCommissionIsGross.selected ? CommissionType.GROSS : CommissionType.NET}</model:commissionType>
+		<model:commissionPercentage>{Number(commision.data)}</model:commissionPercentage>
+		<model:minimumPremiumDeposit>{Number(premiumDepositPercentage.data)}</model:minimumPremiumDeposit>
+		<model:premiumType>{premiumTypeGroup.selectedValue as PremiumType}</model:premiumType>
+		<model:overridePremiumType>{overridePremiumType.selected}</model:overridePremiumType>
+	</model:Risk>
+
+	<mx:Form id="newQuoteForm"
+			 labelWidth="150"
+			 width="100%">
+		<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_TERMS)}"
+				 styleName="heading1"/>
+
+		<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_TYPE)}"
+					 direction="horizontal">
+			<mx:RadioButtonGroup id="premiumTypeGroup"
+								 selectedValue="{(mdlQuote.policyType == PolicyType.SINGLE) ? PremiumType.FNA:mdlQuote.premiumType}"
+								 enabled="{!(mdlQuote.isMidTermAdjustment()) &amp;&amp; mdlQuote.editable}"/>
+			<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_FLAT_NON_ADJUSTABLE)}"
+							id="fna"
+							groupName="premiumTypeGroup"
+							value="{PremiumType.FNA}"
+							includeInLayout="{showFNA(mdlQuote.policyType, mdlQuote.brokerOffice.premiumType, overridePremiumType.selected, mdlQuote.premiumType)}"
+							visible="{showFNA(mdlQuote.policyType, mdlQuote.brokerOffice.premiumType, overridePremiumType.selected, mdlQuote.premiumType)}"/>
+			<mx:RadioButton label="{updateMADLabel(mdlQuote)}"
+							id="mad"
+							groupName="premiumTypeGroup"
+							value="{PremiumType.MAD}"
+							includeInLayout="{showMAD(mdlQuote.policyType, mdlQuote.brokerOffice.premiumType, overridePremiumType.selected, mdlQuote.premiumType)}"
+							visible="{showMAD(mdlQuote.policyType, mdlQuote.brokerOffice.premiumType, overridePremiumType.selected, mdlQuote.premiumType)}"/>
+			<mx:CheckBox change="updatePremiumTypeSelected()"
+						 enabled="{!(mdlQuote.isMidTermAdjustment()) &amp;&amp; mdlQuote.editable}"
+						 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_OVERRIDE)}"
+						 id="overridePremiumType"
+						 selected="{mdlQuote.overridePremiumType}"
+						 includeInLayout="{showOverride(mdlQuote.policyType, userInfo.isUnderwriter, mdlQuote.brokerOffice.premiumType)}"
+						 visible="{showOverride(mdlQuote.policyType, userInfo.isUnderwriter, mdlQuote.brokerOffice.premiumType)}"/>
+			<percentage:PercentageInput id="premiumDepositPercentage"
+										includeInLayout="{showMADPercentage(mdlQuote.policyType, userInfo.isUnderwriter, mdlQuote.premiumType, overridePremiumType.selected)}"
+										visible="{showMADPercentage(mdlQuote.policyType, userInfo.isUnderwriter, mdlQuote.premiumType, overridePremiumType.selected)}"
+										enabled="{enableMADPercentage(mdlQuote.premiumType, mdlQuote.isMidTermAdjustment())}"
+										data="{mdlQuote.minimumPremiumDeposit}"/>
+		</mx:FormItem>
+
+		<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_COMISSION)}"
+					 direction="horizontal">
+			<percentage:PercentageInput id="commision"
+										data="{mdlQuote.commissionPercentage}"
+										enabled="{quoteCommissionIsGross.selected}"
+										showZero="true"
+										toolTip="{tipHelper.getTips(commision, RB_ui.TOOLTIP_GET_QUOTE_COMMISSION)}"/>
+			<mx:RadioButtonGroup id="commissionGroup"/>
+			<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_COMISSION_GROSS)}"
+							id="quoteCommissionIsGross"
+							groupName="commissionGroup"
+							selected="{mdlQuote.commissionType == CommissionType.GROSS}"/>
+			<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_COMISSION_NET)}"
+							id="rdoCommissonNet"
+							groupName="commissionGroup"
+							selected="{mdlQuote.commissionType != CommissionType.GROSS}"
+							toolTip="{tipHelper.getTips(rdoCommissonNet, RB_ui.TOOLTIP_GET_QUOTE_QUOTE_COMMISSION)}"/>
+		</mx:FormItem>
+
+		<!-- M&D Details -->
+		<mx:Grid visible="{(userInfo.isUnderwriter || mdlQuote.brokerOffice.canAdjustPremium) &amp;&amp; mdlQuote.status != RiskStatus.NEW  &amp;&amp; mdlQuote.premiumType == PremiumType.MAD}"
+				 includeInLayout="{(userInfo.isUnderwriter || mdlQuote.brokerOffice.canAdjustPremium) &amp;&amp; mdlQuote.status != RiskStatus.NEW &amp;&amp; mdlQuote.premiumType == PremiumType.MAD}">
+			<mx:GridRow>
+				<mx:GridItem colSpan="4">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MIN_AND_DEPOSIT)}"
+							 styleName="heading1"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow>
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MIN_AND_DEPOSIT_PREMIUM)}"
+								 direction="horizontal">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												id="curMADPremium"
+												data="{mdlQuote.madRate.premium}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+				<mx:GridItem visible="{(mdlQuote.quoteComparisonCurrency != null)}">
+					<mx:Text text="{createQuoteComparisonText(mdlQuote.quoteComparisonMadRate.premium, mdlQuote.quoteComparisonCurrency)}"/>
+				</mx:GridItem>
+				<mx:GridItem visible="{(mdlQuote.isMidTermAdjustment())}">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MIN_AND_DEPOSIT_ADDITIONAL_RETURN_PREMIUM)}"/>
+				</mx:GridItem>
+				<mx:GridItem visible="{(mdlQuote.isMidTermAdjustment())}">
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="madAdditionalPremium"
+											data="{mdlQuote.mtaMadRate.premium}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow>
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MIN_AND_DEPOSIT_TAX_AMOUNT)}"
+								 direction="horizontal">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												id="curMADTaxAmount"
+												data="{mdlQuote.madRate.tax}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+				<mx:GridItem visible="{(mdlQuote.quoteComparisonCurrency != null)}">
+					<mx:Text text="{createQuoteComparisonText(mdlQuote.quoteComparisonMadRate.tax, mdlQuote.quoteComparisonCurrency)}"/>
+				</mx:GridItem>
+				<mx:GridItem visible="{(mdlQuote.isMidTermAdjustment())}">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MIN_AND_DEPOSIT_ADDITIONAL_RETURN_TAX)}"/>
+				</mx:GridItem>
+				<mx:GridItem visible="{(mdlQuote.isMidTermAdjustment())}">
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="madAdditionalTax"
+											data="{mdlQuote.mtaMadRate.tax}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow
+				visible="{(mdlQuote.triaInsuranceDetails.triaInsuranceStatus == TriaInsuranceStatus.ACCEPTED) || mdlQuote.status == RiskStatus.NEW || mdlQuote.status == RiskStatus.REFERRED}"
+				includeInLayout="{(mdlQuote.triaInsuranceDetails.triaInsuranceStatus == TriaInsuranceStatus.ACCEPTED) || mdlQuote.status == RiskStatus.NEW || mdlQuote.status == RiskStatus.REFERRED}">
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_TRIA_PREMIUM)}"
+								 direction="horizontal">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												data="{mdlQuote.triaInsuranceDetails.triaPremium}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+			</mx:GridRow>				
+		</mx:Grid>
+
+		<!-- Renewal details -->
+		<mx:Grid visible="{userInfo.isUnderwriter &amp;&amp; mdlQuote.previousRisk != null}"
+				 includeInLayout="{userInfo.isUnderwriter &amp;&amp; mdlQuote.previousRisk != null}">
+			<mx:GridRow>
+				<mx:GridItem colSpan="4">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_EXPIRING_PREMIUM)}"
+							 styleName="heading1"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow>
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_EXPIRING_PREMIUM_POLICY)}"
+								 direction="horizontal">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												id="curPreviousCalculatedPremium"
+												data="{mdlQuote.previousRisk.calculatedPremium}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+				<mx:GridItem>
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_EXPIRING_PREMIUM_ADJUST_BY)}"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<percentage:PercentageComboBox id="cboPreviousPremiumAdjustment"
+												   enabled="false"
+												   editable="true"
+												   strict="false"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_EXPIRING_PREMIUM_CHARGEABLE)}"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="curPreviousAdjustedPremium"
+											data="{mdlQuote.previousRisk.rate.premium}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem visible="{(mdlQuote.previousRisk.quoteComparisonCurrency != null)}">
+					<mx:Text text="{createQuoteComparisonText(mdlQuote.previousRisk.quoteComparisonFullRate.premium, mdlQuote.previousRisk.quoteComparisonCurrency)}"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow
+				visible="{(mdlQuote.triaInsuranceDetails.triaInsuranceStatus == TriaInsuranceStatus.ACCEPTED) || mdlQuote.status == RiskStatus.NEW || mdlQuote.status == RiskStatus.REFERRED}"
+				includeInLayout="{(mdlQuote.triaInsuranceDetails.triaInsuranceStatus == TriaInsuranceStatus.ACCEPTED) || mdlQuote.status == RiskStatus.NEW || mdlQuote.status == RiskStatus.REFERRED}">
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_TRIA_PREMIUM)}"
+								 direction="horizontal">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												id="curPreviousTriaPremium"
+												data="{mdlQuote.previousRisk.triaInsuranceDetails.triaPremium}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+			</mx:GridRow>			
+		</mx:Grid>
+
+		<!-- MTA details -->
+		<mx:Grid visible="{mdlQuote.isMidTermAdjustment() &amp;&amp; mdlQuote.status != RiskStatus.NEW}"
+				 includeInLayout="{mdlQuote.isMidTermAdjustment() &amp;&amp; mdlQuote.status != RiskStatus.NEW}"
+				 borderColor="#000000"
+				 borderThickness="1">
+			<mx:GridRow>
+				<mx:GridItem colSpan="5">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MTA_DETAILS)}"
+							 styleName="heading1"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow>
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MTA_DETAILS_ADDITIONAL_RETURN_PREMIUM)}"
+								 direction="horizontal">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												id="chargeableAdditionalPremium"
+												data="{mdlQuote.mtaRate.premium}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+				<mx:GridItem visible="{mdlQuote.midTermAdjustmentDetails.additionalPremiumOverridden}"
+							 includeInLayout="{mdlQuote.midTermAdjustmentDetails.additionalPremiumOverridden}">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MTA_DETAILS_OVERRIDEN)}"
+							 includeInLayout="{mdlQuote.midTermAdjustmentDetails.additionalPremiumOverridden}"/>
+				</mx:GridItem>
+				<mx:GridItem visible="{mdlQuote.mtaCalculatedRate.premium != mdlQuote.mtaRate.premium}"
+							 includeInLayout="{mdlQuote.mtaCalculatedRate.premium != mdlQuote.mtaRate.premium}">
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="calculatedAdditionalpremium"
+											data="{mdlQuote.mtaCalculatedRate.premium}"
+											enabled="false"
+											currencySymbol=""
+											includeInLayout="{mdlQuote.mtaCalculatedRate.premium != mdlQuote.mtaRate.premium}"/>
+				</mx:GridItem>
+				<mx:GridItem visible="{mdlQuote.mtaCalculatedRate.premium != mdlQuote.mtaRate.premium}"
+							 includeInLayout="{mdlQuote.mtaCalculatedRate.premium != mdlQuote.mtaRate.premium}">
+					<mx:Text id="calculatedAdditionalpremiumLabel"
+							 text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MTA_DETAILS_CALCULATED)}"
+							 includeInLayout="{mdlQuote.mtaCalculatedRate.premium != mdlQuote.mtaRate.premium}"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<mx:Button id="overrideAdditionalPremiumButton"
+							   label="{mdlQuote.midTermAdjustmentDetails.additionalPremiumOverridden ? 
+							   	resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MTA_DETAILS_OVERRIDE_BUTTON_EDIT) : 
+							   resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MTA_DETAILS_OVERRIDE_BUTTON_OVERRIDE)}"
+							   enabled="true"
+							   visible="{ (userInfo.isUnderwriter &amp;&amp; (mdlQuote.status == RiskStatus.REFERRED || mdlQuote.status == RiskStatus.QUOTED || mdlQuote.status == RiskStatus.QUOTE_PENDING)) 
+							   			|| (userInfo.isBroker &amp;&amp; mdlQuote.brokerOffice.canAdjustPremium &amp;&amp; (mdlQuote.status == RiskStatus.QUOTED))}"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow>
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MTA_DETAILS_ADDITIONAL_RETURN_TAX)}"
+								 direction="horizontal">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												id="additionalTax"
+												data="{mdlQuote.mtaRate.tax}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow>
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MTA_DETAILS_CHARGEABLE)}">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												id="curMtaAdjustedPremium"
+												data="{mdlQuote.rate.premium}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+				<mx:GridItem visible="{(mdlQuote.quoteComparisonCurrency != null) }">
+					<mx:Text text="{createQuoteComparisonText(mdlQuote.quoteComparisonFullRate.premium, mdlQuote.quoteComparisonCurrency)}"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow
+				visible="{mdlQuote.triaInsuranceDetails.triaInsuranceStatus == TriaInsuranceStatus.ACCEPTED}"
+				includeInLayout="{mdlQuote.triaInsuranceDetails.triaInsuranceStatus == TriaInsuranceStatus.ACCEPTED}">
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MTA_DETAILS_ADDITIONAL_RETURN_TRIA_PREMIUM)}"
+								 direction="horizontal">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												id="chargeableAdditionalTriaPremium"
+												data="{mdlQuote.triaInsuranceDetails.triaPremium}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+				<mx:GridItem visible="{mdlQuote.triaInsuranceDetails.triaPremium != mdlQuote.triaInsuranceDetails.triaPremiumOverridden}"
+							 includeInLayout="{mdlQuote.triaInsuranceDetails.triaPremium != mdlQuote.triaInsuranceDetails.triaPremiumOverridden}">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MTA_DETAILS_OVERRIDEN)}"
+							 includeInLayout="{mdlQuote.triaInsuranceDetails.triaPremium != mdlQuote.triaInsuranceDetails.triaPremiumOverridden}"/>
+				</mx:GridItem>
+				<mx:GridItem 
+					visible="{mdlQuote.triaInsuranceDetails.triaPremium != mdlQuote.triaInsuranceDetails.triaCalculatedPremium}"
+					includeInLayout="{mdlQuote.triaInsuranceDetails.triaPremium != mdlQuote.triaInsuranceDetails.triaCalculatedPremium}">					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="calculatedAdditionalTriapremium"
+											data="{mdlQuote.triaInsuranceDetails.triaCalculatedPremium}"
+											enabled="false"
+											currencySymbol=""
+											includeInLayout="{mdlQuote.triaInsuranceDetails.triaPremium != mdlQuote.triaInsuranceDetails.triaCalculatedPremium}"/>
+				</mx:GridItem>
+				
+				<!--includeInLayout="{mdlQuote.triaInsuranceDetails.triaPremiumOverridden == false &amp;&amp; mdlQuote.triaInsuranceDetails.triaPremium != mdlQuote.triaInsuranceDetails.triaCalculatedPremium}">-->
+				<mx:GridItem 
+							 visible="{mdlQuote.triaInsuranceDetails.triaPremium != mdlQuote.triaInsuranceDetails.triaCalculatedPremium}"
+							 includeInLayout="{mdlQuote.triaInsuranceDetails.triaPremium != mdlQuote.triaInsuranceDetails.triaCalculatedPremium}">
+					<mx:Text id="calculatedAdditionalTriapremiumLabel"
+							 text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_MTA_DETAILS_CALCULATED)}"
+							 includeInLayout="{mdlQuote.triaInsuranceDetails.triaPremium != mdlQuote.triaInsuranceDetails.triaCalculatedPremium}"/>
+				</mx:GridItem>
+			</mx:GridRow>
+		</mx:Grid>
+
+		
+		<!-- premium breakdown -->
+		<mx:Grid visible="{(userInfo.isUnderwriter || mdlQuote.brokerOffice.canAdjustPremium) &amp;&amp; mdlQuote.status != RiskStatus.NEW}"
+				 includeInLayout="{(userInfo.isUnderwriter || mdlQuote.brokerOffice.canAdjustPremium) &amp;&amp; mdlQuote.status != RiskStatus.NEW}">
+			<mx:GridRow>
+				<mx:GridItem colSpan="4">
+					<mx:Text text="{mdlQuote.premiumType == PremiumType.MAD ? 
+							 resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_100) :
+							 resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_FLAT) }"
+							 styleName="heading1"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow>
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_POLICY_PREMIUM)}"
+								 direction="horizontal">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												id="curCalculatedPremium"
+												data="{mdlQuote.isMidTermAdjustment() ? mdlQuote.grossAnnualRate.premium : mdlQuote.calculatedPremium}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+				<mx:GridItem>
+					<mx:Text text="{mdlQuote.isMidTermAdjustment() ? 
+							 resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_ADJUSTED_BY) : 
+							 resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_ADJUST_BY)}"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<percentage:PercentageComboBox id="cboPremiumAdjustment"
+												   precision="4"
+												   editable="true"
+												   strict="false"
+												   width="90"
+												   visible="{!mdlQuote.isMidTermAdjustment()}"
+												   includeInLayout="{!mdlQuote.isMidTermAdjustment()}"/>
+					<percentage:PercentageInput id="mtaAdjustmentPercentage"
+												precision="4"
+												enabled="false"
+												strict="false"
+												width="100"
+												data="{mdlQuote.adjustmentPercent}"
+												visible="{mdlQuote.isMidTermAdjustment()}"
+												includeInLayout="{mdlQuote.isMidTermAdjustment()}"/>
+				</mx:GridItem>
+				<mx:GridItem visible="{!mdlQuote.isMidTermAdjustment()}">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_CHARGEABLE_PREMIUM)}"/>
+				</mx:GridItem>
+				<mx:GridItem visible="{!mdlQuote.isMidTermAdjustment()}">
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="curAdjustedPremium"
+											data="{mdlQuote.rate.premium}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem visible="{(mdlQuote.quoteComparisonCurrency != null) &amp;&amp; !mdlQuote.isMidTermAdjustment()}">
+					<mx:Text text="{createQuoteComparisonText(mdlQuote.quoteComparisonFullRate.premium, mdlQuote.quoteComparisonCurrency)}"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow visible="{userInfo.isUnderwriter}"
+						includeInLayout="{userInfo.isUnderwriter}">
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_PREMIUM_WITH_CLAIMS)}"
+								 direction="horizontal">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												id="premiumWithClaims"
+												data="{mdlQuote.claimLoadedPremium}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+				<mx:GridItem>
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_BASE)}"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="basePremium"
+											data="{mdlQuote.baseLoadedPremium}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem visible="{!mdlQuote.isMidTermAdjustment()}">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_TAX)}"/>
+				</mx:GridItem>
+				<mx:GridItem visible="{!mdlQuote.isMidTermAdjustment()}">
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="ipt"
+											data="{mdlQuote.grossAnnualRate.tax}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem visible="{!(mdlQuote.isMidTermAdjustment()) &amp;&amp; (mdlQuote.quoteComparisonCurrency != null)}">
+					<mx:Text text="{createQuoteComparisonText(mdlQuote.quoteComparisonFullRate.tax, mdlQuote.quoteComparisonCurrency)}"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow visible="{userInfo.isUnderwriter}"
+						includeInLayout="{userInfo.isUnderwriter}">
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_LOSS_RATIO)}">
+						<percentage:PercentageInput id="lossRatio"
+													data="{mdlQuote.lossRatio}"
+													enabled="false"/>
+					</mx:FormItem>
+				</mx:GridItem>
+				<mx:GridItem width="70">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_CLAIM_LOADING)}"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<percentage:PercentageInput id="claimLoading"
+												data="{mdlQuote.claimLoading * 100 - 100}"
+												enabled="false"
+												precision="0"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow
+				visible="{!(mdlQuote.isMidTermAdjustment()) &amp;&amp; (mdlQuote.triaInsuranceDetails.triaInsuranceStatus == TriaInsuranceStatus.ACCEPTED || mdlQuote.triaInsuranceDetails.triaInsuranceStatus == TriaInsuranceStatus.NOT_OFFERED)}"
+				includeInLayout="{!(mdlQuote.isMidTermAdjustment()) &amp;&amp; (mdlQuote.triaInsuranceDetails.triaInsuranceStatus == TriaInsuranceStatus.ACCEPTED || mdlQuote.triaInsuranceDetails.triaInsuranceStatus == TriaInsuranceStatus.NOT_OFFERED)}">
+				<mx:GridItem>
+					<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_PREMIUM_BREAKDOWN_TRIA_PREMIUM)}"
+								 direction="horizontal">
+						<currency:CurrencyInput hasDecimalPlaces="true"
+												data="{mdlQuote.triaInsuranceDetails.triaPremium}"
+												enabled="false"
+												currencySymbol=""/>
+					</mx:FormItem>
+				</mx:GridItem>
+			</mx:GridRow>
+		</mx:Grid>
+
+		<!-- Sendings and additional cover breakdown -->
+		<mx:Grid visible="{userInfo.isUnderwriter &amp;&amp; mdlQuote.status != RiskStatus.NEW}"
+				 includeInLayout="{userInfo.isUnderwriter &amp;&amp; mdlQuote.status != RiskStatus.NEW}">
+			<mx:GridRow paddingTop="10">
+				<mx:GridItem verticalAlign="bottom"
+							 colSpan="2">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_SENDINGS)}"
+							 styleName="heading1"/>
+				</mx:GridItem>
+				<mx:GridItem verticalAlign="bottom">
+					<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_AMOUNT)}"/>
+				</mx:GridItem>
+				<mx:GridItem verticalAlign="bottom">
+					<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_CALCULATED_RATE)}"/>
+				</mx:GridItem>
+				<mx:GridItem verticalAlign="bottom">
+					<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_CALCULATED_PREMIUM)}"/>
+				</mx:GridItem>
+				<mx:GridItem verticalAlign="bottom">
+					<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_CHARGEABLE_PREMIUM)}"/>
+				</mx:GridItem>
+				<mx:GridItem verticalAlign="bottom">
+					<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_TAX)}"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:Repeater id="sendingsRepeater"
+						 dataProvider="{mdlQuote.sendings}">
+				<mx:Repeater id="routeRepeater"
+							 dataProvider="{sendingsRepeater.currentItem.routes}">
+					<mx:GridRow visible="{routeRepeater.currentItem.value > 0}"
+								includeInLayout="{routeRepeater.currentItem.value > 0}">
+						<mx:GridItem colSpan="2">
+							<mx:Text text="{sendingsRepeater.currentItem.type.name} {sendingsRepeater.currentItem.type.zoneRelevant?(routeRepeater.currentItem.destinationLocation.code == Location.DOMESTIC_CODE?mdlQuote.countryOfRisk.name:routeRepeater.currentItem.destinationLocation.name):''}"/>
+						</mx:GridItem>
+						<mx:GridItem>
+							<currency:CurrencyInput hasDecimalPlaces="false"
+													id="sendingsAmount"
+													data="{routeRepeater.currentItem.value}"
+													currencySymbol=""
+													enabled="false"/>
+						</mx:GridItem>
+						<mx:GridItem>
+							<mx:TextInput textAlign="right"
+										  width="75"
+										  id="sendingsCalculatedRate"
+										  text="{toPercentage(routeRepeater.currentItem.calculatedRate)}"
+										  enabled="false"/>
+						</mx:GridItem>
+						<mx:GridItem>
+							<currency:CurrencyInput hasDecimalPlaces="true"
+													id="sendingsCalculatedPremium"
+													data="{isNaN(routeRepeater.currentItem.calculatedPremium) ? null : routeRepeater.currentItem.calculatedPremium}"
+													currencySymbol=""
+													enabled="false"/>
+						</mx:GridItem>
+						<mx:GridItem>
+							<currency:CurrencyInput hasDecimalPlaces="true"
+													id="sendingsPremium"
+													data="{routeRepeater.currentItem.rate.premium}"
+													currencySymbol=""
+													enabled="false"/>
+						</mx:GridItem>
+						<mx:GridItem>
+							<currency:CurrencyInput hasDecimalPlaces="true"
+													id="sendingsIPT"
+													data="{routeRepeater.currentItem.rate.tax}"
+													currencySymbol=""
+													enabled="false"/>
+						</mx:GridItem>
+					</mx:GridRow>
+				</mx:Repeater>
+			</mx:Repeater>
+			<mx:GridRow>
+				<mx:GridItem verticalAlign="bottom"
+							 colSpan="2">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_TOTAL_SENDINGS)}"
+							 fontWeight="bold"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="false"
+											id="totalSendingsAmount"
+											enabled="false"
+											fontWeight="bold"
+											currencySymbol=""
+											data="{mdlQuote.totalSendingsValue}"/>
+				</mx:GridItem>
+				<mx:GridItem>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="totalSendingsCalculatedPremium"
+											enabled="false"
+											fontWeight="bold"
+											currencySymbol=""
+											data="{mdlQuote.totalSendingsCalculatedPremium}"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="totalSendingsPremium"
+											enabled="false"
+											fontWeight="bold"
+											currencySymbol=""
+											data="{mdlQuote.totalSendingsPremium}"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="totalSendingsIPT"
+											enabled="false"
+											fontWeight="bold"
+											currencySymbol=""
+											data="{mdlQuote.totalSendingsTax}"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow paddingTop="10"
+						visible="{mdlQuote.stockCover != null}"
+						includeInLayout="{mdlQuote.stockCover != null}">
+				<mx:GridItem colSpan="2">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_TOTAL_STOCK)}"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="false"
+											id="stockCoverAmount"
+											data="{mdlQuote.stockCover.totalStockLimit}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<mx:TextInput id="stockCoverCalculatedRate"
+								  textAlign="right"
+								  width="75"
+								  text="{toPercentage(mdlQuote.stockCover.calculatedRate)}"
+								  enabled="false"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="stockCoverCalculatedPremium"
+											data="{isNaN(mdlQuote.stockCover.calculatedPremium) ? null : mdlQuote.stockCover.calculatedPremium}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="stockCoverPremium"
+											data="{mdlQuote.stockCover.rate.premium}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="stockCoverIPT"
+											data="{mdlQuote.stockCover.rate.tax}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow visible="{mdlQuote.exhibitionCover != null || mdlQuote.toolsAndSamplesCover != null}"
+						includeInLayout="{mdlQuote.exhibitionCover != null || mdlQuote.toolsAndSamplesCover != null}">
+				<mx:GridItem/>
+				<mx:GridItem verticalAlign="bottom">
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_NUMBER_OF)}"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow visible="{mdlQuote.exhibitionCover != null}"
+						includeInLayout="{mdlQuote.exhibitionCover != null}">
+				<mx:GridItem>
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_LIMIT_PER_EXHIBITION ,[mdlQuote.countryOfRisk.name])}"/>
+				</mx:GridItem>
+				<mx:GridItem width="50">
+					<number:NumberInput width="50"
+										id="totalDomExhibitions"
+										data="{mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).totalExhibitions}"
+										enabled="false"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="false"
+											id="domExhibitionLimit"
+											data="{mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).limit}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<mx:TextInput id="domExhibitionCalculatedRate"
+								  textAlign="right"
+								  width="75"
+								  text="{toPercentage(mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).calculatedRate)}"
+								  enabled="false"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="domExhibitionCalculatedPremium"
+											data="{isNaN(mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).calculatedPremium) ? null : mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).calculatedPremium}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="domExhibitionPremium"
+											data="{mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).rate.premium}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="domExhibitionIPT"
+											data="{mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).rate.tax}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow visible="{mdlQuote.exhibitionCover != null}"
+						includeInLayout="{mdlQuote.exhibitionCover != null}">
+				<mx:GridItem>
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_ROW_LIMIT_PER_EXHIBITION)}"/>
+				</mx:GridItem>
+				<mx:GridItem width="50">
+					<number:NumberInput width="50"
+										id="totalRowExhibitions"
+										data="{mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).totalExhibitions}"
+										enabled="false"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="false"
+											id="rowExhibitionLimit"
+											data="{mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).limit}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<mx:TextInput id="rowExhibitionCalculatedRate"
+								  textAlign="right"
+								  width="75"
+								  text="{toPercentage(mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).calculatedRate)}"
+								  enabled="false"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="rowExhibitionCalculatedPremium"
+											data="{isNaN(mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).calculatedPremium) ? null : mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).calculatedPremium}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="rowExhibitionPremium"
+											data="{mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).rate.premium}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="rowExhibitionIPT"
+											data="{mdlQuote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).rate.tax}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow visible="{mdlQuote.toolsAndSamplesCover != null}"
+						includeInLayout="{mdlQuote.toolsAndSamplesCover != null}">
+				<mx:GridItem>
+					<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.GET_QUOTE_VIEW_SENDINGS_AND_ADD_COVER_BREAKDOWN_LIMIT_PER_VEHICLE)}"/>
+				</mx:GridItem>
+				<mx:GridItem width="50">
+					<number:NumberInput width="50"
+										id="numberOfVehicles"
+										data="{mdlQuote.toolsAndSamplesCover.numberOfVehicles}"
+										enabled="false"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="false"
+											id="ownVehicleLimit"
+											data="{mdlQuote.toolsAndSamplesCover.vehicleLimit}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<mx:TextInput id="ownVehicleCalculatedRate"
+								  textAlign="right"
+								  width="75"
+								  text="{toPercentage(mdlQuote.toolsAndSamplesCover.calculatedRate)}"
+								  enabled="false"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="ownVehicleCalculatedPremium"
+											data="{isNaN(mdlQuote.toolsAndSamplesCover.calculatedPremium) ? null : mdlQuote.toolsAndSamplesCover.calculatedPremium.toString()}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="ownVehiclePremium"
+											data="{mdlQuote.toolsAndSamplesCover.rate.premium}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="true"
+											id="ownVehicleIPT"
+											data="{mdlQuote.toolsAndSamplesCover.rate.tax}"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+			</mx:GridRow>
+		</mx:Grid>
+	</mx:Form>
+	<currency:CargoCurrencyFormatter id="ccf"
+									 currencySymbol=""
+									 useThousandsSeparator="true"
+									 showZero="true"
+									 precision="2"/>
+</mx:VBox>

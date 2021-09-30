@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+		   xmlns:arc90="com.arc90.flexlib.containers.*"
+		   xmlns:validators="com.catlin.ui.flex.validators.*"
+		   xmlns:tips="com.catlin.cargo.view.help.*"
+		   height="100%"
+		   xmlns:model="com.catlin.cargo.model.core.risk.*"
+		   xmlns:general="com.catlin.ui.flex.widgets.general.*"
+		   xmlns:widgets="com.catlin.ui.flex.widgets.*">
+
+	<tips:TipHelper id="tipHelper"/>
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.ApplicationFacade;
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.risk.PolicyType;
+			import com.catlin.cargo.model.core.risk.PremiumType;
+			import com.catlin.cargo.model.core.subjectmatter.SubjectMatter;
+			import com.catlin.cargo.model.security.UserInfo;
+			
+			import mx.collections.ArrayCollection;
+
+
+			[Bindable]
+			public var userInfo:UserInfo=null;
+
+			[Bindable]
+			public var subjectMatters:ArrayCollection;
+
+			public function dateInit():void {
+				// Allow underwriter to 
+				if (ApplicationFacade.getInstance().userInfo != null && !ApplicationFacade.getInstance().userInfo.isUnderwriter) {
+					policyStartDate.selectableRange={rangeStart: new Date()};
+				}
+				policyEndDate.selectableRange={rangeStart: new Date()};
+			}
+
+			private function onCoverTypeChange():void {
+				quote.updatePolicyEndDate(policyStartDate.selectedDate, userInfo);
+				quote.updateTotals(); // Will reset sending limit defaults for Single Policy Type
+				if (userInfo.isAsianOriginatingOffice() && rdoSingle.selected) {
+					quote.exhibitionCover=null;
+				}
+				if (quote.policyType != PolicyType.SINGLE) {
+					vesselName.text="";
+				}
+			}
+
+			private function canSubjectMatterBeEdited(isEditable:Boolean):Boolean {
+				if (!isEditable) {
+					return false;
+				}
+				if (quote.isMidTermAdjustment()) {
+					if (userInfo.isUnderwriter) {
+						return true
+					} else {
+						return (quote.premiumType == PremiumType.MAD)
+					}
+				}
+				return true;
+			}
+
+			private function isDateFieldEditable(isMidTermAdjustment:Boolean, isEditable:Boolean):Boolean {
+				return (quote.previousRisk == null && isEditable);
+			}
+
+			private function updateEndorsementStartDate():void {
+				if (quote != null || endorsementStartDate != null) {
+					quote.updateEndorsmentStartDate(endorsementStartDate.selectedDate);
+				}
+			}
+			
+		]]>
+	</mx:Script>
+
+	<model:Risk id="quote">
+		<model:policyType>{coverTypeGroup.selectedValue as PolicyType}</model:policyType>
+		<model:subjectMatter>{subjectMatter.selectedItem as SubjectMatter}</model:subjectMatter>
+		<model:subjectMatterDetail>{subjectMatterDetail.text}</model:subjectMatterDetail>
+		<model:policyStartDateAsDate>{policyStartDate.selectedDate}</model:policyStartDateAsDate>
+		<model:policyEndDateAsDate>{policyEndDate.selectedDate}</model:policyEndDateAsDate>
+		<model:vesselName>{vesselName.text}</model:vesselName>
+		<model:vesselOver25years>{vessel25YearsGroup.selectedValue}</model:vesselOver25years>
+		<model:vesselIACSClass>{vesselIACSClassGroup.selectedValue}</model:vesselIACSClass>
+	</model:Risk>
+
+	<mx:VBox>
+		<mx:Form id="coverRequiredForm"
+				 labelWidth="{quote.isMidTermAdjustment() ? NaN : NaN}">
+			<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_VIEW_TITLE)}"
+					 styleName="heading1"/>
+
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_VIEW_TYPE)}"
+						 direction="horizontal">
+				<mx:RadioButtonGroup id="coverTypeGroup"
+									 enabled="{quote.editable &amp;&amp;  !(quote.isMidTermAdjustment())}"
+									 change="onCoverTypeChange()"
+									 selectedValue="{quote.policyType}"/>
+				<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_VIEW_TYPE_ANNUAL)}"
+								id="coverType"
+								groupName="coverTypeGroup"
+								value="{PolicyType.ANNUAL}"/>
+				<mx:RadioButton id="rdoSingle"
+								label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_VIEW_TYPE_SINGLE_TRANSIT)}"
+								groupName="coverTypeGroup"
+								value="{PolicyType.SINGLE}"
+								toolTip="{tipHelper.getTips(rdoSingle, RB_ui.TOOLTIP_COVER_COVER_TYPE)}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_VIEW_SUBJECT_MATTER_INSURED)}"
+						 required="true">
+				<general:ComboBox id="subjectMatter"
+								  prompt="Select"
+								  selectedItem="{quote.subjectMatter}"
+								  dataProvider="{subjectMatters}"
+								  labelField="name"
+								  rowCount="10"
+								  enabled="{canSubjectMatterBeEdited(quote.editable)}"
+								  toolTip="{tipHelper.getTips(subjectMatter, RB_ui.TOOLTIP_COVER_SUBJECT_MATTER_INSURED)}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_VIEW_SUBJECT_MATTER_DETAIL)}"
+						 required="true">
+				<widgets:MaxLinesTextArea id="subjectMatterDetail"
+										  text="{quote.subjectMatterDetail}"
+										  width="{subjectMatter.width}"
+										  height="90"
+										  maxChars="350"
+										  enabled="{canSubjectMatterBeEdited(quote.editable)}"
+										  toolTip="{tipHelper.getTips(subjectMatterDetail, RB_ui.TOOLTIP_COVER_SUBJECT_MATTER_DETAIL)}"
+										  maxLines="6"/>
+			</mx:FormItem>
+
+			<mx:FormItem id="endorsementDateLabel"
+						 required="{quote.midTermAdjustmentDetails != null}"
+						 includeInLayout="{quote.midTermAdjustmentDetails != null}"
+						 visible="{quote.midTermAdjustmentDetails != null}">
+				<mx:DateField id="endorsementStartDate"
+							  selectedDate="{quote.midTermAdjustmentDetails.endorsementStartDateAsDate}"
+							  editable="true"
+							  width="100"
+							  change="updateEndorsementStartDate()"
+							  toolTip="{tipHelper.getTips(endorsementStartDate, RB_ui.TOOLTIP_COVER_ENDORSEMENT_START_DATE)}"/>
+			</mx:FormItem>
+
+			<mx:FormItem id="inceptionDateLabel" 
+						 required="true">
+				<mx:DateField id="policyStartDate"
+							  selectedDate="{quote.policyStartDateAsDate}"
+							  editable="{quote.previousRisk == null &amp;&amp; quote.editable &amp;&amp; quote.midTermAdjustmentDetails == null}"
+							  change="quote.updatePolicyEndDate(policyStartDate.selectedDate, userInfo)"
+							  width="100"
+							  toolTip="{tipHelper.getTips(policyStartDate, RB_ui.TOOLTIP_COVER_INCEPTION_DATE)}"
+							  enabled="{quote.previousRisk == null &amp;&amp; quote.editable &amp;&amp; quote.midTermAdjustmentDetails == null}"/>
+			</mx:FormItem>
+
+			<mx:FormItem id="expiryDateLabel" 
+						 required="true"
+						 creationComplete="dateInit()">
+				<mx:DateField id="policyEndDate"
+							  selectedDate="{quote.policyEndDateAsDate}"
+							  editable="{quote.editable &amp;&amp; quote.midTermAdjustmentDetails == null &amp;&amp; userInfo.isUnderwriter}"
+							  width="100"
+							  enabled="{quote.editable &amp;&amp; quote.midTermAdjustmentDetails == null &amp;&amp; userInfo.isUnderwriter}"/>
+			</mx:FormItem>
+
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_VIEW_VESSEL_NAME)}"
+						 required="true"
+						 visible="{quote.policyType == PolicyType.SINGLE &amp;&amp; userInfo.isAsianOriginatingOffice()}"
+						 includeInLayout="{quote.policyType == PolicyType.SINGLE  &amp;&amp; userInfo.isAsianOriginatingOffice()}">
+				<mx:TextInput id="vesselName"
+							  enabled="{quote.editable}"
+							  text="{quote.vesselName}"
+							  width="250"
+							  maxChars="40"
+							  toolTip="{tipHelper.getTips(vesselName, RB_ui.TOOLTIP_COVER_VESSEL_NAME)}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_VIEW_VESSEL_NAME_OVER_25)}"
+						 required="true"
+						 direction="horizontal"
+						 visible="{quote.policyType == PolicyType.SINGLE &amp;&amp; userInfo.isAsianOriginatingOffice()}"
+						 includeInLayout="{quote.policyType == PolicyType.SINGLE  &amp;&amp; userInfo.isAsianOriginatingOffice()}">
+				<mx:RadioButtonGroup id="vessel25YearsGroup"/>
+				<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.NO)}"
+								groupName="vessel25YearsGroup"
+								value="false"
+								selected="{quote.vesselOver25years == 'false'}"
+								enabled="{quote.editable}"/>
+				<mx:Spacer width="20"/>
+				<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.YES)}"
+								groupName="vessel25YearsGroup"
+								value="true"
+								selected="{quote.vesselOver25years == 'true'}"
+								enabled="{quote.editable}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_VIEW_VESSEL_IACS_CLASS)}"
+						 required="true"
+						 direction="horizontal"
+						 visible="{quote.policyType == PolicyType.SINGLE &amp;&amp; userInfo.isAsianOriginatingOffice()}"
+						 includeInLayout="{quote.policyType == PolicyType.SINGLE  &amp;&amp; userInfo.isAsianOriginatingOffice()}">
+				<mx:RadioButtonGroup id="vesselIACSClassGroup"/>
+				<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.NO)}"
+								groupName="vesselIACSClassGroup"
+								value="false"
+								selected="{quote.vesselIACSClass == 'false'}"
+								enabled="{quote.editable}"/>
+				<mx:Spacer width="20"/>
+				<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.YES)}"
+								groupName="vesselIACSClassGroup"
+								value="true"
+								selected="{quote.vesselIACSClass == 'true'}"
+								enabled="{quote.editable}"/>
+			</mx:FormItem>
+		</mx:Form>
+	</mx:VBox>
+</mx:Canvas>

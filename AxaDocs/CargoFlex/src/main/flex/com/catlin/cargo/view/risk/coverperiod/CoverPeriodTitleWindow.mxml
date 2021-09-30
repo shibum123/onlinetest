@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
+				layout="vertical"
+				xmlns:components="com.catlin.cargo.view.risk.quoteentry.pages.personal.components.*"
+				title="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_PERIOD_VIEW_TITLE)}"
+				verticalScrollPolicy="off">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.ApplicationFacade;
+			import com.catlin.cargo.bundles.RB_ui;
+			
+			[Bindable]
+			public var dateFormat:String = ApplicationFacade.getInstance().localeFormat.dateShort4Year2MonthDay; 
+		]]>
+	</mx:Script>
+
+	<mx:VBox width="100%"
+			 verticalGap="0">
+		
+		<!-- TODO NONCORE-41 -->
+		<mx:VBox width="100%" id="businesConsumerControlContainer"
+				 visible="false"
+				 includeInLayout="false"
+				 enabled="false">
+			
+			<mx:Text text=""
+					 id="businesConsumerControlContainerText"/>
+			
+			<components:BusinessConsumerControl id="businesConsumerControl"
+												enableComponent="true"
+												includeInLayout="true"
+												visible="true"
+												showToBeConfirmedOption="false"/>
+		</mx:VBox>
+
+		<mx:Form width="100%" id="coverPeriodForm">
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_PERIOD_VIEW_INCEPTION_DATE, [dateFormat])}"
+						 required="true">
+				<mx:DateField id="dtfinceptionDate"
+							  width="100"
+							  editable="true"/>
+			</mx:FormItem>
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_PERIOD_VIEW_EXPIRY_DATE, [dateFormat])}"
+						 required="true">
+				<mx:DateField id="dtfexpiryDate"
+							  width="100"
+							  editable="true"/>
+			</mx:FormItem>
+		</mx:Form>
+	</mx:VBox>
+	<mx:HBox width="100%"
+			 horizontalAlign="center">
+		<mx:Button id="btnUpdate"
+				   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.COVER_PERIOD_VIEW_BUTTON_UPDATE)}"/>
+		<mx:Button id="btnCancel"
+				   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CANCEL)}"/>
+	</mx:HBox>
+</mx:TitleWindow>

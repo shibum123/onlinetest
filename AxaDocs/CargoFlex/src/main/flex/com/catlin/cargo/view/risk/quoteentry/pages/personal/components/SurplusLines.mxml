@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 xmlns:general="com.catlin.ui.flex.widgets.general.*"
+		 xmlns:model="com.catlin.cargo.model.core.risk.*"
+		 xmlns:util="com.catlin.cargo.view.util.*"
+		 verticalGap="2"
+		 xmlns:components="com.catlin.components.*" xmlns:autoComplete="com.catlin.components.autoComplete.*"
+		 >
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.reference.country.Province;
+			import com.catlin.cargo.view.help.TipHelper;
+			
+			import mx.collections.ArrayCollection;
+
+			[Bindable]
+			public var tipHelper:TipHelper;
+
+			private var _enableComponent:Boolean=true;
+
+			[Bindable("enabledComponent")]
+			public function get enableComponent():Boolean {
+				return _enableComponent;
+			}
+
+			public function set enableComponent(value:Boolean):void {
+				_enableComponent=value;
+				this.dispatchEvent(new Event("enabledComponent"));
+			}
+
+			public function surplusContactStatesLabelFunction(item:Object):String {
+				if (item) 
+					return (item as Province).code +  " - " + (item as Province).name;
+				else 
+					return "";
+			}
+
+			[Bindable]
+			public var _dataProvider:ArrayCollection = new ArrayCollection();
+			
+		]]>
+	</mx:Script>
+
+	<mx:Metadata>
+		[Event(name="change", type="flash.events.Event")]
+	</mx:Metadata>
+
+	<mx:FormItem direction="horizontal"
+				 id="fmiSurplusLinesOffice"
+				 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_SURPLUS_LINES_OFFICE)}"
+				 required="true"
+				 labelWidth="127">
+		<general:ComboBox id="cboSurplusLinesOffice"
+						  labelField="name"
+						  minWidth="240"
+						  maxWidth="340"
+						  toolTip="{cboSurplusLinesOffice.selectedItem != null ? cboSurplusLinesOffice.selectedItem.name : null}"
+						  enabled="{enableComponent}"
+						  prompt="Select"/>
+	</mx:FormItem>
+
+	<mx:FormItem direction="horizontal"
+				 id="fmiSurplusLinesContact"
+				 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_SURPLUS_LINES_CONTACT)}"
+				 required="true"
+				 labelWidth="127">
+
+		<autoComplete:AutoComplete
+				id="cboSurplusLinesContact"
+				labelField="name" 
+			 	matchType="{AutoComplete.MATCH_BEGINNING}" 
+				minWidth="240"
+				maxWidth="340"
+				allowNewValues="true" 
+				backspaceAction="{AutoComplete.BACKSPACE_REMOVE}"
+				selectedItemStyleName="{AutoComplete.STYLE_NONE}" 
+				allowDuplicates="false" 
+				allowMultipleSelection="false"
+				allowEditingNewValues="false"
+				enabled="{enableComponent}"
+				backgroundDisabledColor="#DDDDDD"
+				/>
+
+	</mx:FormItem>
+
+	<mx:FormItem direction="horizontal"
+				 id="fmiSurplusContactStates"
+				 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_SURPLUS_LINES_STATE)}"
+				 required="true"
+				 labelWidth="127">
+
+		<general:ComboBox id="cboSurplusContactStates"
+						  labelFunction="surplusContactStatesLabelFunction"
+						  enabled="{enableComponent}"
+						  minWidth="240"
+						  maxWidth="340"
+						  prompt="Select"/>
+
+		<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_SURPLUS_LINES_LICENSE_NO)}"
+				 		width="72"/>
+
+		<autoComplete:AutoComplete
+			id="cboSurplusLinesLicenseNo"
+			labelField="reference" 
+			matchType="{AutoComplete.MATCH_BEGINNING}" 
+			width="165" 
+			allowNewValues="true"
+			backspaceAction="{AutoComplete.BACKSPACE_REMOVE}"
+			selectedItemStyleName="{AutoComplete.STYLE_NONE}" 
+			allowDuplicates="false" 
+			allowMultipleSelection="false"
+			allowEditingNewValues="false"
+			enabled="{enableComponent}"
+			backgroundDisabledColor="#DDDDDD"
+			/>
+
+	</mx:FormItem>
+
+</mx:VBox>

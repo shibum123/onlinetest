@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 width="100%"
+		 horizontalAlign="right">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.ApplicationFacade;
+			import com.catlin.cargo.bundles.RB_ui;
+
+		]]>
+	</mx:Script>
+
+<!--	<mx:Text paddingTop="2"
+			 text="Select language (For testing purpose - To be removed later): "/>
+	<mx:ComboBox id="locales"
+				 dataProvider="{ApplicationFacade.compiledLocales}"
+				 height="18"/>-->
+
+	<mx:Spacer width="100%"/>
+
+	<mx:LinkButton id="btnTerms"
+				   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.TERMS_OF_USE)}"
+				   fontWeight="normal"
+				   styleName="link"/>
+	<mx:Spacer width="10"/>
+	<mx:Text paddingTop="2"
+			 text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.SEPARATOR_PIPE)}"/>
+	<mx:Spacer width="10"/>
+	<mx:Text paddingTop="2"
+			 text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.CATLIN_LIMITED)}"/>
+</mx:HBox>

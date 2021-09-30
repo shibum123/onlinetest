@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+		   xmlns:arc90="com.arc90.flexlib.containers.*"
+		   xmlns:tips="com.catlin.cargo.view.help.*"
+		   xmlns:validators="com.catlin.ui.flex.validators.*"
+		   xmlns:model="com.catlin.cargo.model.core.risk.*"
+		   xmlns:currency="com.catlin.ui.flex.widgets.currency.*"
+		   xmlns:userInfo="com.catlin.cargo.model.security.*"
+		   xmlns:pages="com.catlin.cargo.view.risk.quoteentry.pages.*">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			
+		]]>
+	</mx:Script>
+
+	<tips:TipHelper id="tipHelper"/>
+
+	<userInfo:UserInfo id="userInfo"/>
+
+	<model:Risk id="quote"/>
+
+	<mx:Form id="newQuoteForm">
+		<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.LIMITS_VIEW_TITLE)}"
+				 styleName="heading1"/>
+		<mx:FormItem labelWidth="200">
+			<mx:Text text="{quote.currency}"
+					 textAlign="center"
+					 width="100"
+					 fontWeight="bold"/>
+		</mx:FormItem>
+
+		<mx:Repeater id="sendingsRepeater"
+					 dataProvider="{quote.sendings}"
+					 recycleChildren="true">
+			<pages:LimitFormItem id="limitFormItem"
+								 quote="{quote}"
+								 sending="{sendingsRepeater.currentItem}"
+								 labelWidth="200"
+								 label="{RB_ui.resolveDataBaseCode(sendingsRepeater.currentItem.type)}"
+								 required="true"
+								 includeInLayout="{sendingsRepeater.currentItem.totalValue > 0}"
+								 visible="{sendingsRepeater.currentItem.totalValue > 0}"/>
+			<pages:OwnVehiclesFormItem id="ownVehicleFormItem"
+									   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.LIMITS_VIEW_OWN_VEHICLES)}"
+									   direction="horizontal"
+									   labelWidth="200"
+									   quote="{quote}"
+									   includeInLayout="{sendingsRepeater.currentItem.isOwnVehicleLimitApplicable}"
+									   visible="{sendingsRepeater.currentItem.isOwnVehicleLimitApplicable}"/>
+			<pages:BargeFormItem id="bargeFormItem"
+								 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.LIMITS_VIEW_BARGE_SHIPMENTS)}"
+								 direction="horizontal"
+								 labelWidth="200"
+								 quote="{quote}"
+								 includeInLayout="{sendingsRepeater.currentItem.isBargeLimitApplicable}"
+								 visible="{sendingsRepeater.currentItem.isBargeLimitApplicable}"/>
+
+		</mx:Repeater>
+
+		<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.LIMITS_VIEW_POSTAL_LIMIT)}"
+					 required="true"
+					 labelWidth="200">
+			<currency:CurrencyComboBox id="postalLimits"
+									   showZero="true"
+									   selectedItem="{quote.postalLimit}"
+									   toolTip="{tipHelper.getTips(postalLimits, RB_ui.TOOLTIP_LIMITS_POSTAL_LIMIT)}"
+									   currencySymbol=""/>
+		</mx:FormItem>
+	</mx:Form>
+
+	<mx:CurrencyFormatter id="cf"
+						  currencySymbol=""
+						  useThousandsSeparator="true"/>
+</mx:Canvas>

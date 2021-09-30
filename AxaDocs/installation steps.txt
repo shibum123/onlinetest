@@ -1,0 +1,41 @@
+checkout - setup proxy
+git config --global http.proxy http://proxyuser:proxypwd@10.224.8.180:8080
+// corporate xid / pwd
+
+clone project 
+
+env variables 
+JAVA_HOME & MVN_HOME
+%MAVEN_HOME%\bin
+
+Set path for mvn /bin
+
+
+// set following env variables for eclipse
+https_proxy=http://R02%5CSR02DEEPDEV:BFi5cf7B@LHRPX0001.r02.xlgs.local:8080/
+
+http_proxy=http://R02%5CSR02DEEPDEV:BFi5cf7B@LHRPX0001.r02.xlgs.local:8080/
+
+no_proxy="172.24.136.207, 172.24.*, 10.226.52.100, *.azu-xlc-pcsprd.net, *.azu-xlc-pcsnpd.net, 10.185.230.5, sqldw-test.database.windows.net, 10.186.224.62, localhost, 127.0.0.*, 10.*, 192.168.*, 52.*"
+
+
+// settings.xml - user m2
+
+change maven-settings.xml
+
+
+// change run configuration 
+launcher
+ONESTART_BACKEND_SECURITY_RESOURCE_ENABLED=true;DEEPAI_WORKFLOW_API_URI=http://10.226.52.100:8088;SERVER_PORT=8081;ONESTART_BACKEND_SECURITY_RESOURCE_SCOPE=deepai.services;SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=https://login.microsoftonline.com/6dfa1857-c5eb-476b-b152-2f5cbae6db1a/v2.0;SUBMISSION_FILE_BASE_PATH=/tmp
+
+
+mvn clean install
+
+setup jdk for intellij- click sdk right hand side
+
+project root => mvn => reload project
+
+mongodb  -https://www.mongodb.com/try/download/community 
+//https://www.mongodb.org/dl/win32/x86_64-2008plus-ssl
+
+run as administrator

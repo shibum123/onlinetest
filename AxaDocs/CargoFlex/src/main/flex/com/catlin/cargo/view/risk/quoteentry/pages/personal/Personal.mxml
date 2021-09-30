@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+		   xmlns:arc90="com.arc90.flexlib.containers.*"
+		   height="100%"
+		   xmlns:model="com.catlin.cargo.model.core.risk.*"
+		   xmlns:insured="com.catlin.cargo.model.core.insured.*"
+		   xmlns:widgets="com.catlin.ui.flex.widgets.*"
+		   xmlns:tips="com.catlin.cargo.view.help.*"
+		   xmlns:util="com.catlin.cargo.view.util.*"
+		   xmlns:general="com.catlin.ui.flex.widgets.general.*"
+		   xmlns:components="com.catlin.cargo.view.risk.quoteentry.pages.personal.components.*"
+		   horizontalScrollPolicy="off"
+		   width="100%">
+
+	<tips:TipHelper id="tipHelper"/>
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.brokeroffice.BrokerOffice;
+			import com.catlin.cargo.model.security.UserInfo;
+
+			import mx.collections.ICollectionView;
+
+			[Bindable]
+			public var userInfo:UserInfo=null;
+
+			[Bindable]
+			public var showAddInsured:Boolean=false;
+
+			[Bindable]
+			public var consumerBusinessControlRegulations:ICollectionView;
+		]]>
+	</mx:Script>
+
+	<model:Risk id="quote">
+		<model:countryOfRisk>{(cboBrokerOffices.selectedItem as BrokerOffice).countryOfRisk}</model:countryOfRisk>
+		<model:brokerOffice>{cboBrokerOffices.selectedItem as BrokerOffice}</model:brokerOffice>
+		<model:contactEmailAddress>{brokerEmailAddress.text}</model:contactEmailAddress>
+		<model:copyEmailTo>{copyEmailTo.text}</model:copyEmailTo>
+		<model:brokerReference>{brokerReference.text}</model:brokerReference>
+	</model:Risk>
+
+	<mx:VBox width="100%"
+			 height="100%">
+		<mx:Form id="brokerForm"
+				 width="100%">
+			<mx:Text styleName="heading1"
+					 text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_TITLE)}"/>
+			<mx:FormItem includeInLayout="{cboBrokerOffices.dataProvider.length > 1}"
+						 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_BROKER_OFFICE)}"
+						 required="true"
+						 visible="{cboBrokerOffices.dataProvider.length > 1}">
+				<general:ComboBox id="cboBrokerOffices"
+								  enabled="{quote.editable &amp;&amp;  (!(quote.isMidTermAdjustment()) || userInfo.isUnderwriter)}"
+								  labelField="name"
+								  minWidth="240"
+								  maxWidth="440"
+								  toolTip="{cboBrokerOffices.selectedItem != null ? cboBrokerOffices.selectedItem.name : null}"
+								  prompt="Select"/>
+			</mx:FormItem>
+			<mx:FormItem includeInLayout="{userInfo.isUnderwriter}"
+						 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_UNDERWRITER)}"
+						 required="true"
+						 visible="{userInfo.isUnderwriter}">
+				<general:ComboBox id="cboUnderwriter"
+								  enabled="{quote.editable &amp;&amp;  (!(quote.isMidTermAdjustment()) || userInfo.isUnderwriter)}"
+								  labelField="name"
+								  width="240"
+								  prompt="Select"/>
+			</mx:FormItem>
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_CURRENCY)}"
+						 required="true">
+				<general:ComboBox id="cboCurrency"
+								  enabled="{cboCurrency.dataProvider.length > 1 &amp;&amp; quote.editable}"
+								  labelField="name"
+								  width="240"
+								  prompt="Select"/>
+			</mx:FormItem>
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_CONTACT_NAME)}"
+						 required="true">
+				<general:ComboBox id="cboBrokerContact"
+								  labelField="name"
+								  width="240"
+								  prompt="Select"/>
+			</mx:FormItem>
+			<mx:FormItem direction="horizontal"
+						 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_EMAIL)}"
+						 required="true">
+				<mx:TextInput id="brokerEmailAddress"
+							  width="240"
+							  text="{quote.contactEmailAddress}"/>
+				<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_EMAIL_COPY_TO)}"/>
+				<mx:TextInput id="copyEmailTo"
+							  width="165"
+							  text="{quote.copyEmailTo}"
+							  toolTip="{tipHelper.getTips(copyEmailTo, RB_ui.TOOLTIP_PERSONAL_CC_EMAIL)}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_TELEPHONE_DDI)}">
+				<mx:TextInput id="brokerTelephoneNumber"
+							  width="240"
+							  enabled="false"
+							  text="{quote.brokerContact.telephoneNumber}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_BROKER_DETAILS_BROKER_REFERENCE)}">
+				<mx:TextInput id="brokerReference"
+							  width="240"
+							  maxChars="32"
+							  text="{quote.brokerReference}"
+							  toolTip="{tipHelper.getTips(brokerReference, RB_ui.TOOLTIP_PERSONAL_BROKER_REFERENCE)}"/>
+			</mx:FormItem>
+			<components:SurplusLines id="surplusLines"
+									 visible="false"
+									 includeInLayout="false"
+									 enableComponent="{quote.editable &amp;&amp; !quote.isMidTermAdjustment()}"
+									 tipHelper="{this.tipHelper}"/>
+			<mx:Spacer height="10"/>
+			<mx:Text id="selectedInsuredHeading"
+					 styleName="heading1"
+					 text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_INSURED_DETAILS_TITLE)}"/>
+
+			<mx:FormItem id="findInsuredLabel"
+						 direction="horizontal"
+						 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_INSURED_DETAILS_SELECT_INSURED)}">
+				<general:ComboBox id="cboSelectInsured"
+								  width="240"
+								  enabled="{cboSelectInsured.dataProvider.length > 0 &amp;&amp; quote.editable}"
+								  labelField="name"
+								  toolTip="{tipHelper.getTips(cboSelectInsured, RB_ui.TOOLTIP_PERSONAL_INSURED_NAME)}"
+								  prompt="Select"/>
+				<mx:LinkButton id="btnNewInsured"
+							   fontWeight="normal"
+							   enabled="{quote.brokerOffice != null &amp;&amp; !showAddInsured &amp;&amp; (quote.editable)}"
+							   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_INSURED_DETAILS_BUTTON_CREATE_NEW_INSURED)}"
+							   styleName="link"/>
+			</mx:FormItem>
+
+			<mx:FormItem id="insuredNameLabel"
+						 direction="horizontal"
+						 label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.PERSONAL_VIEW_INSURED_DETAILS_NAME_AND_ADDRESS)}"
+						 required="true">
+				<mx:VBox id="insuredBox"
+						 borderStyle="solid"
+						 borderThickness="1"
+						 minHeight="80"
+						 minWidth="220"
+						 styleName="insuredBox">
+					<mx:LinkButton id="insuredName"
+								   label="{quote.insured.name}"
+								   styleName="link"/>
+					<mx:Text id="insuredAddress"
+							 text="{quote.insured.address.addressLine1 + &quot;\n&quot; + 
+							 (quote.insured.address.addressLine2 != null ? quote.insured.address.addressLine2 + &quot;\n&quot; : &quot;&quot;) +
+							 (quote.insured.address.addressLine3 != null ? quote.insured.address.addressLine3 + &quot;\n&quot; : &quot;&quot;) + 
+							 quote.insured.address.townCity + &quot;\n&quot; + 
+							 (quote.insured.address.province != null ? quote.insured.address.province.name  + &quot;\n&quot; :  &quot;&quot;) +   
+							 (quote.insured.address.postcode != null ? quote.insured.address.postcode + &quot;\n&quot; :  &quot;&quot;) +
+							 (quote.insured.address.country != null ? quote.insured.address.country.name  + &quot;\n&quot; :  &quot;&quot;)}"/>
+				</mx:VBox>
+			</mx:FormItem>
+
+			<components:BusinessConsumerControl id="businesConsumerControl"
+												visible="false"
+												includeInLayout="false"
+												enableComponent="{quote.editable}"
+												tipHelper="{this.tipHelper}"
+												dataProvider="{consumerBusinessControlRegulations}"/>
+		</mx:Form>
+	</mx:VBox>
+</mx:Canvas>

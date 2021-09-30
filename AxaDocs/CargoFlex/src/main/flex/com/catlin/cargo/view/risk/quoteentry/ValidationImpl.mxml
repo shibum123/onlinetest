@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml"
+		   xmlns="*"
+		   xmlns:model="com.catlin.cargo.model.core.risk.*"
+		   xmlns:rules="com.catlin.ui.flex.validator.rules.*"
+		   xmlns:validators="com.catlin.ui.flex.validators.*"
+		   xmlns:validator="com.catlin.ui.flex.validator.*"
+		   xmlns:ns="http://catlin.com/flex/widgets">
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.view.address.AddressValidationImpl;
+			import com.catlin.cargo.bundles.CargoLocaleConstants;
+			import com.catlin.cargo.model.core.surpluslines.SurplusLinesContact;
+			import com.catlin.cargo.validation.ValidationUtil;
+			import com.catlin.cargo.model.core.originatingoffice.OriginatingOfficeCode;
+
+			import com.catlin.cargo.ApplicationFacade;
+			import com.catlin.cargo.model.core.insured.Insured;
+			import com.catlin.cargo.model.core.risk.CommissionType;
+			import com.catlin.cargo.model.core.risk.ExhibitionCover$ExhibitionCoverTerritory;
+			import com.catlin.cargo.model.core.risk.PolicyType;
+			import com.catlin.cargo.model.core.risk.PremiumType;
+			import com.catlin.cargo.model.core.risk.Risk;
+			import com.catlin.cargo.model.core.risk.Route;
+			import com.catlin.cargo.model.core.risk.Sendings;
+
+			import com.catlin.ui.flex.validator.Page;
+			import com.catlin.cargo.bundles.RB_ui;
+
+			import mx.collections.ListCollectionView;
+
+			[Bindable]
+			public function set quote(quote:Risk):void {
+				_quote = quote;
+			}
+
+			public function get quote():Risk {
+				return _quote;
+			}
+
+			protected var _quote:Risk=null;
+
+			[Bindable]
+			public var originatingOfficeCode:OriginatingOfficeCode=null;
+
+			[Bindable]
+			public var adjustedPremium:Number;
+
+			[Bindable]
+			public var newInsured:Insured;
+
+			public var rules:Array=new Array();
+
+			private const numberRequiredValidatorFactory:ClassFactory=new ClassFactory(NumberValidator);
+
+			// call this on application startup 
+			public function create():Array {
+				numberRequiredValidatorFactory.properties={allowNegative: false, minValue: 1, required: true};
+
+				rules[insuredPage.name]=insuredPage;
+				rules[coverTypePage.name]=coverTypePage;
+				rules[sendingsPage.name]=sendingsPage;
+				rules[limitsPage.name]=limitsPage;
+				rules[additionalCoverPage.name]=additionalCoverPage;
+				rules[basisPage.name]=basisPage;
+				rules[claimsHistoryPage.name]=claimsHistoryPage;
+				rules[getQuotePage.name]=getQuotePage;
+				return rules;
+			}
+
+			public function bovIsRequired(validator:Validator, sendings:Sendings):void {
+				validator.required=sendings.totalValue > 0 && !sendings.type.percentageBasisOfValuation;
+			}
+
+			public function bovOtherIsRequired(validator:Validator, sendings:Sendings):void {
+				validator.required=sendings.totalValue > 0 && sendings.type.percentageBasisOfValuation && sendings.basisOfValuation == 'Other';
+			}
+
+			public function limitIsRequired(validator:Validator, sendings:Sendings):void {
+				validator.required=sendings.totalValue > 0;
+			}
+
+			public function limitLessThanSending(validator:NumberValidator, sendings:Sendings):void {
+				validator.required=sendings.totalValue > 0;
+				validator.maxValue=sendings.highestValue;
+			}
+
+			public function calculateTotalSendings(sendings:ListCollectionView):Number {
+				var total:Number=0;
+				for each (var s:Sendings in sendings) {
+					for each (var r:Route in s.routes) {
+						if (!isNaN(r.value)) {
+							total+=r.value;
+						}
+					}
+				}
+				return total;
+			}
+
+			public function validateInsuredDetailsProvinceRequired(insured:Insured):Boolean {
+				if (insured != null && insured.address != null && insured.address.country != null) {
+					return AddressValidationImpl.provinceRequired(insured.address.country.isoCode);
+				}
+				return false;
+			}
+		]]>
+	</mx:Script>
+
+	<validator:Page id="insuredPage"
+					name="personal">
+		<validator:validatorRules>
+			<mx:ArrayCollection>
+				<rules:SimpleValidatorRule context="cboBrokerOffices"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_INSUREDPAGE_REQUIRED_BROKER_OFFICE)}"
+										   value="{quote.brokerOffice}">
+					<rules:validator>
+						<mx:Validator required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+
+				<rules:SimpleValidatorRule context="cboBrokerContact"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_INSUREDPAGE_REQUIRED_BROKER_CONTACT)}"
+										   value="{quote.brokerContact}">
+					<rules:validator>
+						<mx:Validator required="{quote.isWebChannel()}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+
+				<rules:SimpleValidatorRule context="cboSelectInsured"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_INSUREDPAGE_REQUIRED_INSURED)}"
+										   value="{quote.insured}">
+					<rules:validator>
+						<mx:Validator required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+
+				<rules:SimpleValidatorRule context="insuredNameLabel"
+										   message="Please review insured Details"
+										   value="{quote.insured.address.province}">
+					<rules:validator>
+						<mx:Validator required="{validateInsuredDetailsProvinceRequired(quote.insured)}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+
+				<rules:SimpleValidatorRule context="surplusLines.cboSurplusLinesOffice"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_INSUREDPAGE_REQUIRED_SURPLUS_LINES_BROKER_OFFICE)}"
+										   value="{quote.surplusLinesBrokerOffice}">
+					<rules:validator>
+						<mx:Validator required="{originatingOfficeCode == OriginatingOfficeCode.US}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+
+				<rules:SimpleValidatorRule context="surplusLines.cboSurplusContactStates"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_INSUREDPAGE_REQUIRED_SURPLUS_LINES_STATES)}"
+										   value="{quote.surplusLinesReference.province}">
+					<rules:validator>
+						<mx:Validator required="{originatingOfficeCode == OriginatingOfficeCode.US &amp;&amp; quote.surplusLinesContact != null}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+
+				<rules:SimpleValidatorRule context="surplusLines.cboSurplusLinesContact"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_INSUREDPAGE_REQUIRED_SURPLUS_LINES_CONTACT)}"
+										   value="{quote.surplusLinesContact}">
+					<rules:validator>
+						<mx:Validator required="{originatingOfficeCode == OriginatingOfficeCode.US}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+
+				<rules:SimpleValidatorRule context="surplusLines.cboSurplusLinesLicenseNo"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_INSUREDPAGE_REQUIRED_SURPLUS_LINES_LICENCE)}"
+										   value="{quote.surplusLinesReference}">
+					<rules:validator>
+						<mx:Validator required="{originatingOfficeCode == OriginatingOfficeCode.US}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>				
+				
+				<rules:SimpleValidatorRule context="brokerEmailAddress"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_INSUREDPAGE_INVALID_EMAIL)}"
+										   value="{quote.contactEmailAddress}">
+					<rules:validator>
+						<mx:EmailValidator required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+
+				<rules:SimpleValidatorRule context="copyEmailTo"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_INSUREDPAGE_INVALID_EMAILCC)}"
+										   value="{quote.copyEmailTo}">
+					<rules:validator>
+						<mx:EmailValidator required="false"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+
+				<rules:SimpleValidatorRule context="businesConsumerControl.container"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_INSUREDPAGE_REQUIRED_FCA_OPTION)}"
+										   value="{quote.consumerBusinessControl}">
+					<rules:validator >
+						<mx:Validator required="{originatingOfficeCode == OriginatingOfficeCode.UK}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+
+			</mx:ArrayCollection>
+		</validator:validatorRules>
+	</validator:Page>
+
+	<validator:Page id="coverTypePage"
+					name="cover">
+		<validator:validatorRules>
+			<mx:ArrayCollection>
+				<rules:SimpleValidatorRule context="subjectMatter"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_COVERTYPEPAGE_REQUIRED_SUBJECT_MATTER)}"
+										   value="{quote.subjectMatter.name}">
+					<rules:validator>
+						<mx:Validator required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="subjectMatterDetail"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_COVERTYPEPAGE_REQUIRED_SUBJECT_MATTER_DETAIL)}"
+										   value="{quote.subjectMatterDetail}">
+					<rules:validator>
+						<mx:Validator required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="policyEndDate"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_COVERTYPEPAGE_REQUIRED_POLICY_END_DATE)}"
+										   value="{quote.policyEndDateAsDate}">
+					<rules:validator>
+						<mx:DateValidator inputFormat="{ApplicationFacade.getInstance().localeFormat.dateShort4Year}"
+										  required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="vesselName"
+										   value="{quote.vesselName}"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_COVERTYPEPAGE_REQUIRED_VESSEL_NAME)}">
+					<rules:validator>
+						<mx:Validator required="{ApplicationFacade.getInstance().userInfo.isAsianOriginatingOffice() &amp;&amp; quote.policyType == PolicyType.SINGLE}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="vessel25YearsGroup"
+										   value="{quote.vesselOver25years}"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_COVERTYPEPAGE_REQUIRED_VESSEL_25Y)}">
+					<rules:validator>
+						<mx:Validator required="{ApplicationFacade.getInstance().userInfo.isAsianOriginatingOffice() &amp;&amp; quote.policyType == PolicyType.SINGLE}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="vesselIACSClassGroup"
+										   value="{quote.vesselIACSClass}"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_COVERTYPEPAGE_REQUIRED_VESSEL_IACS)}">
+					<rules:validator>
+						<mx:Validator required="{ApplicationFacade.getInstance().userInfo.isAsianOriginatingOffice() &amp;&amp; quote.policyType == PolicyType.SINGLE}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+			</mx:ArrayCollection>
+		</validator:validatorRules>
+	</validator:Page>
+
+	<validator:Page id="sendingsPage"
+					name="sendings">
+		<validator:validatorRules>
+			<mx:ArrayCollection>
+				<rules:SimpleValidatorRule context="totalSendings"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_SENDINGSPAGE_INVALID_MAX_TOTAL_SENDINGS)}"
+										   value="{quote.numOfSendings}">
+					<rules:validator>
+						<mx:NumberValidator enabled="{quote.policyType == PolicyType.SINGLE}"
+											maxValue="1"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="totalSendings"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_SENDINGSPAGE_INVALID_MIN_TOTAL_SENDINGS)}"
+										   value="{quote.totalSendingsValue}">
+					<rules:validator>
+						<mx:NumberValidator allowNegative="false"
+											minValue="1"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+			</mx:ArrayCollection>
+		</validator:validatorRules>
+	</validator:Page>
+
+	<validator:Page id="limitsPage"
+					name="limits">
+		<validator:validatorRules>
+			<mx:ArrayCollection>
+				<rules:ConjunctionValidatorRule enabled="{!isNaN(quote.getSendingsIndexForType('GOODS_IN_TRANSIT')) &amp;&amp; quote.getSendingsForType('GOODS_IN_TRANSIT').totalValue > 0}"
+												context="{'ownVehicleFormItem[' + quote.getSendingsIndexForType('GOODS_IN_TRANSIT') + '].ownVehiclesLimit'}"
+												value1="{quote.policyType}"
+												value2="{quote.ownVehicleLimit}"
+												message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_LIMITSPAGE_INVALID_OWN_VEHICLES_LIMIT_GOODS_TRANSIT)}">
+					<rules:validator1>
+						<mx:RegExpValidator expression="SINGLE"
+											required="true"/>
+					</rules:validator1>
+					<rules:validator2>
+						<mx:NumberValidator maxValue="{quote.getSendingsForType('GOODS_IN_TRANSIT').totalValue}"/>
+					</rules:validator2>
+				</rules:ConjunctionValidatorRule>
+				<rules:ConjunctionValidatorRule enabled="{!isNaN(quote.getSendingsIndexForType('GOODS_IN_TRANSIT')) &amp;&amp; quote.getSendingsForType('GOODS_IN_TRANSIT').totalValue > 0}"
+												context="{'ownVehicleFormItem[' + quote.getSendingsIndexForType('GOODS_IN_TRANSIT') + '].ownVehiclesLimit'}"
+												value1="{quote.ownVehicles}"
+												value2="{quote.ownVehicleLimit}"
+												message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_LIMITSPAGE_REQUIRED_OWN_VEHICLES_LIMIT_GOODS_TRANSIT)}">
+					<rules:validator1>
+						<mx:RegExpValidator expression="false"/>
+					</rules:validator1>
+					<rules:validator2>
+						<mx:NumberValidator allowNegative="false"
+											minValue="1"
+											required="true"/>
+					</rules:validator2>
+				</rules:ConjunctionValidatorRule>
+				<rules:ConjunctionValidatorRule enabled="{!isNaN(quote.getSendingsIndexForType('DOMESTIC_TRANSITS')) &amp;&amp; quote.getSendingsForType('DOMESTIC_TRANSITS').totalValue > 0}"
+												context="{'ownVehicleFormItem[' + quote.getSendingsIndexForType('DOMESTIC_TRANSITS') + '].ownVehiclesLimit'}"
+												value1="{quote.policyType}"
+												value2="{quote.ownVehicleLimit}"
+												message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_LIMITSPAGE_INVALID_OWN_VEHICLES_LIMIT_DOMESTIC_TRANSIT)}">
+					<rules:validator1>
+						<mx:RegExpValidator expression="SINGLE"
+											required="true"/>
+					</rules:validator1>
+					<rules:validator2>
+						<mx:NumberValidator maxValue="{quote.getSendingsForType('DOMESTIC_TRANSITS').totalValue}"/>
+					</rules:validator2>
+				</rules:ConjunctionValidatorRule>
+				<rules:ConjunctionValidatorRule enabled="{!isNaN(quote.getSendingsIndexForType('DOMESTIC_TRANSITS')) &amp;&amp; quote.getSendingsForType('DOMESTIC_TRANSITS').totalValue > 0}"
+												context="{'ownVehicleFormItem[' + quote.getSendingsIndexForType('DOMESTIC_TRANSITS') + '].ownVehiclesLimit'}"
+												value1="{quote.ownVehicles}"
+												value2="{quote.ownVehicleLimit}"
+												message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_LIMITSPAGE_REQUIRED_OWN_VEHICLES_LIMIT_DOMESTIC_TRANSIT)}">
+					<rules:validator1>
+						<mx:RegExpValidator expression="false"/>
+					</rules:validator1>
+					<rules:validator2>
+						<mx:NumberValidator allowNegative="false"
+											minValue="1"
+											required="true"/>
+					</rules:validator2>
+				</rules:ConjunctionValidatorRule>
+
+				<rules:ConjunctionValidatorRule enabled="{!isNaN(quote.getSendingsIndexForType('DOMESTIC_TRANSITS')) &amp;&amp; quote.getSendingsForType('DOMESTIC_TRANSITS').totalValue > 0}"
+												context="{'bargeFormItem[' + quote.getSendingsIndexForType('DOMESTIC_TRANSITS') + '].bargeLimit'}"
+												value1="{quote.policyType}"
+												value2="{quote.bargeLimit}"
+												message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_LIMITSPAGE_INVALID_BARGE_LIMIT_DOMESTIC_TRANSIT)}">
+					<rules:validator1>
+						<mx:RegExpValidator expression="SINGLE"
+											required="true"/>
+					</rules:validator1>
+					<rules:validator2>
+						<mx:NumberValidator maxValue="{quote.getSendingsForType('DOMESTIC_TRANSITS').totalValue}"/>
+					</rules:validator2>
+				</rules:ConjunctionValidatorRule>
+				<rules:ConjunctionValidatorRule enabled="{!isNaN(quote.getSendingsIndexForType('DOMESTIC_TRANSITS')) &amp;&amp; quote.getSendingsForType('DOMESTIC_TRANSITS').totalValue > 0}"
+												context="{'bargeFormItem[' + quote.getSendingsIndexForType('DOMESTIC_TRANSITS') + '].bargeLimit'}"
+												value1="{quote.bardgeUsage}"
+												value2="{quote.bargeLimit}"
+												message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_LIMITSPAGE_REQUIRED_BARGE_LIMIT_DOMESTIC_TRANSIT)}">
+					<rules:validator1>
+						<mx:RegExpValidator expression="false"/>
+					</rules:validator1>
+					<rules:validator2>
+						<mx:NumberValidator allowNegative="false"
+											minValue="1"
+											required="true"/>
+					</rules:validator2>
+				</rules:ConjunctionValidatorRule>
+
+				<rules:RepeaterValidatorRule dataProvider="{quote.sendings}"
+											 context="limitFormItem[$index].sendingLimit"
+											 message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_LIMITSPAGE_INVALID_LIABILITY_LIMIT_SENDING_VALUE)}"
+											 validatorDecorator="limitIsRequired"
+											 validatorClass="{numberRequiredValidatorFactory}"
+											 valuePropertyChain="limit"/>
+				<rules:RepeaterValidatorRule dataProvider="{quote.sendings}"
+											 context="limitFormItem[$index].sendingLimit"
+											 message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_LIMITSPAGE_REQUIRED_LIABILITY_LIMIT_SENDING_VALUE)}"
+											 validatorDecorator="limitLessThanSending"
+											 validatorClass="mx.validators.NumberValidator"
+											 valuePropertyChain="limit"/>
+			</mx:ArrayCollection>
+		</validator:validatorRules>
+	</validator:Page>
+
+	<validator:Page id="additionalCoverPage"
+					name="additionalCover">
+		<validator:validatorRules>
+			<mx:ArrayCollection>
+				<rules:SimpleValidatorRule context="toolsAndSamplesGrid.numVehicles"
+										   value="{quote.toolsAndSamplesCover.numberOfVehicles}"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_ADDITIONALCOVERPAGE_REQUIRED_NO_VEHICLES)}">
+					<rules:validator>
+						<mx:NumberValidator minValue="1"
+											required="{quote.toolsAndSamplesCover != null}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="exhibitionsCoverGrid.exhibitionCoverDetail[0].limit"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_ADDITIONALCOVERPAGE_REQUIRED_MAX_LIMIT_PER_EXHIBITION)}"
+										   value="{quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).limit}">
+					<rules:validator>
+						<mx:NumberValidator enabled="{quote.exhibitionCover != null}"
+											minValue="1"
+											required="{quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).totalExhibitions > 0}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="exhibitionsCoverGrid.exhibitionCoverDetail[1].limit"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_ADDITIONALCOVERPAGE_REQUIRED_MAX_LIMIT_PER_EXHIBITION)}"
+										   value="{quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).limit}">
+					<rules:validator>
+						<mx:NumberValidator enabled="{quote.exhibitionCover != null}"
+											minValue="1"
+											required="{quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).totalExhibitions > 0}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="requireExhibitionCover"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_ADDITIONALCOVERPAGE_REQUIRED_NUMBER_OF_EXHIBITIONS)}"
+										   value="{quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).totalExhibitions > 0 || 
+							quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).totalExhibitions > 0}">
+					<rules:validator>
+						<mx:RegExpValidator enabled="{quote.exhibitionCover != null}"
+											expression="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="exhibitionsCoverGrid.exhibitionCoverDetail[0].totalExhibitions"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_ADDITIONALCOVERPAGE_INVALID_TOTAL_EXHIBITIONS_INSURED)}"
+										   value="{quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).totalExhibitions > 1 || 
+							quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).totalExhibitions > 1}">
+					<rules:validator>
+						<mx:RegExpValidator enabled="{quote.policyType == PolicyType.SINGLE &amp;&amp; quote.exhibitionCover != null}"
+											expression="false"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="exhibitionsCoverGrid.exhibitionCoverDetail[1].totalExhibitions"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_ADDITIONALCOVERPAGE_INVALID_TOTAL_EXHIBITIONS_INSURED)}"
+										   value="{quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).totalExhibitions > 1 || 
+							quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).totalExhibitions > 1}">
+					<rules:validator>
+						<mx:RegExpValidator enabled="{quote.policyType == PolicyType.SINGLE &amp;&amp; quote.exhibitionCover != null}"
+											expression="false"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="exhibitionsCoverGrid.exhibitionCoverDetail[0].totalExhibitions"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_ADDITIONALCOVERPAGE_INVALID_TOTAL_EXHIBITIONS_TERRITORY)}"
+										   value="{quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).totalExhibitions > 0 &amp;&amp; 
+							quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).totalExhibitions > 0}">
+					<rules:validator>
+						<mx:RegExpValidator enabled="{quote.policyType == PolicyType.SINGLE &amp;&amp; quote.exhibitionCover != null}"
+											expression="false"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="exhibitionsCoverGrid.exhibitionCoverDetail[1].totalExhibitions"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_ADDITIONALCOVERPAGE_INVALID_TOTAL_EXHIBITIONS_TERRITORY)}"
+										   value="{quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.DOMESTIC).totalExhibitions > 0 &amp;&amp; 
+							quote.exhibitionCover.getDetailFor(ExhibitionCover$ExhibitionCoverTerritory.ROW).totalExhibitions > 0}">
+					<rules:validator>
+						<mx:RegExpValidator enabled="{quote.policyType == PolicyType.SINGLE &amp;&amp; quote.exhibitionCover != null}"
+											expression="false"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="toolsAndSamplesGrid.limit"
+										   value="{quote.toolsAndSamplesCover.vehicleLimit}"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_ADDITIONALCOVERPAGE_REQUIRED_LIMIT_PER_VEHICLE)}">
+					<rules:validator>
+						<mx:NumberValidator enabled="{quote.toolsAndSamplesCover != null}"
+											minValue="1"
+											required="{quote.toolsAndSamplesCover.numberOfVehicles > 0}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:RepeaterValidatorRule dataProvider="{quote.stockCover.locations}"
+											 context="stockLocationGrid.stockLocationDetail[$index].lbtAddressAsSingleLine"
+											 message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_ADDITIONALCOVERPAGE_REQUIRED_STOCK_LOCATION_ADDRESS)}"
+											 validatorClass="mx.validators.Validator"
+											 valuePropertyChain="addressAsSingleLine"/>
+				<rules:RepeaterValidatorRule dataProvider="{quote.stockCover.locations}"
+											 context="stockLocationGrid.stockLocationDetail[$index].limit"
+											 message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_ADDITIONALCOVERPAGE_REQUIRED_STOCK_LOCATION_LIMIT)}"
+											 validatorClass="{numberRequiredValidatorFactory}"
+											 valuePropertyChain="limit"/>
+			</mx:ArrayCollection>
+		</validator:validatorRules>
+	</validator:Page>
+
+	<validator:Page id="basisPage"
+					name="basis">
+		<validator:validatorRules>
+			<mx:ArrayCollection>
+				<rules:RepeaterValidatorRule dataProvider="{quote.sendings}"
+											 context="bovFormItem[$index].bovValue"
+											 message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_BASISPAGE_REQUIRED_BASIS_VALUATION)}"
+											 validatorDecorator="bovIsRequired"
+											 validatorClass="mx.validators.Validator"
+											 valuePropertyChain="basisOfValuation"/>
+				<rules:RepeaterValidatorRule dataProvider="{quote.sendings}"
+											 context="bovFormItem[$index].bovOther"
+											 validatorDecorator="bovOtherIsRequired"
+											 message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_BASISPAGE_REQUIRED_BASIS_VALUATION_OTHER)}"
+											 validatorClass="{numberRequiredValidatorFactory}"
+											 valuePropertyChain="basisOfValuationOther"/>
+				<rules:SimpleValidatorRule context="stockOther"
+										   value="{quote.stockCover.basisOfValuationOther}"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_BASISPAGE_REQUIRED_BASIS_VALUATION_STOCK)}">
+					<rules:validator>
+						<mx:NumberValidator enabled="{quote.stockCover != null}"
+											minValue="1"
+											required="{quote.stockCover.basisOfValuation == 'Other'}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="exhibitions"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_BASISPAGE_REQUIRED_EXHIBITION_BASIS)}"
+										   value="{quote.exhibitionCover.basisOfValuation}">
+					<rules:validator>
+						<mx:Validator required="{quote.exhibitionCover != null}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="toolsAndSamples"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_BASISPAGE_REQUIRED_TOOLS_SAMPLES_BASIS)}"
+										   value="{quote.toolsAndSamplesCover.basisOfValuation}">
+					<rules:validator>
+						<mx:Validator required="{quote.toolsAndSamplesCover != null}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+			</mx:ArrayCollection>
+		</validator:validatorRules>
+	</validator:Page>
+
+	<validator:Page id="claimsHistoryPage"
+					name="history">
+		<validator:validatorRules>
+			<mx:ArrayCollection>
+				<rules:SimpleValidatorRule context="numberOfClaimsSubmittedForThePeriod"
+										   value="{quote.numberOfClaims}"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_CLAIMSHISTORYPAGE_REQUIRED_NO_OF_CLAIMS)}">
+					<rules:validator>
+						<mx:NumberValidator required="{quote.claimsInLast3Years}"
+											minValue="1"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="totalClaimAmount"
+										   value="{quote.totalClaimAmount}"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_CLAIMSHISTORYPAGE_REQUIRED_TOTAL_CLAIMS_AMOUNT)}">
+					<rules:validator>
+						<mx:NumberValidator required="{quote.claimsInLast3Years}"
+											minValue="1"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+			</mx:ArrayCollection>
+		</validator:validatorRules>
+	</validator:Page>
+
+
+	<validator:Page id="getQuotePage"
+					name="getQuote">
+		<validator:validatorRules>
+			<mx:ArrayCollection>
+				<rules:SimpleValidatorRule context="curAdjustedPremium"
+										   value="{adjustedPremium}"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_GETQUOTEPAGE_REQUIRED_CHARGEABLE_PREMIUM)}">
+					<rules:validator>
+						<mx:NumberValidator required="{quote.premiumOverridden}"
+											minValue="1"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="commision"
+										   value="{quote.commissionPercentage}"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_GETQUOTEPAGE_INVALID_COMMISION_EXECEED)}">
+					<rules:validator>
+						<mx:NumberValidator enabled="{quote.commissionType.equals(CommissionType.GROSS)}"
+											maxValue="{quote.brokerOffice.defaultCommission}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="premiumDepositPercentage"
+										   value="{quote.minimumPremiumDeposit}"
+										   message="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.VALIDATION_GETQUOTEPAGE_INVALID_MINIMUM_PREMIUM_PERCENTAGE)}">
+					<rules:validator>
+						<mx:NumberValidator required="true"
+											allowNegative="false"
+											minValue="0.00001"
+											maxValue="100"
+											enabled="{quote.premiumType == PremiumType.MAD}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+			</mx:ArrayCollection>
+		</validator:validatorRules>
+	</validator:Page>
+</mx:Object>

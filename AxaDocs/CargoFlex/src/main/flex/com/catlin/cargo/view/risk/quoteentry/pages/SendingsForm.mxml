@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+		   xmlns:arc90="com.arc90.flexlib.containers.*"
+		   xmlns:model="com.catlin.cargo.model.core.risk.*"
+		   xmlns:currency="com.catlin.ui.flex.widgets.currency.*"
+		   xmlns:tips="com.catlin.cargo.view.help.*"
+		   xmlns:utils="flexunit.utils.*"
+		   xmlns:pages="com.catlin.cargo.view.risk.quoteentry.pages.*"
+		   initialize="init()">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.risk.PremiumType;
+			import com.catlin.cargo.model.security.UserInfo;
+
+			public static const OVERRIDE_LOCK_UPDATED:String='OVERRIDE_SENDING_LOCK_UPDATED';
+
+			[Bindable]
+			public var userInfo:UserInfo=null;
+
+			[Bindable]
+			public var overridenSendingLock:Boolean=false;
+
+
+			public function sendingLocked(mad:Boolean, isMTA:Boolean, isBroker:Boolean, lockNotOveridden:Boolean):Boolean {
+				return mad && isMTA && (isBroker || lockNotOveridden);
+			}
+
+			private function updateSendingOverrideLock(event:Event):void {
+				overridenSendingLock=fieldLock.overridenLock;
+			}
+
+			private function init():void {
+				fieldLock.addEventListener(SendingsForm.OVERRIDE_LOCK_UPDATED, updateSendingOverrideLock);
+			}
+		]]>
+	</mx:Script>
+
+	<tips:TipHelper id="tipHelper"/>
+
+	<model:Risk id="quote"/>
+
+	<mx:Form id="newQuoteForm">
+
+		<pages:MaDMTAOverridbleLock id="fieldLock"
+									overridenLock="{overridenSendingLock}"
+									overridenLockChangeEventName="{OVERRIDE_LOCK_UPDATED}"
+									quote="{quote}"
+									changeWarningText="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.SENDINGS_FORM_VIEW_FIELDLOCK_CHANGE_WARNING_TEST)}"
+									checkBoxLabel="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.SENDINGS_FORM_VIEW_FIELDLOCK_CHECK_BOX_LABEL)}"
+									userInfo="{userInfo}"/>
+
+		<mx:Text text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.SENDINGS_FORM_VIEW_SENDINGS)}"
+				 styleName="heading1"/>
+		<mx:Grid id="sendingsGrid">
+			<mx:GridRow>
+				<mx:GridItem>
+					<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.SENDINGS_FORM_VIEW_ESTIMATED_TO_FROM, [quote.countryOfRisk.name])}"
+							  fontWeight="bold"/>
+				</mx:GridItem>
+				<mx:GridItem horizontalAlign="center" paddingRight="25">
+					<mx:Label text="{quote.currency}"
+							  fontWeight="bold"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:Repeater id="sendingsRepeater"
+						 dataProvider="{quote.sendings}">
+				<mx:Repeater id="routeRepeater"
+							 dataProvider="{sendingsRepeater.currentItem.routes}">
+					<pages:SendingsGridRow id="sendingsGridItem"
+										   quote="{quote}"
+										   sending="{sendingsRepeater.currentItem}"
+										   sendingLocked="{sendingLocked(quote.premiumType == PremiumType.MAD, quote.isMidTermAdjustment(), !userInfo.isUnderwriter, !overridenSendingLock)}"
+										   route="{routeRepeater.currentItem}"/>
+				</mx:Repeater>
+			</mx:Repeater>
+			<mx:GridRow>
+				<mx:GridItem>
+					<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.SENDINGS_FORM_VIEW_TOTAL_SENDINGS)}"
+							  fontWeight="bold"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<currency:CurrencyInput hasDecimalPlaces="false"
+											id="totalSendings"
+											data="{quote.totalSendingsValue}"
+											fontWeight="bold"
+											tabEnabled="false"
+											enabled="false"
+											currencySymbol=""/>
+				</mx:GridItem>
+			</mx:GridRow>
+		</mx:Grid>
+
+	</mx:Form>
+</mx:Canvas>

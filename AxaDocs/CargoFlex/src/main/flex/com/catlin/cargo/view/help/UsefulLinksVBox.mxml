@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 xmlns:widget="com.catlin.ui.flex.widgets.*"
+		 styleName="ContentArea"
+		 xmlns:help="com.catlin.cargo.view.help.*" xmlns:components="com.catlin.cargo.view.help.components.*">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+		]]>
+	</mx:Script>
+
+
+	<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.USEFUL_LINKS_TITLE)}"
+			  styleName="heading1"/>
+
+	<mx:VBox width="100%"
+			 height="100%"
+			 horizontalScrollPolicy="off"
+			 verticalScrollPolicy="off"
+			 styleName="SubContentArea"
+			 verticalGap="15">
+
+		<components:UsefulLinks width="100%" height="100%" id="usefulLinksCmp" />
+
+<!--		<mx:HBox width="100%"
+				 height="100%">
+
+			<help:UsefulLinksItemRenderer title="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.USEFUL_LINKS_ICERT_NAME)}"
+										  description="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.USEFUL_LINKS_ICERT_DESCRIPTION)}"
+										  url="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.USEFUL_LINKS_ICERT_WEBSITE)}"/>
+
+			<help:UsefulLinksItemRenderer title="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.USEFUL_LINKS_CATLIN_NAME)}"
+										  description="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.USEFUL_LINKS_CATLIN_DESCRIPTION)}"
+										  url="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.USEFUL_LINKS_CATLIN_WEBSITE)}"/>
+
+			<help:UsefulLinksItemRenderer title="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.USEFUL_LINKS_LLOYDS_NAME)}"
+										  description="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.USEFUL_LINKS_LLOYDS_DESCRIPTION)}"
+										  url="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.USEFUL_LINKS_LLOYDS_WEBSITE)}"/>
+		</mx:HBox>-->
+	</mx:VBox>
+</mx:VBox>

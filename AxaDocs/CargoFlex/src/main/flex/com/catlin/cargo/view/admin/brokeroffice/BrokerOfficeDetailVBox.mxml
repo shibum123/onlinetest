@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 xmlns:general="com.catlin.ui.flex.widgets.general.*"
+		 xmlns:currency="com.catlin.ui.flex.widgets.currency.*"
+		 xmlns:number="com.catlin.ui.flex.widgets.number.*"
+		 xmlns:percentage="com.catlin.ui.flex.widgets.percentage.*"
+		 xmlns:help="com.catlin.cargo.view.help.*"
+		 width="100%"
+		 height="100%"
+		 paddingLeft="10"
+		 paddingRight="10"
+		 paddingBottom="10"
+		 paddingTop="10"
+		 implements="com.catlin.cargo.view.address.IAddressView">
+
+	<help:TipHelper id="tipHelper"/>
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.CargoLocaleConstants;
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.core.risk.PremiumType;
+			import mx.collections.ListCollectionView;
+			import mx.resources.ResourceManager;
+
+			[Bindable]
+			public var sourceSystemCheckBoxes:ListCollectionView;
+
+			private var _currentCountryIso:String=CargoLocaleConstants.COUNTRY_ISO_GB;
+
+			[Bindable]
+			private var postCodeLabel:String=ResourceManager.getInstance().getString(RB_ui.RB_NAME,
+				RB_ui.POSTAL_CODE(CargoLocaleConstants.COUNTRY_ISO_GB));
+
+			public function get addressLine1Component():TextInput {
+				return txiAddressLine1;
+			}
+
+			public function get addressLine1FormItem():FormItem {
+				return fmiAddressLine1;
+			}
+
+			public function get addressLine2Component():TextInput {
+				return txiAddressLine2;
+			}
+
+			public function get addressLine3Component():TextInput {
+				return txiAddressLine3;
+			}
+
+			public function get countryComboBox():ComboBox {
+				return null;
+			}
+
+			public function get provinceComboBox():ComboBox {
+				return cboProvince;
+			}
+
+			public function get countyComponent():TextInput {
+				return txiCounty;
+			}
+
+			[Bindable("countryChanged")]
+			public function get currentCountryIso():String {
+				return _currentCountryIso;
+			}
+
+			public function set currentCountryIso(value:String):void {
+				_currentCountryIso=value;
+				updateLabels();
+				this.dispatchEvent(new Event("countryChanged"));
+			}
+
+			public function get postcodeComponent():TextInput {
+				return txiPostcode;
+			}
+
+			public function get postcodeFormItem():FormItem {
+				return fmiPostcode;
+			}
+
+			public function get postcodeLookupActionComponent():Button {
+				return btnLookupAddress;
+			}
+
+			public function get postcodeLookupTextComponent():TextInput {
+				return txiPostcodeToLookup;
+			}
+
+			public function showCounty(show:Boolean):void {
+				fmiCounty.includeInLayout=show;
+				fmiCounty.visible=show;
+			}
+
+			public function showProvince(show:Boolean):void {
+				fmiProvince.includeInLayout=show;
+				fmiProvince.visible=show;
+
+				cboProvince.includeInLayout=show;
+				cboProvince.visible=show;
+			}			
+
+			public function showPostcodeLookup(show:Boolean):void {
+				fmiPostcodeLookup.includeInLayout=show;
+				fmiPostcodeLookup.visible=show;
+			}
+
+			public function get townCityComponent():TextInput {
+				return txiTownCity;
+			}
+
+			public function get townCityFormItem():FormItem {
+				return fmiTownCity;
+			}
+
+			private function updateLabels():void {
+				postCodeLabel=resourceManager.getString(RB_ui.RB_NAME, RB_ui.POSTAL_CODE(_currentCountryIso));
+			}
+		]]>
+	</mx:Script>
+
+	<mx:String id="limitCurrency"/>
+
+	<mx:HBox height="100%"
+			 width="100%"
+			 verticalScrollPolicy="auto"
+			 paddingBottom="0">
+		<mx:Form>
+			<mx:Text text="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_DETAILS)}"
+					 styleName="heading1"/>
+			<mx:FormItem id="fmiSourceSystem"
+						 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_SOURCE_SYSTEM)}"
+						 required="true"
+						 labelWidth="170"/>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_COUNTRY_OF_RISK)}"
+						 required="true"
+						 labelWidth="170">
+				<general:ComboBox id="cboCountryOfRisk"
+								  width="170"
+								  prompt="Select"
+								  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_COUNTRY_OF_RISK_DEFAULT)}"
+						 id="fmiDefaultCountryOfRisk"
+						 required="true"
+						 includeInLayout="false"
+						 visible="false"						 
+						 labelWidth="170">
+				<general:ComboBox id="cboDefaultCountryOfRisk"
+								  width="170"
+								  prompt="Select"
+								  enabled="false"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_BROKER_OFFICE)}"
+						 required="true"
+						 labelWidth="170">
+				<mx:TextInput id="txiBrokerName"
+							  width="170"
+							  maxChars="80"
+							  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_BROKER_CODE)}"
+						 labelWidth="170"
+						 required="true">
+				<mx:TextInput id="txiBrokerCode"
+							  width="100"
+							  maxChars="32"
+							  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_MASTER_OFFICE)}"
+						 labelWidth="170">
+				<general:ComboBox id="cboMasterOffice"
+								  width="170"
+								  prompt="Select"
+								  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_UNDERWRITER)}"
+						 required="true"
+						 labelWidth="170">
+				<general:ComboBox id="cboUnderwriter"
+								  width="170"
+								  prompt="Select"
+								  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_ORIGINATING_OFFICE)}"
+						 required="true"
+						 labelWidth="170">
+				<general:ComboBox id="cboFrameOriginatingOffice"
+								  width="170"
+								  prompt="Select"
+								  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem id="fmiPostcodeLookup"
+						 label="{postCodeLabel}"
+						 direction="horizontal"
+						 horizontalGap="0"
+						 labelWidth="170">
+				<mx:TextInput id="txiPostcodeToLookup"
+							  width="70"
+							  toolTip="{tipHelper.getTips(txiPostcodeToLookup, RB_ui.TOOLTIP_GENERAL_POSTCODE)}"
+							  maxChars="10"
+							  enabled="{!cbxArchived.selected}"/>
+				<mx:LinkButton id="btnLookupAddress"
+							   styleName="link"
+							   label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_POSTCODE_LOOKUP)}"
+							   enabled="false"/>
+			</mx:FormItem>
+			<mx:FormItem id="fmiAddressLine1"
+						 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_POSTCODE_ADDRESSLINE,['1'])}"
+						 labelWidth="170">
+				<mx:TextInput id="txiAddressLine1"
+							  width="170"
+							  maxChars="32"
+							  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem id="fmiAddressLine2"
+						 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_POSTCODE_ADDRESSLINE,['2'])}"
+						 labelWidth="170">
+				<mx:TextInput id="txiAddressLine2"
+							  width="170"
+							  maxChars="32"
+							  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem id="fmiAddressLine3"
+						 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_POSTCODE_ADDRESSLINE,['3'])}"
+						 labelWidth="170">
+				<mx:TextInput id="txiAddressLine3"
+							  width="170"
+							  maxChars="32"
+							  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem id="fmiTownCity"
+						 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_TOWN)}"
+						 labelWidth="170">
+				<mx:TextInput id="txiTownCity"
+							  width="170"
+							  maxChars="32"
+							  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem id="fmiCounty"
+						 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_COUNTY)}"
+						 labelWidth="170">
+				<mx:TextInput id="txiCounty"
+							  width="170"
+							  maxChars="32"
+							  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem id="fmiProvince"
+						 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.ADDRESS_WINDOW_PROVINCE)}"
+						 labelWidth="170">
+				<general:ComboBox id="cboProvince"
+							  width="170"
+							  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem id="fmiPostcode"
+						 label="{postCodeLabel}"
+						 labelWidth="170">
+				<mx:TextInput id="txiPostcode"
+							  width="70"
+							  maxChars="10"
+							  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_RESCINDED)}">
+				<mx:CheckBox id="cbxArchived"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_SHOW_CONTACTUS_DETAILS)}">
+				<mx:CheckBox id="cbxShowContactUsDetails"/>
+			</mx:FormItem>
+			<mx:Spacer height="8"/>
+			<mx:Text text="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_FINANCIAL_CONTROLS)}"
+					 styleName="heading1"/>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_FINANCIAL_CONTROLS_PREMIUN)}"
+						 direction="horizontal">
+				<mx:RadioButtonGroup id="premiumTypeGroup"
+									 enabled="{!cbxArchived.selected}"/>
+				<mx:RadioButton label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_FINANCIAL_CONTROLS_PREMIUN_FNA)}"
+								id="fna"
+								groupName="premiumTypeGroup"
+								value="{PremiumType.FNA}"/>
+				<mx:RadioButton label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_FINANCIAL_CONTROLS_PREMIUN_MAD)}"
+								id="mad"
+								groupName="premiumTypeGroup"
+								value="{PremiumType.MAD}"/>
+				<mx:RadioButton label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_FINANCIAL_CONTROLS_PREMIUN_BOTH)}"
+								id="both"
+								groupName="premiumTypeGroup"
+								value="{PremiumType.BOTH}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_DEFAULT_MAD_PERCENTAGE)}"
+						 required="true"
+						 labelWidth="170">
+				<percentage:PercentageInput id="curDefaultMADPercentage"
+											enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_CUR_PREMIUM_LIM_ANNUAL,[limitCurrency])}"
+						 required="true"
+						 labelWidth="170">
+				<currency:CurrencyInput id="curPremiumLimitAnnual"
+										currencySymbol=""
+										enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_CUR_PREMIUM_LIM_SINGLE,[limitCurrency])}"
+						 required="true"
+						 labelWidth="170">
+				<currency:CurrencyInput id="curPremiumLimitSingle"
+										currencySymbol=""
+										enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_CUR_PREMIUM_MIN_ANNUAL,[limitCurrency])}"
+						 required="true"
+						 labelWidth="170">
+				<currency:CurrencyInput id="curMinimumPremiumAnnual"
+										currencySymbol=""
+										enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_CUR_PREMIUM_MIN_SINGLE,[limitCurrency])}"
+						 required="true"
+						 labelWidth="170">
+				<currency:CurrencyInput id="curMinimumPremiumSingle"
+										currencySymbol=""
+										enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_CUR_PREMIUM_MIN_NET_AP_FOR_MTA,[limitCurrency])}"
+						 required="true"
+						 labelWidth="170">
+				<currency:CurrencyInput id="curMinimumNetApForMta"
+										currencySymbol=""
+										hasDecimalPlaces="true"
+										enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_DAYS_TO_SETTLE)}"
+						 required="true"
+						 labelWidth="170">
+				<number:NumberInput id="numDaysToSettle"
+									enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_PCT_DEFAULT_COMMISSION)}"
+						 required="true"
+						 labelWidth="170">
+				<percentage:PercentageInput id="pctDefaultCommission"
+											enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_ADJUST_PREMIUN)}"
+						 labelWidth="170">
+				<mx:CheckBox id="cbxAdjustPremium"
+							 enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_DISCOUNT_CAP)}"
+						 required="{cbxAdjustPremium.selected}"
+						 labelWidth="170">
+				<percentage:PercentageInput id="pctDiscountCap"
+											enabled="{cbxAdjustPremium.selected &amp;&amp; !cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_NUM_LOADING)}"
+						 required="true"
+						 labelWidth="170">
+				<number:NumberInput id="numLoading"
+									precision="5"
+									enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_DEFAULT_CURRENCY)}"
+						 required="true"
+						 labelWidth="170">
+				<general:ComboBox id="cboDefaultCurrency"
+								  width="170"
+								  prompt="Select"
+								  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_DEBIT_NOTE_AVAILABLE)}"
+						 labelWidth="170">
+				<mx:CheckBox id="cbxDebitNoteAvailable"
+							 enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem id="dtbov"
+						 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_DOMESTIC_TRANSIT_BOV)}"
+						 required="true"
+						 labelWidth="170">
+				<general:ComboBox id="cboDomesticTransitBOV"
+								  width="170"
+								  prompt="Select"
+								  enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+		</mx:Form>
+
+
+		<mx:Form height="100%">
+			<mx:HBox verticalAlign="bottom"
+					 width="100%">
+				<mx:Text text="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_TITLE)}"
+						 styleName="heading1"
+						 width="100%"/>
+				<mx:LinkButton id="lbtWhiteLabelGuide"
+							   icon="@Embed('/assets/icons/icon_pdf.gif')"
+							   toolTip="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_LINK_TOOLTIP)}"
+							   label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_LINK_LABEL)}"
+							   click="navigateToURL(new URLRequest('help/Catlin Cargo White Labelling.pdf'), '_blank')"/>
+
+			</mx:HBox>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_ENABLED)}">
+				<mx:CheckBox id="cbxWhiteLabel"
+							 enabled="{!cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_LOGO_URL)}">
+				<mx:TextInput id="txiLogoUrl"
+							  width="170"
+							  enabled="{cbxWhiteLabel.selected &amp;&amp; !cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_BACKGROUND_COLOUR)}">
+				<mx:ColorPicker id="cprBackgroundColour"
+								showTextField="true"
+								enabled="{cbxWhiteLabel.selected  &amp;&amp; !cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_HEADING_COLOUR)}">
+				<mx:ColorPicker id="cprHeadingColour"
+								showTextField="true"
+								enabled="{cbxWhiteLabel.selected  &amp;&amp; !cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_KEY_COLOUR)}"
+						 direction="horizontal">
+				<mx:ColorPicker id="cprKeyColour"
+								showTextField="true"
+								enabled="{cbxWhiteLabel.selected &amp;&amp; !cbxArchived.selected}"/>
+				<mx:CheckBox id="cbxInvertKeyText"
+							 labelPlacement="left"
+							 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_INVERT_KEY_TEXT)}"
+							 enabled="{cbxWhiteLabel.selected &amp;&amp; !cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_SECONDARY_COLOUR)}">
+				<mx:ColorPicker id="cprSecondaryColour"
+								showTextField="true"
+								enabled="{cbxWhiteLabel.selected &amp;&amp; !cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_MENU_COLOR)}"
+						 direction="horizontal">
+				<mx:ColorPicker id="cprMenuColour"
+								showTextField="true"
+								enabled="{cbxWhiteLabel.selected &amp;&amp; !cbxArchived.selected}"/>
+				<mx:CheckBox id="cbxInvertMenuText"
+							 labelPlacement="left"
+							 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_INVERT_KEY_TEXT)}"
+							 enabled="{cbxWhiteLabel.selected &amp;&amp; !cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_SELECTION_COLOUR)}"
+						 direction="horizontal">
+				<mx:ColorPicker id="cprSelectionColour"
+								showTextField="true"
+								enabled="{cbxWhiteLabel.selected &amp;&amp; !cbxArchived.selected}"/>
+				<mx:CheckBox id="cbxInvertSelectionText"
+							 labelPlacement="left"
+							 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_INVERT_KEY_TEXT)}"
+							 enabled="{cbxWhiteLabel.selected &amp;&amp; !cbxArchived.selected}"/>
+			</mx:FormItem>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_ROLLOVER_COLOUR)}"
+						 direction="horizontal">
+				<mx:ColorPicker id="cprRolloverColour"
+								showTextField="true"
+								enabled="{cbxWhiteLabel.selected &amp;&amp; !cbxArchived.selected}"/>
+				<mx:CheckBox id="cbxInvertRolloverText"
+							 labelPlacement="left"
+							 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_INVERT_KEY_TEXT)}"
+							 enabled="{cbxWhiteLabel.selected &amp;&amp; !cbxArchived.selected}"/>
+			</mx:FormItem>
+
+			<mx:HBox width="100%"
+					 horizontalAlign="right">
+				<mx:Button id="previewButton" height="18" 
+						   label="Preview"
+						   enabled="{cbxWhiteLabel.selected &amp;&amp; !cbxArchived.selected}"/>
+			</mx:HBox>
+
+			<mx:Spacer height="10"/>
+			<mx:Text text="Other"
+					 styleName="heading1"/>
+			<mx:FormItem label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_WHITE_LABEL_GUIDE_DATE_CREATED)}">
+				<mx:TextInput id="txiDateCreated"
+							  width="100"
+							  enabled="false"/>
+			</mx:FormItem>
+		</mx:Form>
+	</mx:HBox>
+
+	<mx:VBox width="575"
+			 height="100%"
+			 paddingBottom="0"
+			 paddingLeft="0"
+			 paddingRight="0"
+			 paddingTop="0">
+		<mx:Form paddingLeft="0"
+				 paddingTop="0"
+				 width="100%">
+			<mx:HBox width="100%"
+					 height="100%"
+					 paddingBottom="0"
+					 paddingLeft="0"
+					 paddingRight="0"
+					 paddingTop="0">
+				<mx:FormItem width="50%"
+							 height="100%">
+					<mx:Label text="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_UNAUTHORISED_CURRENCIES_TITLE)}"/>
+					<mx:VBox width="100%"
+							 verticalAlign="middle"
+							 horizontalAlign="left"
+							 backgroundColor="#CCCCCC"
+							 borderColor="#999999"
+							 paddingTop="1"
+							 paddingBottom="1"
+							 paddingRight="1"
+							 paddingLeft="1">
+						<mx:List id="allCurrencies"
+								 paddingTop="0"
+								 height="177"
+								 width="100%"
+								 borderThickness="0"
+								 enabled="{!cbxArchived.selected}">
+						</mx:List>
+					</mx:VBox>
+				</mx:FormItem>
+				<mx:FormItem width="50%"
+							 height="100%">
+					<mx:Label text="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.BROKER_OFFICE_DETAIL_VIEW_AUTHORISED_CURRENCIES_TITLE)}"/>
+					<mx:List id="authorisedCurrencies"
+							 width="100%"
+							 height="100%"
+							 paddingBottom="0"
+							 enabled="{!cbxArchived.selected}">
+					</mx:List>
+				</mx:FormItem>
+			</mx:HBox>
+		</mx:Form>
+	</mx:VBox>
+
+	<mx:ControlBar width="100%"
+				   height="40"
+				   verticalGap="0"
+				   paddingTop="0">
+		<mx:HBox styleName="footerTips">
+			<mx:Text text="*"
+					 color="#CC0033"
+					 fontSize="16"
+					 fontWeight="bold"/>
+			<mx:Text text="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.MANDATORY_FIELDS)}"/>
+		</mx:HBox>
+		<mx:Spacer width="100%"/>
+		<mx:Button id="btnSave"
+				   styleName="black"
+				   focusEnabled="true"
+				   label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.SAVE)}"/>
+	</mx:ControlBar>
+</mx:VBox>

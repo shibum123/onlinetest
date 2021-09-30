@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:FormItem xmlns:mx="http://www.adobe.com/2006/mxml"
+			 xmlns:help="com.catlin.cargo.view.help.*"
+			 xmlns:risk="com.catlin.cargo.model.core.risk.*"
+			 xmlns:catlin="http://catlin.com/flex/widgets">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+		]]>
+	</mx:Script>
+
+	<help:TipHelper id="tipHelper"/>
+
+	<risk:Risk id="quote">
+		<risk:bardgeUsage>{requireBargeCoverGroup.selectedValue}</risk:bardgeUsage>
+		<risk:bargeLimit>{Number(bargeLimit.data)}</risk:bargeLimit>
+	</risk:Risk>
+
+	<mx:RadioButtonGroup id="requireBargeCoverGroup"
+						 selectedValue="{quote.bardgeUsage}"/>
+	<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.BARGE_FORM_VIEW_NO)}"
+					groupName="requireBargeCoverGroup"
+					value="false"
+					click="{quote.bargeLimit = 0}"
+					enabled="{quote.editable}"/>
+	<mx:Spacer width="20"/>
+	<mx:RadioButton label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.BARGE_FORM_VIEW_YES)}"
+					id="requireBargeCover"
+					groupName="requireBargeCoverGroup"
+					value="true"
+					enabled="{quote.editable}"/>
+	<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.BARGE_FORM_VIEW_LIMIT)}"
+				 labelWidth="50"
+				 required="true"
+				 id="bargeLimitItem"
+				 visible="{quote.bardgeUsage}"
+				 includeInLayout="{quote.bardgeUsage}">
+		<catlin:CurrencyInput id="bargeLimit"
+							  data="{quote.bargeLimit}"
+							  toolTip="{tipHelper.getTips(bargeLimit, RB_ui.TOOLTIP_LIMITS_BARGE_LIMIT)}"
+							  currencySymbol=""
+							  enabled="{quote.editable}"/>
+	</mx:FormItem>
+
+</mx:FormItem>

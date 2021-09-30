@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.model.core.sourceassociation.Channel;
+		]]>
+	</mx:Script>
+	<mx:CheckBox id="cbxSelect"/>
+	<mx:Text text="   *" height="23" color="#FF0000" fontSize="18"
+			 visible="{cbxSelect.selected &amp;&amp; cbxSelect.data.channel == Channel.WS}" 
+			 includeInLayout="{cbxSelect.selected &amp;&amp; cbxSelect.data.channel == Channel.WS}"/>
+	<mx:TextInput id="txiExternalBrokerId" visible="{cbxSelect.selected &amp;&amp; cbxSelect.data.channel == Channel.WS}" 
+				  includeInLayout="{cbxSelect.selected &amp;&amp; cbxSelect.data.channel == Channel.WS}" 
+				  width="100" maxChars="20"/>
+</mx:HBox>

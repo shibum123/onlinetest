@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 xmlns:util="com.catlin.cargo.view.util.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			import com.catlin.cargo.model.reference.financialregulation.FinancialControlRegulation;
+			import com.catlin.cargo.view.help.TipHelper;
+			
+			import mx.collections.ICollectionView;
+			
+			
+			[Bindable]
+			public var tipHelper:TipHelper;
+			
+			private var _enableComponent:Boolean=true;
+			
+			[Bindable("enabledComponent")]
+			public function get enableComponent():Boolean {
+				return _enableComponent;
+			}
+			
+			public function set enableComponent(value:Boolean):void {
+				_enableComponent=value;
+				this.dispatchEvent(new Event("enabledComponent"));
+			}
+			
+			public function set dataProvider(dp:ICollectionView):void {
+				regulationRepeater.dataProvider=dp;
+			}
+			
+			public function get selectedValue():FinancialControlRegulation {
+				var ret:FinancialControlRegulation=businessConsumerControlGroup.selectedValue as FinancialControlRegulation;
+				return ret;
+			}
+			
+			public function set selectedValue(value:FinancialControlRegulation):void {
+				businessConsumerControlGroup.selectedValue=value;
+			}
+			
+			private var _showToBeConfirmedOption:Boolean=false;
+			
+			[Bindable("showToBeConfirmedOption")]
+			public function get showToBeConfirmedOption():Boolean {
+				return _showToBeConfirmedOption
+			}
+			
+			public function set showToBeConfirmedOption(value:Boolean):void {
+				_showToBeConfirmedOption=value;
+				this.dispatchEvent(new Event("showToBeConfirmedOption"));
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		[Event(name="change", type="flash.events.Event")]
+	</mx:Metadata>
+	
+	<mx:Text id="selectedBusinessConsumerControl"
+			 text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.BUSINESS_CONSUMER_CONTROL_TITLE)}"
+			 styleName="heading1"
+			 toolTip="{tipHelper.getTips(selectedBusinessConsumerControl, RB_ui.TOOLTIP_PERSONAL_FINANCIAL_CONDUCT_AUTHORTITY)}"/>
+	
+	<mx:FormItem label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.BUSINESS_CONSUMER_CONTROL_INTRO)}"
+				 direction="vertical"
+				 verticalGap="2"
+				 id="container">
+		<mx:RadioButtonGroup id="businessConsumerControlGroup"
+							 enabled="{enableComponent}"
+							 change="{this.dispatchEvent(new Event(Event.CHANGE, true, false))}"/>
+
+		<util:MultilineRadioButton width="575"
+								   visible="{showToBeConfirmedOption}"
+								   includeInLayout="{showToBeConfirmedOption}"
+								   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.BUSINESS_CONSUMER_CONTROL_TO_BE_CONFIRMED)}"
+								   groupName="businessConsumerControlGroup"
+								   value="{null}"/>
+
+		<mx:Repeater id="regulationRepeater">
+			<util:MultilineRadioButton width="575"
+									   id="bccg"
+									   label="{regulationRepeater.currentItem.description}"
+									   groupName="businessConsumerControlGroup"
+									   value="{regulationRepeater.currentItem}"
+									   enabled="{enableComponent}"/>
+		</mx:Repeater>
+		<mx:Text id="businessConsumerControlNote"
+				 text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.BUSINESS_CONSUMER_CONTROL_NOTE)}"/>
+
+	</mx:FormItem>
+	
+</mx:VBox>

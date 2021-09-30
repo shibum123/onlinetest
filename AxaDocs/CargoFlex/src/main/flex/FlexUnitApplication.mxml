@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This is an auto generated file and is not intended for modification. -->
+
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+				xmlns:flexui="flexunit.flexui.*"
+				minWidth="955" minHeight="600" creationComplete="onCreationComplete()"
+				layout="absolute">
+	
+	<mx:Metadata>
+		[ResourceBundle("resources_ui")]
+	</mx:Metadata>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.view.address.PostcodeValidatorTest;
+			import com.catlin.cargo.view.risk.quoteentry.NearestValueCalculatorTest;
+			
+			public function currentRunTestSuite():Array
+			{
+				var testsToRun:Array = new Array();
+				testsToRun.push(com.catlin.cargo.view.risk.quoteentry.NearestValueCalculatorTest);
+				testsToRun.push(com.catlin.cargo.view.address.PostcodeValidatorTest);
+				return testsToRun;
+			}
+			
+			
+			private function onCreationComplete():void
+			{
+				testRunner.runWithFlexUnit4Runner(currentRunTestSuite(), "CargoFlex");
+			}
+			
+		]]>
+	</mx:Script>
+	<flexui:FlexUnitTestRunnerUI id="testRunner">
+	</flexui:FlexUnitTestRunnerUI>
+	
+</mx:Application>

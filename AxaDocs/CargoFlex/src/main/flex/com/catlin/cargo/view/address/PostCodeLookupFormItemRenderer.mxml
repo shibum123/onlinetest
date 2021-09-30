@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 width="100%"
+		 height="22"
+		 horizontalScrollPolicy="off"
+		 horizontalAlign="center"
+		 verticalAlign="middle" 
+		 implements="mx.controls.listClasses.IListItemRenderer"
+		 creationComplete="hbox1_creationCompleteHandler(event)" >
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.view.address.events.PostCodeLookupFormEvent;
+			import com.catlin.cargo.view.address.vo.PostCodeLookupFormVO;
+			
+			import mx.controls.List;
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			public static var ROLLOVER_COLOR:uint = 0xFFFFFF; 
+
+			[Bindable]
+			public static var NORMAL_COLOR:uint = 0x000000;
+			
+			[Bindable]
+			public var addressData:PostCodeLookupFormVO;
+
+			override public function set data(value:Object):void {
+				super.data=value;
+
+				if (super.data) {
+					this.addressData=data as PostCodeLookupFormVO;
+				}
+			}
+
+			protected function addButton_clickHandler(event:MouseEvent):void {
+				if (addressData.readyToRetrieve())
+					this.dispatchEvent(new PostCodeLookupFormEvent(PostCodeLookupFormEvent.POSTCODE_LOOKUPFORM_RETRIEVE,
+						addressData))
+				else
+					this.dispatchEvent(new PostCodeLookupFormEvent(PostCodeLookupFormEvent.POSTCODE_LOOKUPFORM_FIND, addressData));
+			}
+
+			protected function expandButton_clickHandler(event:MouseEvent):void {
+				this.dispatchEvent(new PostCodeLookupFormEvent(PostCodeLookupFormEvent.POSTCODE_LOOKUPFORM_FIND, addressData))
+			}
+
+			protected function hbox1_mouseOutHandler(event:MouseEvent):void {
+				isSelectedItem() ? currentState = 'selected' : currentState = 'normal';   
+			}
+
+			protected function hbox1_mouseOverHandler(event:MouseEvent):void {
+				currentState = 'hovered';
+			}
+
+			protected function isSelectedItem():Boolean {
+				if (this.owner && (this.owner as List).selectedItem)
+					return ((this.owner as List).selectedItem as PostCodeLookupFormVO) == addressData;
+				return false;
+			}
+			
+			private function invalidateContainer():void {
+				if (this.owner && (this.owner is List))
+					(this.owner as List).invalidateList();
+			}
+
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+				if (currentState != 'hovered') {
+					if (isSelectedItem()) {
+						currentState = 'selected';
+					} else {
+						currentState = 'normal';
+					}
+				}
+			}
+			
+			protected function hbox1_creationCompleteHandler(event:FlexEvent):void
+			{
+				if (isSelectedItem()) {
+					currentState = 'selected';
+				} else {
+					currentState = 'normal';
+				}
+				
+				this.addEventListener(MouseEvent.ROLL_OVER, hbox1_mouseOverHandler);
+				this.addEventListener(MouseEvent.ROLL_OUT, hbox1_mouseOutHandler);
+			}
+			
+		]]>
+	</mx:Script>
+
+	
+	<mx:states>
+		<mx:State name="normal">
+			<mx:SetStyle target="{labelText}" name="color" value="{NORMAL_COLOR}"/>
+		</mx:State>
+		<mx:State name="hovered">
+			<mx:SetStyle target="{labelText}" name="color" value="{ROLLOVER_COLOR}"/>
+		</mx:State>
+		<mx:State name="selected">
+			<mx:SetStyle target="{labelText}" name="color" value="{ROLLOVER_COLOR}"/>
+		</mx:State>
+	</mx:states>
+
+	<mx:Label text="{addressData.address}"
+			  id="labelText"
+			  buttonMode="true"
+			  selectable="false"
+			  width="{this.width - 26}"
+			  height="22"
+			  toolTip="{addressData.address}"
+			  click="addButton_clickHandler(event)"/>
+	
+	<mx:HBox width="22"
+			 id="iconBox" 
+			 height="100%"
+			 backgroundColor="#FFFFFF"
+			 horizontalScrollPolicy="off"
+			 verticalScrollPolicy="off"
+			 verticalAlign="middle"
+			 horizontalAlign="center"
+			 paddingLeft="1"
+			 paddingRight="1"
+			 paddingTop="1"
+			 paddingBottom="1">
+		<mx:Image buttonMode="true"
+				  id="expandButton"
+				  maintainAspectRatio="true"
+				  source="@Embed(source='/assets/icons/icon_expand_16x16.png')"
+				  click="expandButton_clickHandler(event)"
+				  includeInLayout="{!addressData.readyToRetrieve()}"
+				  visible="{!addressData.readyToRetrieve()}"
+				  enabled="{!addressData.readyToRetrieve()}"
+				  alpha="0.7"/>
+
+		<mx:Image buttonMode="true"
+				  id="addButton"
+				  maintainAspectRatio="true"
+				  source="@Embed(source='/assets/icons/icon_retrieve_16x16.png')"
+				  click="addButton_clickHandler(event)"
+				  includeInLayout="{addressData.readyToRetrieve()}"
+				  visible="{addressData.readyToRetrieve()}"
+				  enabled="{addressData.readyToRetrieve()}"
+				  alpha="0.7"/>
+	</mx:HBox>
+</mx:HBox>

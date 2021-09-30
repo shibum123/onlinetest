@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"
+				xmlns:model="com.catlin.cargo.model.core.risk.*" 
+				xmlns:rules="com.catlin.ui.flex.validator.rules.*" 
+				xmlns:validators="com.catlin.ui.flex.validators.*" 
+				xmlns:validator="com.catlin.ui.flex.validator.*">
+		
+	<mx:Script>
+		<![CDATA[ 
+			[Bindable]
+			public var window:MTATitleWindow;
+		
+			public function create():Array {
+				var rules:Array = new Array();
+				rules[mtaTitleWindow.name] = mtaTitleWindow;
+				return rules;
+			}
+		]]>
+	</mx:Script>
+	
+	<validator:Page id="mtaTitleWindow" name="mtaTitleWindow">
+		<validator:validatorRules>
+			<mx:ArrayCollection>
+				<rules:SimpleValidatorRule context="cboMtaReasons" message="The reason for the MTA is required." value="{window.cboMtaReasons.selectedItem}">
+					<rules:validator>
+						<mx:Validator required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="txaRequest" message="A description of the change is required." value="{window.txaRequest.text}">
+					<rules:validator>
+						<mx:Validator required="{window.cboMtaReasons.selectedItem.description == 'Other'}"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+				<rules:SimpleValidatorRule context="dtfEndorsementDate" message="Endorsement date must be within the policy term dates." 
+						value="{window.dtfEndorsementDate.selectedDate}">
+					<rules:validator>
+						<validators:DateRangeValidator validDateRange="{window.dtfEndorsementDate.selectableRange}" required="true"/>
+					</rules:validator>
+				</rules:SimpleValidatorRule>
+			</mx:ArrayCollection>
+		</validator:validatorRules>
+	</validator:Page>
+</mx:Object>

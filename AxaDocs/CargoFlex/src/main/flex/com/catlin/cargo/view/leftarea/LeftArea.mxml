@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 verticalGap="4"
+		 verticalScrollPolicy="off"
+		 xmlns:leftarea="com.catlin.cargo.view.leftarea.*"
+		 minHeight="300"
+		 height="100%"
+		 horizontalScrollPolicy="off">
+
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+			
+			import mx.events.ListEvent;
+
+			public static const NEW_QUOTE:String="new_quote";
+			public static const VIEW_QUOTE:String="view_quote";
+			public static const FORCE_RENEWAL:String="FORCE_RENEWAL";
+			public static const LOGOUT:String="logout";
+
+			private function onClickNewQuote():void
+			{
+				dispatchEvent(new Event(NEW_QUOTE));
+			}
+
+			private function onClickViewQuote(event:ListEvent):void
+			{
+				dispatchEvent(new Event(VIEW_QUOTE));
+			}
+
+/*			private function onForceRenewal():void
+			{
+				dispatchEvent(new Event(FORCE_RENEWAL));
+			}*/
+		]]>
+	</mx:Script>
+
+
+	<mx:Button id="newQuote"
+			   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.LEFT_AREA_BUTTON_NEW_QUOTE)}"
+			   icon="@Embed(source='/assets/images/calculator2.png')"
+			   click="onClickNewQuote()"
+			   styleName="newQuote"
+			   width="100%"/>
+
+	<mx:VBox width="100%"
+			 height="100%"
+			 styleName="LeftAreaVBox" 
+			 verticalScrollPolicy="off"
+			 horizontalScrollPolicy="off"			 
+			 >
+		
+		<mx:Accordion id="accordion"
+					  width="100%"
+					  height="100%"
+					  creationPolicy="all">
+			<leftarea:Search id="search"/>
+			<leftarea:RiskList id="quotesList"
+							   title="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.LEFT_AREA_TITLE_QUOTES_RENEWAL)}"/>
+			<leftarea:RiskList id="policyList"
+							   title="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.LEFT_AREA_TITLE_LEFT_AREA_POLICIES)}"/>
+			<leftarea:RiskList id="referralList"
+							   title="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.LEFT_AREA_TITLE_REFERRALS)}"/>
+			<leftarea:RiskList id="offlineList"
+							   title="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.LEFT_AREA_TITLE_HANDLED_OFFLINE)}"/>
+		</mx:Accordion>
+
+	</mx:VBox>
+
+<!--	<mx:HBox width="0"
+			 height="0"
+			 includeInLayout="false">
+		<mx:Button id="forceRenew"
+				   label="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.LEFT_AREA_BUTTON_FORCE_RENEWAL)}"
+				   click="onForceRenewal()"
+				   width="0"
+				   height="0"
+				   includeInLayout="false"/>
+	</mx:HBox>-->
+</mx:VBox>

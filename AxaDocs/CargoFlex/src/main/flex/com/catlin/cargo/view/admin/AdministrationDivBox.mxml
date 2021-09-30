@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HDividedBox xmlns:mx="http://www.adobe.com/2006/mxml"
+				xmlns:underwriter="com.catlin.cargo.view.admin.underwriter.*"
+				xmlns:brokeroffice="com.catlin.cargo.view.admin.brokeroffice.*"
+				width="100%"
+				height="100%"
+				styleName="ContentArea"
+				xmlns:admin="com.catlin.cargo.view.admin.*">
+	<mx:Script>
+		<![CDATA[
+			import com.catlin.cargo.bundles.RB_ui;
+
+			protected override function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+				if (contentStack.selectedChild == tnvBrokerOffice)
+					contentStack.height=rightAreaContainer.height - titleBox.height - spacerSeparator.height;
+				else
+					contentStack.height=rightAreaContainer.height;
+			}
+		]]>
+	</mx:Script>
+
+	<mx:VBox id="leftAreaContainer"
+			 width="270"
+			 height="100%"
+			 horizontalScrollPolicy="off"
+			 styleName="LeftAreaVBox"
+			 verticalGap="4"
+			 verticalScrollPolicy="off">
+		<mx:Accordion id="accordion"
+					  width="100%"
+					  height="100%"
+					  creationPolicy="all">
+			<mx:VBox width="100%"
+					 height="100%"
+					 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.ADMINISTRATION_VIEW_BROKER_OFFICES)}"
+					 paddingBottom="5"
+					 paddingLeft="5"
+					 paddingRight="5"
+					 paddingTop="5"
+					 verticalGap="0">
+				<mx:Button id="btnCreateBrokerOffice"
+						   width="100%"
+						   label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.ADMINISTRATION_VIEW_BUTTON_CREATE_BROKER)}"
+						   color="0x0B333C"/>
+				<mx:HBox width="100%"
+						 verticalAlign="middle"
+						 paddingTop="1"
+						 paddingBottom="1" >
+					<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.SEARCH)}"
+							  color="0x0B333C"/>
+					<mx:TextInput id="searchBrokerOffice"
+								  width="100%"
+								  color="0x0B333C"
+								  styleName="searchTI"/>
+				</mx:HBox>
+				<mx:List id="lstBrokerOffices"
+						 width="100%"
+						 height="100%"
+						 paddingBottom="0"/>
+			</mx:VBox>
+			<mx:VBox width="100%"
+					 height="100%"
+					 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.ADMINISTRATION_VIEW_UNDERWRITERS)}"
+					 horizontalAlign="right"
+					 paddingBottom="5"
+					 paddingLeft="5"
+					 paddingRight="5"
+					 paddingTop="5"
+					 verticalAlign="middle"
+					 verticalGap="0">
+				<mx:Button id="btnCreateUnderwriter"
+						   width="100%"
+						   label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.ADMINISTRATION_VIEW_BUTTON_CREATE_UNDERWRITER)}"
+						   color="0x0B333C"/>
+				<mx:HBox width="100%"
+						 verticalAlign="middle" 
+						 paddingTop="1"
+						 paddingBottom="1" >
+					<mx:Label text="{resourceManager.getString(RB_ui.RB_NAME, RB_ui.SEARCH)}"
+							  color="0x0B333C"/>
+					<mx:TextInput id="searchUnderwriter"
+								  width="100%"
+								  color="0x0B333C"/>
+				</mx:HBox>
+				<mx:List id="lstUnderwriters"
+						 width="100%"
+						 height="100%"
+						 paddingBottom="0"/>
+			</mx:VBox>
+		</mx:Accordion>
+	</mx:VBox>
+
+	<!--Right Area-->
+
+	<mx:VBox width="100%"
+			 height="100%"
+			 id="rightAreaContainer"
+			 verticalGap="1"
+			 verticalScrollPolicy="off">
+
+		<mx:VBox width="100%"
+				 height="25"
+				 id="titleBox"
+				 styleName="headlineArea">
+			<mx:Label id="lblHeadline"
+					  height="25"
+					  styleName="headline"/>
+		</mx:VBox>
+
+		<mx:Spacer height="15"
+				   width="100%"
+				   id="spacerSeparator"/>
+
+		<mx:ViewStack id="contentStack"
+					  width="100%"
+					  creationPolicy="all">
+			<mx:Canvas id="emptyCanvas"/>
+			<mx:TabNavigator id="tnvBrokerOffice"
+							 width="100%"
+							 height="100%">
+				<brokeroffice:BrokerOfficeDetailVBox id="vbxBrokerOfficeDetail"
+													 left="2"
+													 right="2"
+													 top="65"
+													 bottom="10"
+													 width="100%"
+													 height="100%"
+													 maxHeight="{tnvBrokerOffice.height}"
+													 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.ADMINISTRATION_VIEW_TAB_TITLE_DETAIL)}"/>
+				<brokeroffice:BrokerContactsVBox id="vbxBrokerContacts"
+												 left="2"
+												 right="2"
+												 top="65"
+												 bottom="10"
+												 width="100%"
+												 height="100%"
+												 label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.ADMINISTRATION_VIEW_TAB_TITLE_CONTACTS)}"/>
+				<brokeroffice:BrokerHistoryForm id="brokerHistoryForm"
+												left="2"
+												right="2"
+												top="65"
+												bottom="10"
+												width="100%"
+												height="100%"
+												label="{RB_ui.rm.getString(RB_ui.RB_NAME, RB_ui.ADMINISTRATION_VIEW_TAB_TITLEHISTORY)}"/>
+
+				<brokeroffice:BrokerOfficeLinksVBox id="vbxBrokerLinks"
+													left="2"
+													right="2"
+													top="65"
+													bottom="10"
+													width="100%"
+													height="100%"
+													label="Links"/>
+			</mx:TabNavigator>
+			<underwriter:UnderwriterDetailVBox id="vbxUnderwriterDetail"
+											   width="100%"
+											   height="100%"/>
+		</mx:ViewStack>
+
+	</mx:VBox>
+</mx:HDividedBox>
