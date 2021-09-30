@@ -1,3 +1,0 @@
-# RUN npm config set registry https://xlcatlin.pkgs.visualstudio.com/DEEP/_packaging/designsystem/npm/registry/
-# RUN echo -e "registry=https://xlcatlin.pkgs.visualstudio.com/DEEP/_packaging/designsystem/npm/registry/" > ~/.npmrc
-# RUN echo "always-auth=true" > .npmrc
